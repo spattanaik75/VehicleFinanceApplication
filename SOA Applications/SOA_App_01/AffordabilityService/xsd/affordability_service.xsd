@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.reverside.co.za/schema/vehicle_system"
+            targetNamespace="http://www.reverside.co.za/schema/vehicle_system"
+            elementFormDefault="qualified">
+  <xsd:element name="AffordabilityServiceInput">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="RequestedLoanAmount" type="xsd:double"/>
+        <xsd:element name="NettIncome" type="xsd:double"/>
+        <xsd:element name="TotalExpenses" type="xsd:double"/>
+        <xsd:element name="NumberOfTerms" type="xsd:integer"/>
+        <xsd:element name="TotalCredit" type="xsd:double"/>
+        <xsd:element name="Deposit" type="xsd:double"/>
+        <xsd:element name="ExtrasTotal" type="xsd:double"/>
+        <xsd:element name="AdminFees" type="xsd:double"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="AffordabilityServiceOutput">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="CanAfford" type="xsd:boolean"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
