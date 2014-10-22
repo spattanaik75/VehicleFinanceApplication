@@ -15,5 +15,6 @@
    <list n="listOfChildren">
       <hash><url n="URL" path="AffordabilityService/AffordabilityService.jpr"/></hash>
       <hash><url n="URL" path="Financial_Application/Financial_Application.jpr"/></hash>
+      <hash><url n="URL" path="../../../JDeveloper/IntialDBInsert/InitialDbInsert/InitialDbInsert.jpr"/></hash>
    </list>
 </jws:workspace>
