@@ -30,7 +30,8 @@
          xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
          xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
          xmlns:ns4="http://xmlns.oracle.com/AffordabilityRule2/AffordabilityDecisionService_2"
-         xmlns:ns5="http://xmlns.oracle.com/AffordabilityRule3/AffordabilityDecisionService_3">
+         xmlns:ns5="http://xmlns.oracle.com/AffordabilityRule3/AffordabilityDecisionService_3"
+         xmlns:ns6="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabiityServiceMediator">
 
     <import namespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcess" location="AffordabilityProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
@@ -82,12 +83,7 @@
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in AffordabilityProcess.wsdl) -->
     <receive name="receiveInput" partnerLink="affordabilityprocess_client" portType="client:AffordabilityProcess" operation="process" variable="inputVariable" createInstance="yes"/>
-    <assign name="AssignNettIncome">
-      <copy>
-        <from>$inputVariable.payload/ns2:NettIncome</from>
-        <to>$inputVariable.payload/ns2:NettIncome</to>
-      </copy>
-    </assign>
+    <validate name="validateInput" variables="inputVariable"/>
     <scope name="Rule1" exitOnStandardFault="no">
       <bpelx:annotation>
         <bpelx:pattern patternName="bpelx:decide"/>
@@ -140,20 +136,6 @@
       </documentation>
       <condition>$outputVariable.payload/ns2:CanAfford   =  true()</condition>
       <sequence name="Sequence2">
-        <assign name="AssignAmountLeft">
-          <copy>
-            <from>$inputVariable.payload/ns2:NettIncome</from>
-            <to>$inputVariable.payload/ns2:NettIncome</to>
-          </copy>
-          <copy>
-            <from>$inputVariable.payload/ns2:TotalExpenses</from>
-            <to>$inputVariable.payload/ns2:TotalExpenses</to>
-          </copy>
-          <copy>
-            <from>$inputVariable.payload/ns2:TotalCredit</from>
-            <to>$inputVariable.payload/ns2:TotalCredit</to>
-          </copy>
-        </assign>
         <scope name="Rule2" exitOnStandardFault="no">
           <bpelx:annotation>
             <bpelx:pattern patternName="bpelx:decide"/>
@@ -207,12 +189,6 @@
           </documentation>
           <condition>$outputVariable.payload/ns2:CanAfford = true()</condition>
           <sequence name="Sequence4">
-            <assign name="AssignCanAfford">
-              <copy>
-                <from>$outputVariable.payload/ns2:CanAfford = false()</from>
-                <to>$outputVariable.payload/ns2:CanAfford</to>
-              </copy>
-            </assign>
             <scope name="Rule3" exitOnStandardFault="no">
               <bpelx:annotation>
                 <bpelx:pattern patternName="bpelx:decide"/>
@@ -288,6 +264,12 @@
             <documentation>
               <![CDATA[Amount Left Insufficient]]>
             </documentation>
+            <assign name="AssignCannotAfford">
+              <copy>
+                <from>$outputVariable.payload/ns2:CanAfford = false()</from>
+                <to>$outputVariable.payload/ns2:CanAfford</to>
+              </copy>
+            </assign>
           </else>
         </if>
       </sequence>
@@ -303,6 +285,12 @@
         </assign>
       </else>
     </if>
+    <assign name="AssignOutput">
+      <copy>
+        <from>$outputVariable.payload/ns2:CanAfford</from>
+        <to>$outputVariable.payload/ns2:CanAfford</to>
+      </copy>
+    </assign>
     <!-- Generate reply to synchronous request -->
     <reply name="replyOutput" partnerLink="affordabilityprocess_client" portType="client:AffordabilityProcess" operation="process" variable="outputVariable"/>
   </sequence>

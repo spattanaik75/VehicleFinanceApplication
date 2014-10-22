@@ -709,21 +709,21 @@
             <RuleFiringLimit>10000</RuleFiringLimit>
             <RuleFiringLimitError>true</RuleFiringLimitError>
         </DecisionFunction>
-        <UpdateNumber>12</UpdateNumber>
-        <ValidationUpdateNumber>17</ValidationUpdateNumber>
+        <UpdateNumber>59</UpdateNumber>
+        <ValidationUpdateNumber>59</ValidationUpdateNumber>
         <UpdateTime>-9223372036854775808</UpdateTime>
     </DataModel>
     <RuleSet id="G}-1abc262d:1493718ebf6:-7c16">
         <Name>TestMinimumNettIncome</Name>
         <Alias>Test Minimum Nett Income</Alias>
-        <ValidationUpdateNumber>32</ValidationUpdateNumber>
+        <ValidationUpdateNumber>65</ValidationUpdateNumber>
         <Customizable>true</Customizable>
         <Active>true</Active>
         <CalendarForm>DateTime</CalendarForm>
         <Rule id="G}-1abc262d:1493718ebf6:-7c11">
             <Name>IfNettIncomeIsLessThan8500</Name>
             <Alias>If Nett Income Is Less Than 8500</Alias>
-            <ValidationUpdateNumber>31</ValidationUpdateNumber>
+            <ValidationUpdateNumber>36</ValidationUpdateNumber>
             <Priority>medium</Priority>
             <Customizable>true</Customizable>
             <Active>true</Active>
@@ -783,7 +783,7 @@
         <Rule id="G}-1abc262d:1493718ebf6:-7c10">
             <Name>IfNettIncomeIsGreaterThanOrEqualTo8500</Name>
             <Alias>If Nett Income Is Greater Than Or Equal To 8500</Alias>
-            <ValidationUpdateNumber>32</ValidationUpdateNumber>
+            <ValidationUpdateNumber>65</ValidationUpdateNumber>
             <Priority>medium</Priority>
             <Customizable>true</Customizable>
             <Active>true</Active>
@@ -826,14 +826,14 @@
             <TreeMode>false</TreeMode>
             <Visible>true</Visible>
             <Logical>false</Logical>
-            <Action id="L}124">
+            <Action id="L}204">
                 <Form>Assert New</Form>
                 <Target>AffordabilityServiceOutput</Target>
                 <ResolvedTarget>`J}public za.co.reverside.schema.vehicle_system.AffordabilityServiceOutput()`</ResolvedTarget>
-                <Expression id="L}127">
+                <Expression id="L}207">
                     <Value>true</Value>
                     <ResolvedValue>true</ResolvedValue>
-                    <IsConstant>false</IsConstant>
+                    <IsConstant>true</IsConstant>
                     <ParameterAlias>canAfford</ParameterAlias>
                     <ParameterID>J}za.co.reverside.schema.vehicle_system.AffordabilityServiceOutput.{canAfford}</ParameterID>
                     <Customizable>false</Customizable>
@@ -843,7 +843,7 @@
         <VisibilityFilterEnabled>false</VisibilityFilterEnabled>
         <CreationUpdateNumber>4</CreationUpdateNumber>
     </RuleSet>
-    <ValidationUpdateNumber>32</ValidationUpdateNumber>
-    <UpdateNumber>32</UpdateNumber>
+    <ValidationUpdateNumber>65</ValidationUpdateNumber>
+    <UpdateNumber>65</UpdateNumber>
     <ResourceBundle>AffordabilityRule1Translations</ResourceBundle>
 </RuleDictionary>
