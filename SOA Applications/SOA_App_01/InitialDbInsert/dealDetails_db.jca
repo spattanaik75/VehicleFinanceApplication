@@ -1,0 +1,14 @@
+<adapter-config name="dealDetails" adapter="Database Adapter" wsdlLocation="dealDetails.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/test" UIConnectionName="test" adapterRef=""/>
+  <endpoint-interaction portType="dealDetails_ptt" operation="insert">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="dealDetails.DealDetails"/>
+      <property name="DmlType" value="insert"/>
+      <property name="MappingsMetaDataURL" value="dealDetails-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

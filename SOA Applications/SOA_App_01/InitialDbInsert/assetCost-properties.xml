@@ -1,0 +1,39 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="ASSET_COST.PURCHASE_PRICE:db_column_not_null">true</entry>
+   <entry key="ASSET_COST.DEALER_AMT:db_column_type">NUMBER</entry>
+   <entry key="ASSET_COST.ADMIN_FEES:db_column_not_null">false</entry>
+   <entry key="ASSET_COST.ADMIN_FEES:db_column_type">NUMBER</entry>
+   <entry key="ASSET_COST:db_column_7">DEALER_AMT</entry>
+   <entry key="ASSET_COST.TERMS:db_column_precision">0</entry>
+   <entry key="ASSET_COST:db_column_6">ADMIN_FEES</entry>
+   <entry key="ASSET_COST.PURCHASE_PRICE:db_column_type">NUMBER</entry>
+   <entry key="ASSET_COST.EXTRAS_TOTAL:db_column_not_null">true</entry>
+   <entry key="ASSET_COST.TERMS:db_column_not_null">true</entry>
+   <entry key="ASSET_COST:db_column_5">BALLOON_PERCENTAGE</entry>
+   <entry key="ASSET_COST.TERMS:db_column_type">NUMBER</entry>
+   <entry key="ASSET_COST:db_column_4">TERMS</entry>
+   <entry key="ASSET_COST.PURCHASE_PRICE:db_column_precision">0</entry>
+   <entry key="ASSET_COST:db_column_3">DEPOSIT</entry>
+   <entry key="ASSET_COST:db_column_2">EXTRAS_TOTAL</entry>
+   <entry key="ASSET_COST:db_table_type">TABLE</entry>
+   <entry key="ASSET_COST:db_column_1">PURCHASE_PRICE</entry>
+   <entry key="ASSET_COST:db_column_0">ASSET_COST_ID</entry>
+   <entry key="ASSET_COST.DEPOSIT:db_column_not_null">true</entry>
+   <entry key="ASSET_COST.ADMIN_FEES:db_column_precision">0</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="ASSET_COST.BALLOON_PERCENTAGE:db_column_type">NUMBER</entry>
+   <entry key="ASSET_COST.EXTRAS_TOTAL:db_column_type">NUMBER</entry>
+   <entry key="ASSET_COST.EXTRAS_TOTAL:db_column_precision">0</entry>
+   <entry key="ASSET_COST.DEALER_AMT:db_column_not_null">false</entry>
+   <entry key="ASSET_COST.ASSET_COST_ID:db_column_not_null">true</entry>
+   <entry key="ASSET_COST.DEPOSIT:db_column_type">NUMBER</entry>
+   <entry key="root_descriptor_alias">ASSET_COST</entry>
+   <entry key="ASSET_COST.DEALER_AMT:db_column_precision">0</entry>
+   <entry key="ASSET_COST.ASSET_COST_ID:db_column_type">NUMBER</entry>
+   <entry key="ASSET_COST.BALLOON_PERCENTAGE:db_column_not_null">false</entry>
+   <entry key="ASSET_COST.ASSET_COST_ID:db_column_precision">0</entry>
+   <entry key="ASSET_COST.BALLOON_PERCENTAGE:db_column_precision">0</entry>
+   <entry key="ASSET_COST.DEPOSIT:db_column_precision">0</entry>
+</properties>

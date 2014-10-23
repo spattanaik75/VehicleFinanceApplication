@@ -1,5 +1,6 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
+   <url n="BPELProcess1_bpelFileURL" path="BPELProcess1.bpel"/>
    <value n="BPELProcess1_Namespace" v="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/BPELProcess1"/>
    <value n="BPELProcess1_ProcessName" v="BPELProcess1"/>
    <value n="BPELProcess1_Template" v="BPEL_SYNC_PROCESS"/>
@@ -65,7 +66,12 @@
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
    <value n="defaultPackage" v="demo"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/BPELProcess1"/>
+   <url n="InitialDbInsert_bpelFileURL" path="InitialDbInsert.bpel"/>
+   <value n="InitialDbInsert_Namespace" v="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"/>
+   <value n="InitialDbInsert_ProcessName" v="InitialDbInsert"/>
+   <value n="InitialDbInsert_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="InitialDbInsert_wsdl" v="InitialDbInsert.wsdl"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -321,6 +327,30 @@
             <value n="id" v="BC4J Service Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="ADFm Designtime API"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="TopLink"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle XML Parser v2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle JDBC"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle Rules"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <list n="libraryReferences">
          <hash>
@@ -347,6 +377,30 @@
             <value n="id" v="BC4J Service Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="ADFm Designtime API"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="TopLink"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle XML Parser v2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle JDBC"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle Rules"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
@@ -369,6 +423,6 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="BPELProcess1"/>
+   <value n="ProcessName" v="InitialDbInsert"/>
    <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>

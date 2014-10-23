@@ -1,0 +1,391 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Oct 23 10:38:14 CAT 2014
+  Author:  user
+  Type: BPEL 1.1 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="InitialDbInsert"
+               targetNamespace="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"
+               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+               xmlns:client="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCost"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/personalInfo"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/contactInfo"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/bankingDetail"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/dealDetails"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetails"
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns7="http://www.example.org"
+         xmlns:ns8="http://xmlns.oracle.com/pcbpel/adapter/db/top/personalInfo"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/top/contactInfo"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/bankingDetail"
+         xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/top/dealDetails"
+         xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails"
+         xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetCost">
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="initialdbinsert_client" partnerLinkType="client:InitialDbInsert" myRole="InitialDbInsertProvider"/>
+    <partnerLink name="assetCost" partnerLinkType="ns1:assetCost_plt"
+                 partnerRole="assetCost_role"/>
+    <partnerLink name="personalInfo" partnerLinkType="ns2:personalInfo_plt"
+                 partnerRole="personalInfo_role"/>
+    <partnerLink name="contactInfo" partnerLinkType="ns3:contactInfo_plt"
+                 partnerRole="contactInfo_role"/>
+    <partnerLink name="bankingDetail" partnerLinkType="ns4:bankingDetail_plt"
+                 partnerRole="bankingDetail_role"/>
+    <partnerLink name="dealDetails" partnerLinkType="ns5:dealDetails_plt"
+                 partnerRole="dealDetails_role"/>
+    <partnerLink name="assetDetails" partnerLinkType="ns6:assetDetails_plt"
+                 partnerRole="assetDetails_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:InitialDbInsertRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:InitialDbInsertResponseMessage"/>
+    <variable name="assetCost_insert_InputVariable"
+              messageType="ns1:AssetCostCollection_msg"/>
+    <variable name="assetDetails_insert_InputVariable"
+              messageType="ns6:AssetDetailsCollection_msg"/>
+    <variable name="deal_insert_InputVariable"
+              messageType="ns5:DealDetailsCollection_msg"/>
+    <variable name="banking_insert_InputVariable"
+              messageType="ns4:BankingDetailCollection_msg"/>
+    <variable name="personal_insert_InputVariable"
+              messageType="ns2:PersonalInfoCollection_msg"/>
+    <variable name="contact_insert_InputVariable"
+              messageType="ns3:ContactInfoCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in InitialDbInsert.wsdl) -->
+    <receive name="receiveInput" partnerLink="initialdbinsert_client" portType="client:InitialDbInsert" operation="process" variable="inputVariable" createInstance="yes"/>
+    <flow name="Flow1">
+      <sequence name="Sequence6">
+        <assign name="Assign6">
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:PurchasePrice"/>
+            <to variable="assetCost_insert_InputVariable"
+                part="AssetCostCollection"
+                query="/ns13:AssetCostCollection/ns13:AssetCost/ns13:purchasePrice"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:ExtrasTotal"/>
+            <to variable="assetCost_insert_InputVariable"
+                part="AssetCostCollection"
+                query="/ns13:AssetCostCollection/ns13:AssetCost/ns13:extrasTotal"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:Deposit"/>
+            <to variable="assetCost_insert_InputVariable"
+                part="AssetCostCollection"
+                query="/ns13:AssetCostCollection/ns13:AssetCost/ns13:deposit"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:Terms"/>
+            <to variable="assetCost_insert_InputVariable"
+                part="AssetCostCollection"
+                query="/ns13:AssetCostCollection/ns13:AssetCost/ns13:terms"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:BalloonPercentage"/>
+            <to variable="assetCost_insert_InputVariable"
+                part="AssetCostCollection"
+                query="/ns13:AssetCostCollection/ns13:AssetCost/ns13:balloonPercentage"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AdminFees"/>
+            <to variable="assetCost_insert_InputVariable"
+                part="AssetCostCollection"
+                query="/ns13:AssetCostCollection/ns13:AssetCost/ns13:adminFees"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:DealerAmt"/>
+            <to variable="assetCost_insert_InputVariable"
+                part="AssetCostCollection"
+                query="/ns13:AssetCostCollection/ns13:AssetCost/ns13:dealerAmt"/>
+          </copy>
+        </assign>
+        <invoke name="assetCost"
+                inputVariable="assetCost_insert_InputVariable"
+                partnerLink="assetCost" portType="ns1:assetCost_ptt"
+                operation="insert" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence5">
+        <assign name="Assign5">
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:CategoryId"/>
+            <to variable="assetDetails_insert_InputVariable"
+                part="AssetDetailsCollection"
+                query="/ns12:AssetDetailsCollection/ns12:AssetDetails/ns12:categoryId"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:IsNewCar"/>
+            <to variable="assetDetails_insert_InputVariable"
+                part="AssetDetailsCollection"
+                query="/ns12:AssetDetailsCollection/ns12:AssetDetails/ns12:isNewCar"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:MakeDesc"/>
+            <to variable="assetDetails_insert_InputVariable"
+                part="AssetDetailsCollection"
+                query="/ns12:AssetDetailsCollection/ns12:AssetDetails/ns12:makeDesc"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:ModelName"/>
+            <to variable="assetDetails_insert_InputVariable"
+                part="AssetDetailsCollection"
+                query="/ns12:AssetDetailsCollection/ns12:AssetDetails/ns12:modelName"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:KmTravelled"/>
+            <to variable="assetDetails_insert_InputVariable"
+                part="AssetDetailsCollection"
+                query="/ns12:AssetDetailsCollection/ns12:AssetDetails/ns12:kmTravelled"/>
+          </copy>
+        </assign>
+        <invoke name="assetDetails"
+                inputVariable="assetDetails_insert_InputVariable"
+                partnerLink="assetDetails" portType="ns6:assetDetails_ptt"
+                operation="insert" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence4">
+        <assign name="Assign4">
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:PaymentTypeId"/>
+            <to variable="deal_insert_InputVariable"
+                part="DealDetailsCollection"
+                query="/ns11:DealDetailsCollection/ns11:DealDetails/ns11:paymentTypeId"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:PaymentFreq"/>
+            <to variable="deal_insert_InputVariable"
+                part="DealDetailsCollection"
+                query="/ns11:DealDetailsCollection/ns11:DealDetails/ns11:paymentFreq"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:PaymentMethodId"/>
+            <to variable="deal_insert_InputVariable"
+                part="DealDetailsCollection"
+                query="/ns11:DealDetailsCollection/ns11:DealDetails/ns11:paymentMethodId"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:IsFixedInterestRate"/>
+            <to variable="deal_insert_InputVariable"
+                part="DealDetailsCollection"
+                query="/ns11:DealDetailsCollection/ns11:DealDetails/ns11:isFixedInterestRate"/>
+          </copy>
+        </assign>
+        <invoke name="deal"
+                inputVariable="deal_insert_InputVariable"
+                partnerLink="dealDetails" portType="ns5:dealDetails_ptt"
+                operation="insert" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence3">
+        <assign name="Assign3">
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:BankName"/>
+            <to variable="banking_insert_InputVariable"
+                part="BankingDetailCollection"
+                query="/ns10:BankingDetailCollection/ns10:BankingDetail/ns10:bankName"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AccountHolderName"/>
+            <to variable="banking_insert_InputVariable"
+                part="BankingDetailCollection"
+                query="/ns10:BankingDetailCollection/ns10:BankingDetail/ns10:accountHolderName"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AccountNumber"/>
+            <to variable="banking_insert_InputVariable"
+                part="BankingDetailCollection"
+                query="/ns10:BankingDetailCollection/ns10:BankingDetail/ns10:accountNumber"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AccountTypeId"/>
+            <to variable="banking_insert_InputVariable"
+                part="BankingDetailCollection"
+                query="/ns10:BankingDetailCollection/ns10:BankingDetail/ns10:accountTypeId"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:BranchCode"/>
+            <to variable="banking_insert_InputVariable"
+                part="BankingDetailCollection"
+                query="/ns10:BankingDetailCollection/ns10:BankingDetail/ns10:branchCode"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:DateChanged"/>
+            <to variable="banking_insert_InputVariable"
+                part="BankingDetailCollection"
+                query="/ns10:BankingDetailCollection/ns10:BankingDetail/ns10:dateChanged"/>
+          </copy>
+        </assign>
+        <invoke name="banking"
+                inputVariable="banking_insert_InputVariable"
+                partnerLink="bankingDetail" portType="ns4:bankingDetail_ptt"
+                operation="insert" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence2">
+        <assign name="Assign2">
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:Email"/>
+            <to variable="contact_insert_InputVariable"
+                part="ContactInfoCollection"
+                query="/ns9:ContactInfoCollection/ns9:ContactInfo/ns9:email"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:CellNum"/>
+            <to variable="contact_insert_InputVariable"
+                part="ContactInfoCollection"
+                query="/ns9:ContactInfoCollection/ns9:ContactInfo/ns9:cellNum"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AddressLine1"/>
+            <to variable="contact_insert_InputVariable"
+                part="ContactInfoCollection"
+                query="/ns9:ContactInfoCollection/ns9:ContactInfo/ns9:addressLine1"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AddressLine2"/>
+            <to variable="contact_insert_InputVariable"
+                part="ContactInfoCollection"
+                query="/ns9:ContactInfoCollection/ns9:ContactInfo/ns9:addressLine2"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AddressLine3"/>
+            <to variable="contact_insert_InputVariable"
+                part="ContactInfoCollection"
+                query="/ns9:ContactInfoCollection/ns9:ContactInfo/ns9:addressLine3"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AddressLine4"/>
+            <to variable="contact_insert_InputVariable"
+                part="ContactInfoCollection"
+                query="/ns9:ContactInfoCollection/ns9:ContactInfo/ns9:addressLine4"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:AreaCode"/>
+            <to variable="contact_insert_InputVariable"
+                part="ContactInfoCollection"
+                query="/ns9:ContactInfoCollection/ns9:ContactInfo/ns9:areaCode"/>
+          </copy>
+        </assign>
+        <invoke name="contact"
+                inputVariable="contact_insert_InputVariable"
+                partnerLink="contactInfo" portType="ns3:contactInfo_ptt"
+                operation="insert" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence"
+                                 xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/">
+      <assign name="Assign1">
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:FirstNames"/>
+            <to variable="personal_insert_InputVariable"
+                part="PersonalInfoCollection"
+                query="/ns8:PersonalInfoCollection/ns8:PersonalInfo/ns8:firstNames"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:LastName"/>
+            <to variable="personal_insert_InputVariable"
+                part="PersonalInfoCollection"
+                query="/ns8:PersonalInfoCollection/ns8:PersonalInfo/ns8:lastName"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:Gender"/>
+            <to variable="personal_insert_InputVariable"
+                part="PersonalInfoCollection"
+                query="/ns8:PersonalInfoCollection/ns8:PersonalInfo/ns8:gender"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:DOB"/>
+            <to variable="personal_insert_InputVariable"
+                part="PersonalInfoCollection"
+                query="/ns8:PersonalInfoCollection/ns8:PersonalInfo/ns8:dob"/>
+          </copy>
+          <copy>
+            <from variable="inputVariable" part="payload"
+                  query="/ns7:customer_info/ns7:IdNum"/>
+            <to variable="personal_insert_InputVariable"
+                part="PersonalInfoCollection"
+                query="/ns8:PersonalInfoCollection/ns8:PersonalInfo/ns8:idNum"/>
+          </copy>
+        </assign>
+      <invoke name="personal"
+              inputVariable="personal_insert_InputVariable"
+              partnerLink="personalInfo" portType="ns2:personalInfo_ptt"
+              operation="insert" bpelx:invokeAsDetail="no"/>
+   </sequence>
+    </flow>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="initialdbinsert_client" portType="client:InitialDbInsert" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

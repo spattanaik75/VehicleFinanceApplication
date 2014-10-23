@@ -1,0 +1,26 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="DEAL_DETAILS:db_table_type">TABLE</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_METHOD_ID:db_column_not_null">true</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_TYPE_ID:db_column_type">NUMBER</entry>
+   <entry key="DEAL_DETAILS.IS_FIXED_INTEREST_RATE:db_column_type">NUMBER</entry>
+   <entry key="DEAL_DETAILS.DEAL_DETAILS_ID:db_column_not_null">true</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_FREQ:db_column_not_null">true</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_METHOD_ID:db_column_type">NUMBER</entry>
+   <entry key="DEAL_DETAILS:db_column_4">IS_FIXED_INTEREST_RATE</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_FREQ:db_column_type">VARCHAR2</entry>
+   <entry key="DEAL_DETAILS.DEAL_DETAILS_ID:db_column_type">NUMBER</entry>
+   <entry key="DEAL_DETAILS:db_column_3">PAYMENT_METHOD_ID</entry>
+   <entry key="DEAL_DETAILS:db_column_2">PAYMENT_FREQ</entry>
+   <entry key="DEAL_DETAILS:db_column_1">PAYMENT_TYPE_ID</entry>
+   <entry key="DEAL_DETAILS:db_column_0">DEAL_DETAILS_ID</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_TYPE_ID:db_column_precision">0</entry>
+   <entry key="DEAL_DETAILS.IS_FIXED_INTEREST_RATE:db_column_not_null">true</entry>
+   <entry key="DEAL_DETAILS.IS_FIXED_INTEREST_RATE:db_column_precision">0</entry>
+   <entry key="DEAL_DETAILS.DEAL_DETAILS_ID:db_column_precision">0</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_METHOD_ID:db_column_precision">0</entry>
+   <entry key="root_descriptor_alias">DEAL_DETAILS</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_FREQ:db_column_size">20</entry>
+   <entry key="DEAL_DETAILS.PAYMENT_TYPE_ID:db_column_not_null">true</entry>
+</properties>

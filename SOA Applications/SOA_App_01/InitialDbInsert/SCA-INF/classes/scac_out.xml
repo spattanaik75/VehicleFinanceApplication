@@ -1,0 +1,203 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>158</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}decimal"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>158</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}int" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails}makeDesc anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>158</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails}modelName anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>201</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/dealDetails}paymentFreq anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>201</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}decimal"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>237</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/bankingDetail}bankName anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>237</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/bankingDetail}accountHolderName anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>237</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}int" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/bankingDetail}branchCode anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>237</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}date" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}dateTime"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>287</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/contactInfo}email anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>287</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/contactInfo}addressLine1 anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>287</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/contactInfo}addressLine2 anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>287</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/contactInfo}addressLine3 anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>287</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/contactInfo}addressLine4 anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>287</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}int" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/contactInfo}areaCode anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>345</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/personalInfo}firstNames anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>345</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/personalInfo}lastName anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>345</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}string" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/personalInfo}gender anonymous type"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>345</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}date" is not compatible with &lt;to> value type "{http://www.w3.org/2001/XMLSchema}dateTime"</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>345</line>
+      <col/>
+      <file>InitialDbInsert.bpel</file>
+      <name>InitialDbInsert.bpel</name>
+      <fix>Make sure that the return value of from-spec query is compatible with the to-spec query</fix>
+      <msg>&lt;from> value type "{http://www.w3.org/2001/XMLSchema}int" is not compatible with &lt;to> value type "{http://xmlns.oracle.com/pcbpel/adapter/db/top/personalInfo}idNum anonymous type"</msg>
+   </Fault>
+</Faults>

@@ -17,7 +17,6 @@
       <xsd:element name="Gender" type="xsd:string"/>
       <xsd:element name="DOB" type="xsd:date"/>
       <xsd:element name="IdNum" type="xsd:int"/>
-      <xsd:element name="ContactId" type="xsd:int"/>
       <xsd:element name="Email" type="xsd:string"/>
       <xsd:element name="CellNum" type="xsd:int"/>
       <xsd:element name="AddressLine1" type="xsd:string"/>

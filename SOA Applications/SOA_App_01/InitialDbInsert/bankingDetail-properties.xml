@@ -1,0 +1,33 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="BANKING_DETAIL.ACCOUNT_TYPE_ID:db_column_precision">0</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_TYPE_ID:db_column_type">NUMBER</entry>
+   <entry key="BANKING_DETAIL.BANKING_DETAIL_ID:db_column_not_null">true</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_HOLDER_NAME:db_column_not_null">true</entry>
+   <entry key="BANKING_DETAIL.BANK_NAME:db_column_not_null">true</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_HOLDER_NAME:db_column_size">20</entry>
+   <entry key="BANKING_DETAIL.BRANCH_CODE:db_column_not_null">true</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_NUMBER:db_column_not_null">true</entry>
+   <entry key="BANKING_DETAIL.BANKING_DETAIL_ID:db_column_type">NUMBER</entry>
+   <entry key="BANKING_DETAIL.BANK_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="BANKING_DETAIL.BRANCH_CODE:db_column_type">VARCHAR2</entry>
+   <entry key="BANKING_DETAIL:db_column_6">DATE_CHANGED</entry>
+   <entry key="BANKING_DETAIL:db_column_5">BRANCH_CODE</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_TYPE_ID:db_column_not_null">true</entry>
+   <entry key="BANKING_DETAIL:db_column_4">ACCOUNT_TYPE_ID</entry>
+   <entry key="BANKING_DETAIL:db_column_3">ACCOUNT_NUMBER</entry>
+   <entry key="BANKING_DETAIL:db_column_2">ACCOUNT_HOLDER_NAME</entry>
+   <entry key="BANKING_DETAIL:db_table_type">TABLE</entry>
+   <entry key="BANKING_DETAIL:db_column_1">BANK_NAME</entry>
+   <entry key="BANKING_DETAIL:db_column_0">BANKING_DETAIL_ID</entry>
+   <entry key="root_descriptor_alias">BANKING_DETAIL</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_NUMBER:db_column_type">NUMBER</entry>
+   <entry key="BANKING_DETAIL.BANK_NAME:db_column_size">20</entry>
+   <entry key="BANKING_DETAIL.DATE_CHANGED:db_column_type">DATE</entry>
+   <entry key="BANKING_DETAIL.BRANCH_CODE:db_column_size">20</entry>
+   <entry key="BANKING_DETAIL.DATE_CHANGED:db_column_not_null">true</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_HOLDER_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="BANKING_DETAIL.BANKING_DETAIL_ID:db_column_precision">0</entry>
+   <entry key="BANKING_DETAIL.ACCOUNT_NUMBER:db_column_precision">0</entry>
+</properties>

@@ -1,0 +1,21 @@
+<?binding.jca bankingDetail_db.jca?>
+<wsdl:definitions name="bankingDetail" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/bankingDetail" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/bankingDetail" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/bankingDetail">
+    <plt:partnerLinkType name="bankingDetail_plt">
+        <plt:role name="bankingDetail_role">
+            <plt:portType name="tns:bankingDetail_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/bankingDetail" schemaLocation="xsd/bankingDetail_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="BankingDetailCollection_msg">
+        <wsdl:part name="BankingDetailCollection" element="top:BankingDetailCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="bankingDetail_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:BankingDetailCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

@@ -1,0 +1,21 @@
+<?binding.jca assetCost_db.jca?>
+<wsdl:definitions name="assetCost" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCost" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCost" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetCost">
+    <plt:partnerLinkType name="assetCost_plt">
+        <plt:role name="assetCost_role">
+            <plt:portType name="tns:assetCost_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetCost" schemaLocation="xsd/assetCost_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="AssetCostCollection_msg">
+        <wsdl:part name="AssetCostCollection" element="top:AssetCostCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="assetCost_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:AssetCostCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

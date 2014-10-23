@@ -1,0 +1,38 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="CONTACT_INFO.CELL_NUM:db_column_type">NUMBER</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_3:db_column_type">VARCHAR2</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_3:db_column_not_null">false</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_2:db_column_size">20</entry>
+   <entry key="CONTACT_INFO:db_table_type">TABLE</entry>
+   <entry key="CONTACT_INFO.EMAIL:db_column_type">VARCHAR2</entry>
+   <entry key="CONTACT_INFO.AREA_CODE:db_column_type">VARCHAR2</entry>
+   <entry key="CONTACT_INFO.AREA_CODE:db_column_not_null">true</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_4:db_column_size">20</entry>
+   <entry key="CONTACT_INFO.CONTACT_ID:db_column_precision">0</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_2:db_column_not_null">true</entry>
+   <entry key="CONTACT_INFO.CONTACT_ID:db_column_type">NUMBER</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_3:db_column_size">20</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_1:db_column_type">VARCHAR2</entry>
+   <entry key="CONTACT_INFO:db_column_7">AREA_CODE</entry>
+   <entry key="CONTACT_INFO:db_column_6">ADDRESS_LINE_4</entry>
+   <entry key="CONTACT_INFO:db_column_5">ADDRESS_LINE_3</entry>
+   <entry key="CONTACT_INFO:db_column_4">ADDRESS_LINE_2</entry>
+   <entry key="CONTACT_INFO:db_column_3">ADDRESS_LINE_1</entry>
+   <entry key="CONTACT_INFO:db_column_2">CELL_NUM</entry>
+   <entry key="CONTACT_INFO.EMAIL:db_column_size">20</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_1:db_column_not_null">true</entry>
+   <entry key="CONTACT_INFO:db_column_1">EMAIL</entry>
+   <entry key="root_descriptor_alias">CONTACT_INFO</entry>
+   <entry key="CONTACT_INFO.AREA_CODE:db_column_size">20</entry>
+   <entry key="CONTACT_INFO:db_column_0">CONTACT_ID</entry>
+   <entry key="CONTACT_INFO.CELL_NUM:db_column_precision">0</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_2:db_column_type">VARCHAR2</entry>
+   <entry key="CONTACT_INFO.EMAIL:db_column_not_null">true</entry>
+   <entry key="CONTACT_INFO.CONTACT_ID:db_column_not_null">true</entry>
+   <entry key="CONTACT_INFO.CELL_NUM:db_column_not_null">false</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_1:db_column_size">20</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_4:db_column_type">VARCHAR2</entry>
+   <entry key="CONTACT_INFO.ADDRESS_LINE_4:db_column_not_null">false</entry>
+</properties>

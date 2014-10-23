@@ -1,0 +1,30 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="ASSET_DETAILS.KM_TRAVELLED:db_column_not_null">true</entry>
+   <entry key="ASSET_DETAILS.ASSET_DETAILS_ID:db_column_not_null">true</entry>
+   <entry key="ASSET_DETAILS.MODEL_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="ASSET_DETAILS:db_column_5">KM_TRAVELLED</entry>
+   <entry key="ASSET_DETAILS:db_column_4">MODEL_NAME</entry>
+   <entry key="ASSET_DETAILS.MAKE_DESC:db_column_type">VARCHAR2</entry>
+   <entry key="ASSET_DETAILS:db_column_3">MAKE_DESC</entry>
+   <entry key="ASSET_DETAILS:db_column_2">IS_NEW_CAR</entry>
+   <entry key="ASSET_DETAILS:db_column_1">CATEGORY_ID</entry>
+   <entry key="ASSET_DETAILS:db_column_0">ASSET_DETAILS_ID</entry>
+   <entry key="ASSET_DETAILS.CATEGORY_ID:db_column_precision">0</entry>
+   <entry key="ASSET_DETAILS.ASSET_DETAILS_ID:db_column_type">NUMBER</entry>
+   <entry key="ASSET_DETAILS.ASSET_DETAILS_ID:db_column_precision">0</entry>
+   <entry key="ASSET_DETAILS.KM_TRAVELLED:db_column_type">NUMBER</entry>
+   <entry key="ASSET_DETAILS.IS_NEW_CAR:db_column_precision">0</entry>
+   <entry key="ASSET_DETAILS.MODEL_NAME:db_column_not_null">true</entry>
+   <entry key="ASSET_DETAILS.MAKE_DESC:db_column_not_null">true</entry>
+   <entry key="ASSET_DETAILS.CATEGORY_ID:db_column_not_null">true</entry>
+   <entry key="ASSET_DETAILS.MODEL_NAME:db_column_size">20</entry>
+   <entry key="ASSET_DETAILS:db_table_type">TABLE</entry>
+   <entry key="ASSET_DETAILS.KM_TRAVELLED:db_column_precision">0</entry>
+   <entry key="ASSET_DETAILS.MAKE_DESC:db_column_size">20</entry>
+   <entry key="ASSET_DETAILS.IS_NEW_CAR:db_column_type">NUMBER</entry>
+   <entry key="root_descriptor_alias">ASSET_DETAILS</entry>
+   <entry key="ASSET_DETAILS.IS_NEW_CAR:db_column_not_null">true</entry>
+   <entry key="ASSET_DETAILS.CATEGORY_ID:db_column_type">NUMBER</entry>
+</properties>

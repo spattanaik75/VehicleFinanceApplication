@@ -1,0 +1,21 @@
+<?binding.jca assetDetails_db.jca?>
+<wsdl:definitions name="assetDetails" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetails" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetails" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails">
+    <plt:partnerLinkType name="assetDetails_plt">
+        <plt:role name="assetDetails_role">
+            <plt:portType name="tns:assetDetails_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails" schemaLocation="xsd/assetDetails_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="AssetDetailsCollection_msg">
+        <wsdl:part name="AssetDetailsCollection" element="top:AssetDetailsCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="assetDetails_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:AssetDetailsCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

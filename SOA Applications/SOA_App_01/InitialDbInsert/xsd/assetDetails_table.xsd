@@ -1,0 +1,31 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="AssetDetailsCollection" type="AssetDetailsCollection"/>
+   <xs:complexType name="AssetDetailsCollection">
+      <xs:sequence>
+         <xs:element name="AssetDetails" type="AssetDetails" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="AssetDetails">
+      <xs:sequence>
+         <xs:element name="assetDetailsId" type="xs:decimal"/>
+         <xs:element name="categoryId" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="isNewCar" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="makeDesc" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="modelName" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="kmTravelled" type="xs:decimal" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

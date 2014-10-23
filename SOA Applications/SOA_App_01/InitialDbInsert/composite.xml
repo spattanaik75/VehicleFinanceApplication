@@ -10,21 +10,124 @@
            xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
            xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
-  <import namespace="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/BPELProcess1"
-          location="BPELProcess1.wsdl" importType="wsdl"/>
-  <service name="bpelprocess1_client_ep" ui:wsdlLocation="BPELProcess1.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/BPELProcess1#wsdl.interface(BPELProcess1)"/>
-    <binding.ws port="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/BPELProcess1#wsdl.endpoint(bpelprocess1_client_ep/BPELProcess1_pt)"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/personalInfo"
+          location="personalInfo.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/contactInfo"
+          location="contactInfo.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/bankingDetail"
+          location="bankingDetail.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/dealDetails"
+          location="dealDetails.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetails"
+          location="assetDetails.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCost"
+          location="assetCost.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"
+          location="InitialDbInsert.wsdl" importType="wsdl"/>
+  <service name="initialdbinsert_client_ep"
+           ui:wsdlLocation="InitialDbInsert.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert#wsdl.interface(InitialDbInsert)"/>
+    <binding.ws port="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert#wsdl.endpoint(initialdbinsert_client_ep/InitialDbInsert_pt)"/>
   </service>
   <property name="productVersion" type="xs:string" many="false">11.1.1.7.0</property>
-  <component name="BPELProcess1" version="1.1">
-    <implementation.bpel src="BPELProcess1.bpel"/>
+  <component name="InitialDbInsert" version="1.1">
+    <implementation.bpel src="InitialDbInsert.bpel"/>
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
               many="false">async.persist</property>
   </component>
+  <reference name="personalInfo" ui:wsdlLocation="personalInfo.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/personalInfo#wsdl.interface(personalInfo_ptt)"/>
+    <binding.jca config="personalInfo_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="contactInfo" ui:wsdlLocation="contactInfo.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/contactInfo#wsdl.interface(contactInfo_ptt)"/>
+    <binding.jca config="contactInfo_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="bankingDetail" ui:wsdlLocation="bankingDetail.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/bankingDetail#wsdl.interface(bankingDetail_ptt)"/>
+    <binding.jca config="bankingDetail_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="dealDetails" ui:wsdlLocation="dealDetails.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/dealDetails#wsdl.interface(dealDetails_ptt)"/>
+    <binding.jca config="dealDetails_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="assetDetails" ui:wsdlLocation="assetDetails.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetails#wsdl.interface(assetDetails_ptt)"/>
+    <binding.jca config="assetDetails_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="assetCost" ui:wsdlLocation="assetCost.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCost#wsdl.interface(assetCost_ptt)"/>
+    <binding.jca config="assetCost_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
-    <source.uri>bpelprocess1_client_ep</source.uri>
-    <target.uri>BPELProcess1/bpelprocess1_client</target.uri>
+    <source.uri>initialdbinsert_client_ep</source.uri>
+    <target.uri>InitialDbInsert/initialdbinsert_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>InitialDbInsert/assetCost</source.uri>
+    <target.uri>assetCost</target.uri>
+  </wire>
+  <wire>
+    <source.uri>InitialDbInsert/personalInfo</source.uri>
+    <target.uri>personalInfo</target.uri>
+  </wire>
+  <wire>
+    <source.uri>InitialDbInsert/contactInfo</source.uri>
+    <target.uri>contactInfo</target.uri>
+  </wire>
+  <wire>
+    <source.uri>InitialDbInsert/bankingDetail</source.uri>
+    <target.uri>bankingDetail</target.uri>
+  </wire>
+  <wire>
+    <source.uri>InitialDbInsert/dealDetails</source.uri>
+    <target.uri>dealDetails</target.uri>
+  </wire>
+  <wire>
+    <source.uri>InitialDbInsert/assetDetails</source.uri>
+    <target.uri>assetDetails</target.uri>
   </wire>
 </composite>

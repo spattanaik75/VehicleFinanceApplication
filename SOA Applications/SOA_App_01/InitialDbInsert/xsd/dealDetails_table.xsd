@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/dealDetails" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/dealDetails" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="DealDetailsCollection" type="DealDetailsCollection"/>
+   <xs:complexType name="DealDetailsCollection">
+      <xs:sequence>
+         <xs:element name="DealDetails" type="DealDetails" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="DealDetails">
+      <xs:sequence>
+         <xs:element name="dealDetailsId" type="xs:decimal"/>
+         <xs:element name="paymentTypeId" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="paymentFreq" minOccurs="0">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="20"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="paymentMethodId" type="xs:decimal" minOccurs="0"/>
+         <xs:element name="isFixedInterestRate" type="xs:decimal" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

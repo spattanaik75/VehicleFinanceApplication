@@ -1,0 +1,14 @@
+<adapter-config name="assetCost" adapter="Database Adapter" wsdlLocation="assetCost.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/test" UIConnectionName="test" adapterRef=""/>
+  <endpoint-interaction portType="assetCost_ptt" operation="insert">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="assetCost.AssetCost"/>
+      <property name="DmlType" value="insert"/>
+      <property name="MappingsMetaDataURL" value="assetCost-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>
