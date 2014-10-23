@@ -8,8 +8,4 @@
            ui:wsdlLocation="AffordabilityProcessService.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService#wsdl.interface(AffordabilityProcessService)"/>
   </service>
-  <reference name="AffordabilityRule1.AffordabilityDecisionService1"
-             ui:wsdlLocation="AffordabilityDecisionService1Wrapper.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1#wsdl.interface(IDecisionService)"/>
-  </reference>
 </componentType>

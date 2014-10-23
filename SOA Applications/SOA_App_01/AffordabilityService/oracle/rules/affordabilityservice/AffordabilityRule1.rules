@@ -671,21 +671,21 @@
             <RuleFiringLimit>10000</RuleFiringLimit>
             <RuleFiringLimitError>true</RuleFiringLimitError>
         </DecisionFunction>
-        <UpdateNumber>12</UpdateNumber>
-        <ValidationUpdateNumber>12</ValidationUpdateNumber>
+        <UpdateNumber>31</UpdateNumber>
+        <ValidationUpdateNumber>31</ValidationUpdateNumber>
         <UpdateTime>-9223372036854775808</UpdateTime>
     </DataModel>
     <RuleSet id="G}-1abc262d:1493718ebf6:-7ba4">
         <Name>MinimumIncomeThreshold</Name>
         <Alias>MinimumIncomeThreshold</Alias>
-        <ValidationUpdateNumber>29</ValidationUpdateNumber>
+        <ValidationUpdateNumber>41</ValidationUpdateNumber>
         <Customizable>true</Customizable>
         <Active>true</Active>
         <CalendarForm>DateTime</CalendarForm>
         <Rule id="G}-1abc262d:1493718ebf6:-7b9f">
             <Name>IfNettIncomeIsAboveThreshold</Name>
             <Alias>If nett income is above threshold</Alias>
-            <ValidationUpdateNumber>20</ValidationUpdateNumber>
+            <ValidationUpdateNumber>36</ValidationUpdateNumber>
             <Priority>medium</Priority>
             <Customizable>true</Customizable>
             <Active>true</Active>
@@ -728,15 +728,64 @@
             <TreeMode>false</TreeMode>
             <Visible>true</Visible>
             <Logical>false</Logical>
-            <Action id="L}90">
-                <Form>Assign</Form>
-                <Target>affordabilityServiceRequest.canAffordVehcileFinancing</Target>
-                <ResolvedTarget>`L}72`.`J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{canAffordVehcileFinancing}`</ResolvedTarget>
-                <Expression id="L}91">
+            <Action id="L}124">
+                <Form>Modify</Form>
+                <Target>affordabilityServiceRequest</Target>
+                <ResolvedTarget>`L}72`</ResolvedTarget>
+                <Expression id="L}128">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>administrationFee</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{administrationFee}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}129">
                     <Value>true</Value>
                     <ResolvedValue>true</ResolvedValue>
                     <IsConstant>false</IsConstant>
-                    <ParameterID>B}nil</ParameterID>
+                    <ParameterAlias>canAffordVehcileFinancing</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{canAffordVehcileFinancing}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}130">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>deposit</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{deposit}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}131">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>extrasTotal</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{extrasTotal}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}132">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>nettIncome</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{nettIncome}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}133">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>numberOfTerms</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{numberOfTerms}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}134">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>requestedLoanAmount</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{requestedLoanAmount}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}135">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>totalMonthlyCredit</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{totalMonthlyCredit}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}136">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>totalMonthlyExpenses</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{totalMonthlyExpenses}</ParameterID>
                     <Customizable>false</Customizable>
                 </Expression>
             </Action>
@@ -744,7 +793,7 @@
         <Rule id="G}-1abc262d:1493718ebf6:-7b9e">
             <Name>IfNettIncomeIsBelowThreshold</Name>
             <Alias>If nett income is below threshold</Alias>
-            <ValidationUpdateNumber>29</ValidationUpdateNumber>
+            <ValidationUpdateNumber>41</ValidationUpdateNumber>
             <Priority>medium</Priority>
             <Customizable>true</Customizable>
             <Active>true</Active>
@@ -787,15 +836,64 @@
             <TreeMode>false</TreeMode>
             <Visible>true</Visible>
             <Logical>false</Logical>
-            <Action id="L}119">
-                <Form>Assign</Form>
-                <Target>affordabilityServiceRequest.canAffordVehcileFinancing</Target>
-                <ResolvedTarget>`L}102`.`J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{canAffordVehcileFinancing}`</ResolvedTarget>
-                <Expression id="L}120">
+            <Action id="L}161">
+                <Form>Modify</Form>
+                <Target>affordabilityServiceRequest</Target>
+                <ResolvedTarget>`L}102`</ResolvedTarget>
+                <Expression id="L}164">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>administrationFee</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{administrationFee}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}165">
                     <Value>false</Value>
                     <ResolvedValue>false</ResolvedValue>
                     <IsConstant>false</IsConstant>
-                    <ParameterID>B}nil</ParameterID>
+                    <ParameterAlias>canAffordVehcileFinancing</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{canAffordVehcileFinancing}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}166">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>deposit</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{deposit}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}167">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>extrasTotal</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{extrasTotal}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}168">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>nettIncome</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{nettIncome}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}169">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>numberOfTerms</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{numberOfTerms}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}170">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>requestedLoanAmount</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{requestedLoanAmount}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}171">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>totalMonthlyCredit</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{totalMonthlyCredit}</ParameterID>
+                    <Customizable>false</Customizable>
+                </Expression>
+                <Expression id="L}172">
+                    <IsConstant>false</IsConstant>
+                    <ParameterAlias>totalMonthlyExpenses</ParameterAlias>
+                    <ParameterID>J}za.co.reverside.schema.affordability_service.AffordabilityServiceRequest.{totalMonthlyExpenses}</ParameterID>
                     <Customizable>false</Customizable>
                 </Expression>
             </Action>
@@ -803,7 +901,7 @@
         <VisibilityFilterEnabled>false</VisibilityFilterEnabled>
         <CreationUpdateNumber>4</CreationUpdateNumber>
     </RuleSet>
-    <ValidationUpdateNumber>29</ValidationUpdateNumber>
-    <UpdateNumber>29</UpdateNumber>
+    <ValidationUpdateNumber>41</ValidationUpdateNumber>
+    <UpdateNumber>41</UpdateNumber>
     <ResourceBundle>AffordabilityRule1Translations</ResourceBundle>
 </RuleDictionary>

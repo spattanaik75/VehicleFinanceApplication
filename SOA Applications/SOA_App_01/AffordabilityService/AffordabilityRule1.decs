@@ -18,4 +18,19 @@
             </arguments>
         </pattern>
     </decisionService>
+    <schemaInformation>
+        <dictionary fqnPackage="affordabilityservice" fqnName="AffordabilityRule1" updateNumber="41">
+            <schemaBrowser>
+                <package>za.co.reverside.schema.affordability_service</package>
+                <namespace>http://www.reverside.co.za/schema/affordability-service</namespace>
+            </schemaBrowser>
+            <schemaImport namespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1" localPart="AffordabilitySchema.xsd" schemaLocation="xsd/AffordabilityDecisionService1MessageTypes.xsd" package="">
+                <import namespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1" localPart="AffordabilitySchema.xsd"/>
+                <import namespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1" localPart="AffordabilityDecisionService1Types.xsd"/>
+                <import namespace="http://www.reverside.co.za/schema/affordability-service" localPart="AffordabilitySchema.xsd"/>
+                <import namespace="http://xmlns.oracle.com/bpel/rules" localPart="DecisionServicePrimitiveTypes.xsd"/>
+                <import namespace="http://xmlns.oracle.com/bpel" localPart="BpelProcess.xsd"/>
+            </schemaImport>
+        </dictionary>
+    </schemaInformation>
 </decisionServices>

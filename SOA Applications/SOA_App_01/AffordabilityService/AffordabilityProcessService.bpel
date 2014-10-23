@@ -44,9 +44,6 @@
       with the client role are automatically set using WS-Addressing.
     -->
     <partnerLink name="AffordabilityProcessServiceClient" partnerLinkType="client:AffordabilityProcessService" myRole="AffordabilityProcessServiceProvider"/>
-    <partnerLink name="AffordabilityRule1.AffordabilityDecisionService1"
-                 partnerLinkType="ns1:AffordabilityRule1.AffordabilityDecisionService1"
-                 partnerRole="IDecisionService"/>
   </partnerLinks>
 
   <!-- 
@@ -74,65 +71,28 @@
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in AffordabilityProcessService.wsdl) -->
     <receive name="receiveInput" partnerLink="AffordabilityProcessServiceClient" portType="client:AffordabilityProcessService" operation="process" variable="inputVariable" createInstance="yes"/>
-    <scope name="Rule1" exitOnStandardFault="no">
-      <bpelx:annotation>
-        <bpelx:pattern patternName="bpelx:decide"/>
-        <bpelx:general>
-          <bpelx:property name="userLabel">
-            <![CDATA[TestForMinimumIncomeThreshold]]>
-          </bpelx:property>
-        </bpelx:general>
-      </bpelx:annotation>
-      <variables>
-        <variable name="dsIn" messageType="ns1:callFunctionStatelessMessage"/>
-        <variable name="dsOut"
-                  messageType="ns1:callFunctionStatelessDecisionMessage"/>
-      </variables>
-      <sequence name="Sequence1">
-        <assign name="Facts_To_Rule_Service">
-          <copy>
-            <from variable="inputVariable" part="payload"/>
-            <to variable="dsIn" part="payload">
-              <query>ns1:parameterList/ns2:affordabilityServiceRequest</query>
-            </to>
-          </copy>
-        </assign>
-        <assign name="BPEL_Header">
-          <copy>
-            <from>"AffordabilityDecisionService1"</from>
-            <to variable="dsIn" part="payload">
-              <query>@name</query>
-            </to>
-          </copy>
-        </assign>
-        <invoke name="Invoke"
-                partnerLink="AffordabilityRule1.AffordabilityDecisionService1"
-                portType="ns1:IDecisionService"
-                operation="callFunctionStateless" inputVariable="dsIn"
-                outputVariable="dsOut"/>
-        <assign name="Rule_Service_To_Facts">
-          <copy>
-            <from variable="dsOut" part="payload"><query>ns1:resultList/ns2:affordabilityServiceRequest</query></from>
-            <to variable="inputVariable" part="payload"/>
-          </copy>
-        </assign>
-      </sequence>
-    </scope>
     <if name="TestNettIncomeResult">
       <documentation>
         <![CDATA[Income Is Above Threshold]]>
       </documentation>
-      <condition>$inputVariable.payload/ns2:canAffordVehcileFinancing == true()</condition>
+      <condition>$inputVariable.payload/ns2:nettIncome &gt;= 8500</condition>
       <assign name="SetCanAfford">
         <copy>
-          <from>$outputVariable.payload/ns2:canAfford = true()</from>
+          <from>true()</from>
           <to>$outputVariable.payload/ns2:canAfford</to>
+        </copy>
+        <copy>
+          <from> 'Customer income too low'</from>
+          <to>$outputVariable.payload/ns2:reason</to>
         </copy>
       </assign>
       <else>
+        <documentation>
+          <![CDATA[Income Is Below Threshold]]>
+        </documentation>
         <assign name="SetCannotAfford">
           <copy>
-            <from>$outputVariable.payload$outputVariable.payload/ns2:canAfford = false()</from>
+            <from>false()</from>
             <to>$outputVariable.payload/ns2:canAfford</to>
           </copy>
         </assign>

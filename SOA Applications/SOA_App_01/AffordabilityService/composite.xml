@@ -14,9 +14,6 @@
           location="AffordabilityProcessService.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1"
           location="AffordabilityDecisionService1.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1"
-          location="AffordabilityDecisionService1Wrapper.wsdl"
-          importType="wsdl"/>
   <service name="AffordabilityProcessServiceClient_ep"
            ui:wsdlLocation="AffordabilityProcessService.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService#wsdl.interface(AffordabilityProcessService)"/>
@@ -35,9 +32,5 @@
   <wire>
     <source.uri>AffordabilityProcessServiceClient_ep</source.uri>
     <target.uri>AffordabilityProcessService/AffordabilityProcessServiceClient</target.uri>
-  </wire>
-  <wire>
-    <source.uri>AffordabilityProcessService/AffordabilityRule1.AffordabilityDecisionService1</source.uri>
-    <target.uri>AffordabilityRule1/AffordabilityDecisionService1</target.uri>
   </wire>
 </composite>
