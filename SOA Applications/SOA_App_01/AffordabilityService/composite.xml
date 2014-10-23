@@ -12,8 +12,6 @@
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
   <import namespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
           location="AffordabilityProcessService.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1"
-          location="AffordabilityDecisionService1.wsdl" importType="wsdl"/>
   <service name="AffordabilityProcessServiceClient_ep"
            ui:wsdlLocation="AffordabilityProcessService.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService#wsdl.interface(AffordabilityProcessService)"/>
@@ -25,9 +23,6 @@
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
               many="false">async.persist</property>
-  </component>
-  <component name="AffordabilityRule1">
-    <implementation.decision src="AffordabilityRule1.decs"/>
   </component>
   <wire>
     <source.uri>AffordabilityProcessServiceClient_ep</source.uri>

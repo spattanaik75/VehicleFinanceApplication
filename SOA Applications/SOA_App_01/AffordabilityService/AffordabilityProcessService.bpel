@@ -28,7 +28,8 @@
          xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
          xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
          xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
-         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <import namespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService" location="AffordabilityProcessService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
@@ -58,6 +59,8 @@
 
     <!-- Reference to the message that will be returned to the requester-->
     <variable name="outputVariable" messageType="client:AffordabilityProcessServiceResponseMessage"/>
+    <variable name="AmountLeft" type="xsd:double"/>
+    <variable name="MaximumAllowedLoan" type="xsd:double"/>
   </variables>
 
   <!-- 
@@ -71,29 +74,93 @@
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in AffordabilityProcessService.wsdl) -->
     <receive name="receiveInput" partnerLink="AffordabilityProcessServiceClient" portType="client:AffordabilityProcessService" operation="process" variable="inputVariable" createInstance="yes"/>
-    <if name="TestNettIncomeResult">
+    <assign name="AssignCanAffordByDefault">
+      <copy>
+        <from>true()</from>
+        <to>$outputVariable.payload/ns2:canAfford</to>
+      </copy>
+    </assign>
+    <if name="TestNettIncome">
       <documentation>
         <![CDATA[Income Is Above Threshold]]>
       </documentation>
       <condition>$inputVariable.payload/ns2:nettIncome &gt;= 8500</condition>
-      <assign name="SetCanAfford">
-        <copy>
-          <from>true()</from>
-          <to>$outputVariable.payload/ns2:canAfford</to>
-        </copy>
-        <copy>
-          <from> 'Customer income too low'</from>
-          <to>$outputVariable.payload/ns2:reason</to>
-        </copy>
-      </assign>
+      <sequence>
+        <assign name="AssignAmountLeft">
+          <copy>
+            <from>$inputVariable.payload/ns2:nettIncome - ($inputVariable.payload/ns2:totalMonthlyExpenses + $inputVariable.payload/ns2:totalMonthlyCredit)</from>
+            <to>$AmountLeft</to>
+          </copy>
+        </assign>
+        <if name="TestAmountLeft">
+          <documentation>
+            <![CDATA[AmountLeft Is Greater Than 5000]]>
+          </documentation>
+          <condition>$AmountLeft &gt;= 5000</condition>
+          <sequence name="Sequence2">
+            <assign name="AssignMaximumAllowedLoan">
+              <copy>
+                <from>($AmountLeft * 0.35) * 60</from>
+                <to>$MaximumAllowedLoan</to>
+              </copy>
+            </assign>
+            <if name="TestMaximumLoanAmount">
+              <documentation>
+                <![CDATA[If Requested Loan Amount Is Within Limit]]>
+              </documentation>
+              <condition>$MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount</condition>
+              <assign name="AssignCanAfford">
+                <copy>
+                  <from>true()</from>
+                  <to>$outputVariable.payload/ns2:canAfford</to>
+                </copy>
+              </assign>
+              <else>
+                <documentation>
+                  <![CDATA[If Requested Loan Amount Is Beyond Limit]]>
+                </documentation>
+                <assign name="AssignCanNotAfford">
+                  <copy>
+                    <from>false()</from>
+                    <to>$outputVariable.payload/ns2:canAfford</to>
+                  </copy>
+                  <copy>
+                    <from> concat('Customer Cannot Be Granted Loan Amount Above ', $MaximumAllowedLoan)</from>
+                    <to>$outputVariable.payload/ns2:reason</to>
+                  </copy>
+                </assign>
+              </else>
+            </if>
+          </sequence>
+          <else>
+            <documentation>
+              <![CDATA[AmountLeft is Less Than 5000]]>
+            </documentation>
+            <assign name="AssignCanNotAfford">
+              <copy>
+                <from>false() </from>
+                <to>$outputVariable.payload/ns2:canAfford</to>
+              </copy>
+              <copy>
+                <from>'Customer amount left is insufficient after expenses'</from>
+                <to>$outputVariable.payload/ns2:reason</to>
+              </copy>
+            </assign>
+          </else>
+        </if>
+      </sequence>
       <else>
         <documentation>
           <![CDATA[Income Is Below Threshold]]>
         </documentation>
-        <assign name="SetCannotAfford">
+        <assign name="AssignCannotAfford">
           <copy>
             <from>false()</from>
             <to>$outputVariable.payload/ns2:canAfford</to>
+          </copy>
+          <copy>
+            <from>'Customer Nett Income is less than R8500'</from>
+            <to>$outputVariable.payload/ns2:reason</to>
           </copy>
         </assign>
       </else>
