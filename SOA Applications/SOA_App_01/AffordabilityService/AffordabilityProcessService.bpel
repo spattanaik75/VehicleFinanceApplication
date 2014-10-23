@@ -61,6 +61,11 @@
     <variable name="outputVariable" messageType="client:AffordabilityProcessServiceResponseMessage"/>
     <variable name="AmountLeft" type="xsd:double"/>
     <variable name="MaximumAllowedLoan" type="xsd:double"/>
+    <variable name="FixedNumberOfTerms" type="xsd:double">
+      <from variable="MaximumAllowedLoan"/>
+    </variable>
+    <variable name="FixedInterestRate" type="xsd:double"/>
+    <variable name="AmountLeftAfterInstalment" type="xsd:double"/>
   </variables>
 
   <!-- 
@@ -98,17 +103,47 @@
           </documentation>
           <condition>$AmountLeft &gt;= 5000</condition>
           <sequence name="Sequence2">
-            <assign name="AssignMaximumAllowedLoan">
+            <assign name="AssignFixedInterestRate">
               <copy>
-                <from>($AmountLeft * 0.35) * 60</from>
-                <to>$MaximumAllowedLoan</to>
+                <from>0.135</from>
+                <to>$FixedInterestRate</to>
               </copy>
             </assign>
-            <if name="TestMaximumLoanAmount">
+            <assign name="SetFixedNumberOfTerms">
+              <copy>
+                <from> 60</from>
+                <to>$FixedNumberOfTerms</to>
+              </copy>
+            </assign>
+            <assign name="CalculateAmountLeft">
+              <copy>
+                <from>$inputVariable.payload/ns2:nettIncome - ($inputVariable.payload/ns2:totalMonthlyExpenses + $inputVariable.payload/ns2:totalMonthlyCredit)</from>
+                <to>$AmountLeft</to>
+              </copy>
+            </assign>
+            <flow name="ParallelFlowTest">
+              <sequence name="MaximumAllowedLoanSequence">
+                <assign name="DetermineMaximumAllowedLoan">
+                  <copy>
+                    <from>($AmountLeft * 0.35) * 60</from>
+                    <to>$MaximumAllowedLoan</to>
+                  </copy>
+                </assign>
+              </sequence>
+              <sequence name="AmountLeftAfterDesiredInstalment">
+                <assign name="DetermineAmountLeftAfterInstalment">
+                  <copy>
+                    <from>((($inputVariable.payload/ns2:requestedLoanAmount - $inputVariable.payload/ns2:deposit) + $inputVariable.payload/ns2:extrasTotal + $inputVariable.payload/ns2:administrationFee) * $FixedInterestRate) div$inputVariable.payload/ns2:numberOfTerms</from>
+                    <to>$AmountLeftAfterInstalment</to>
+                  </copy>
+                </assign>
+              </sequence>
+            </flow>
+            <if name="TestMaximumLoan">
               <documentation>
                 <![CDATA[If Requested Loan Amount Is Within Limit]]>
               </documentation>
-              <condition>$MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount</condition>
+              <condition>($MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount)  and ($AmountLeftAfterInstalment &gt; 2000)</condition>
               <assign name="AssignCanAfford">
                 <copy>
                   <from>true()</from>
@@ -125,7 +160,7 @@
                     <to>$outputVariable.payload/ns2:canAfford</to>
                   </copy>
                   <copy>
-                    <from> concat('Customer Cannot Be Granted Loan Amount Above ', $MaximumAllowedLoan)</from>
+                    <from>concat(concat('Customer cannot be granted loan amount above R', $MaximumAllowedLoan), ' or customer requested loan amount is too high')</from>
                     <to>$outputVariable.payload/ns2:reason</to>
                   </copy>
                 </assign>

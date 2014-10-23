@@ -1,13 +1,2 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Faults>
-   <Fault>
-      <severity>warning</severity>
-      <loc>/ns:composite/ns:component[@name='AffordabilityRule1/AffordabilityDecisionService1']</loc>
-      <line/>
-      <col/>
-      <file>C:\VehicleFinanceApplication\repo\VehicleFinanceApplication\SOA Applications\SOA_App_01\AffordabilityService\composite.xml</file>
-      <name>C:\VehicleFinanceApplication\repo\VehicleFinanceApplication\SOA Applications\SOA_App_01\AffordabilityService\composite.xml</name>
-      <fix/>
-      <msg>The service "AffordabilityDecisionService1" exposed by component "AffordabilityRule1" is not wired to/used by any other component.</msg>
-   </Fault>
-</Faults>
+<Faults/>
