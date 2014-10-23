@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="AffordabilityProcess"
-             targetNamespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcess"
+<wsdl:definitions name="AffordabilityProcessService"
+             targetNamespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
              xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-             xmlns:client="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcess"
-             xmlns:ns1="http://www.reverside.co.za/schema/vehicle_system"
+             xmlns:client="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
+             xmlns:ns1="http://www.reverside.co.za/schema/affordability-service"
              xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -14,7 +14,7 @@
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
 	<wsdl:types>
 		<schema xmlns="http://www.w3.org/2001/XMLSchema">
-			<import namespace="http://www.reverside.co.za/schema/vehicle_system" schemaLocation="xsd/affordability_service.xsd" />
+			<import namespace="http://www.reverside.co.za/schema/affordability-service" schemaLocation="xsd/AffordabilitySchema.xsd" />
 		</schema>
 	</wsdl:types>
 
@@ -22,11 +22,11 @@
 	MESSAGE TYPE DEFINITION - Definition of the message types used as 
 	part of the port type defintions
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
-	<wsdl:message name="AffordabilityProcessRequestMessage">
-		<wsdl:part name="payload" element="ns1:AffordabilityServiceInput" />
+	<wsdl:message name="AffordabilityProcessServiceRequestMessage">
+		<wsdl:part name="payload" element="ns1:affordabilityServiceRequest" />
 	</wsdl:message>
-	<wsdl:message name="AffordabilityProcessResponseMessage">
-		<wsdl:part name="payload" element="ns1:AffordabilityServiceOutput" />
+	<wsdl:message name="AffordabilityProcessServiceResponseMessage">
+		<wsdl:part name="payload" element="ns1:affordabilityServiceResponse" />
 	</wsdl:message>
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,18 +34,18 @@
 	a logical service unit.
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-	<!-- portType implemented by the AffordabilityProcess BPEL process -->
-	<wsdl:portType name="AffordabilityProcess">
+	<!-- portType implemented by the AffordabilityProcessService BPEL process -->
+	<wsdl:portType name="AffordabilityProcessService">
 		<wsdl:operation name="process">
-			<wsdl:input  message="client:AffordabilityProcessRequestMessage" />
-			<wsdl:output message="client:AffordabilityProcessResponseMessage"/>
+			<wsdl:input  message="client:AffordabilityProcessServiceRequestMessage" />
+			<wsdl:output message="client:AffordabilityProcessServiceResponseMessage"/>
 		</wsdl:operation>
 	</wsdl:portType>
 
 	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	PARTNER LINK TYPE DEFINITION
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
-	<plnk:partnerLinkType name="AffordabilityProcess">
-		<plnk:role name="AffordabilityProcessProvider" portType="client:AffordabilityProcess"/>
+	<plnk:partnerLinkType name="AffordabilityProcessService">
+		<plnk:role name="AffordabilityProcessServiceProvider" portType="client:AffordabilityProcessService"/>
 	</plnk:partnerLinkType>
 </wsdl:definitions>

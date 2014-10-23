@@ -1,9 +1,9 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService_1" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:tns="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService_1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpelpm="http://xmlns.oracle.com/bpel" xmlns:rules="http://xmlns.oracle.com/bpel/rules" xmlns:ns1="http://www.reverside.co.za/schema/vehicle_system">
-   <import namespace="http://www.reverside.co.za/schema/vehicle_system" schemaLocation="affordability_service.xsd"/>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:tns="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpelpm="http://xmlns.oracle.com/bpel" xmlns:rules="http://xmlns.oracle.com/bpel/rules" xmlns:ns1="http://www.reverside.co.za/schema/affordability-service">
+   <import namespace="http://www.reverside.co.za/schema/affordability-service" schemaLocation="AffordabilitySchema.xsd"/>
    <import namespace="http://xmlns.oracle.com/bpel/rules" schemaLocation="DecisionServicePrimitiveTypes.xsd"/>
    <import namespace="http://xmlns.oracle.com/bpel"/>
-   <include schemaLocation="AffordabilityDecisionService_1Types.xsd"/>
+   <include schemaLocation="AffordabilityDecisionService1Types.xsd"/>
    <element name="callFunctionStateless" type="tns:callFunctionStatelessType"/>
    <complexType name="callFunctionStatelessType">
       <sequence>
@@ -36,12 +36,12 @@
    </complexType>
    <complexType name="parameterListType">
       <sequence>
-         <element ref="ns1:AffordabilityServiceInput"/>
+         <element ref="ns1:affordabilityServiceRequest"/>
       </sequence>
    </complexType>
    <complexType name="resultListType">
       <sequence>
-         <element ref="ns1:AffordabilityServiceOutput"/>
+         <element ref="ns1:affordabilityServiceRequest"/>
       </sequence>
    </complexType>
 </schema>

@@ -1,10 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
-   <url n="AffordabilityProcess_bpelFileURL" path="AffordabilityProcess.bpel"/>
-   <value n="AffordabilityProcess_Namespace" v="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcess"/>
-   <value n="AffordabilityProcess_ProcessName" v="AffordabilityProcess"/>
-   <value n="AffordabilityProcess_Template" v="BPEL_SYNC_PROCESS"/>
-   <value n="AffordabilityProcess_wsdl" v="AffordabilityProcess.wsdl"/>
+   <url n="AffordabilityProcessService_bpelFileURL" path="AffordabilityProcessService.bpel"/>
+   <value n="AffordabilityProcessService_Namespace" v="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"/>
+   <value n="AffordabilityProcessService_ProcessName" v="AffordabilityProcessService"/>
+   <value n="AffordabilityProcessService_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="AffordabilityProcessService_wsdl" v="AffordabilityProcessService.wsdl"/>
    <hash n="component-versions">
       <value n="oracle.adfdt.controller.adfc.source.migration.AdfControllerSchemaMigrator" v="11.1.1.1.0"/>
       <value n="oracle.adfdt.controller.common.migrator.ProjectMigrator" v="11.1.1.1.0"/>
@@ -65,7 +65,7 @@
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
    </list>
    <value n="defaultPackage" v="affordabilityservice"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcess"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -407,6 +407,6 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="AffordabilityProcess"/>
+   <value n="ProcessName" v="AffordabilityProcessService"/>
    <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>

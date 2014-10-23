@@ -1,0 +1,171 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Oct 22 16:42:05 CAT 2014
+  Author:  user
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="AffordabilityProcessService"
+               targetNamespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1"
+         xmlns:ns2="http://www.reverside.co.za/schema/affordability-service"
+         xmlns:ns3="http://xmlns.oracle.com/bpel"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <import namespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService" location="AffordabilityProcessService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="AffordabilityProcessServiceClient" partnerLinkType="client:AffordabilityProcessService" myRole="AffordabilityProcessServiceProvider"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:AffordabilityProcessServiceRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:AffordabilityProcessServiceResponseMessage"/>
+    <variable name="AmountLeft" type="xsd:double"/>
+    <variable name="MaximumAllowedLoan" type="xsd:double"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in AffordabilityProcessService.wsdl) -->
+    <receive name="receiveInput" partnerLink="AffordabilityProcessServiceClient" portType="client:AffordabilityProcessService" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignCanAffordByDefault">
+      <copy>
+        <from>true()</from>
+        <to>$outputVariable.payload/ns2:canAfford</to>
+      </copy>
+    </assign>
+    <if name="TestNettIncome">
+      <documentation>
+        <![CDATA[Income Is Above Threshold]]>
+      </documentation>
+      <condition>$inputVariable.payload/ns2:nettIncome &gt;= 8500</condition>
+      <sequence>
+        <assign name="AssignAmountLeft">
+          <copy>
+            <from>$inputVariable.payload/ns2:nettIncome - ($inputVariable.payload/ns2:totalMonthlyExpenses + $inputVariable.payload/ns2:totalMonthlyCredit)</from>
+            <to>$AmountLeft</to>
+          </copy>
+        </assign>
+        <if name="TestAmountLeft">
+          <documentation>
+            <![CDATA[AmountLeft Is Greater Than 5000]]>
+          </documentation>
+          <condition>$AmountLeft &gt;= 5000</condition>
+          <sequence name="Sequence2">
+            <assign name="AssignMaximumAllowedLoan">
+              <copy>
+                <from>($AmountLeft * 0.35) * 60</from>
+                <to>$MaximumAllowedLoan</to>
+              </copy>
+            </assign>
+            <if name="TestMaximumLoanAmount">
+              <documentation>
+                <![CDATA[If Requested Loan Amount Is Within Limit]]>
+              </documentation>
+              <condition>$MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount</condition>
+              <assign name="AssignCanAfford">
+                <copy>
+                  <from>true()</from>
+                  <to>$outputVariable.payload/ns2:canAfford</to>
+                </copy>
+              </assign>
+              <else>
+                <documentation>
+                  <![CDATA[If Requested Loan Amount Is Beyond Limit]]>
+                </documentation>
+                <assign name="AssignCanNotAfford">
+                  <copy>
+                    <from>false()</from>
+                    <to>$outputVariable.payload/ns2:canAfford</to>
+                  </copy>
+                  <copy>
+                    <from> concat('Customer Cannot Be Granted Loan Amount Above ', $MaximumAllowedLoan)</from>
+                    <to>$outputVariable.payload/ns2:reason</to>
+                  </copy>
+                </assign>
+              </else>
+            </if>
+          </sequence>
+          <else>
+            <documentation>
+              <![CDATA[AmountLeft is Less Than 5000]]>
+            </documentation>
+            <assign name="AssignCanNotAfford">
+              <copy>
+                <from>false() </from>
+                <to>$outputVariable.payload/ns2:canAfford</to>
+              </copy>
+              <copy>
+                <from>'Customer amount left is insufficient after expenses'</from>
+                <to>$outputVariable.payload/ns2:reason</to>
+              </copy>
+            </assign>
+          </else>
+        </if>
+      </sequence>
+      <else>
+        <documentation>
+          <![CDATA[Income Is Below Threshold]]>
+        </documentation>
+        <assign name="AssignCannotAfford">
+          <copy>
+            <from>false()</from>
+            <to>$outputVariable.payload/ns2:canAfford</to>
+          </copy>
+          <copy>
+            <from>'Customer Nett Income is less than R8500'</from>
+            <to>$outputVariable.payload/ns2:reason</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="AffordabilityProcessServiceClient" portType="client:AffordabilityProcessService" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

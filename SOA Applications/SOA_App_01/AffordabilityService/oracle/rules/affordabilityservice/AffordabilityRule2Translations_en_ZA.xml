@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<properties>
-   <entry key="AG}-1abc262d:1493718ebf6:-7bfd">If Amount Is Greater Than 5000</entry>
-   <entry key="AG}-1abc262d:1493718ebf6:-7c04">Determine Amount Left</entry>
-   <entry key="AG}-1abc262d:1493718ebf6:-7bff">AmountLeft</entry>
-   <entry key="AG}-1abc262d:1493718ebf6:-7bfe">If Amount Left Is Less Than 5000</entry>
-</properties>

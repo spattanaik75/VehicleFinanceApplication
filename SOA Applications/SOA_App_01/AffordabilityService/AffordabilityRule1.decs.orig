@@ -5,16 +5,16 @@
             <path>AffordabilityService/oracle/rules/affordabilityservice/AffordabilityRule1.rules</path>
         </repository>
     </ruleEngineProvider>
-    <decisionService name="AffordabilityDecisionService_1" ruleEngineProviderReference="OracleRulesSDK" targetNamespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService_1">
+    <decisionService name="AffordabilityDecisionService1" ruleEngineProviderReference="OracleRulesSDK" targetNamespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1">
         <catalog>AffordabilityRule1</catalog>
         <pattern name="CallFunctionStateless">
             <arguments>
-                <call>affordabilityservice.AffordabilityRule1.AffordabilityDecisionService_1</call>
+                <call>affordabilityservice.AffordabilityRule1.AffordabilityDecisionService1</call>
             </arguments>
         </pattern>
         <pattern name="CallFunctionStateful">
             <arguments>
-                <call>affordabilityservice.AffordabilityRule1.AffordabilityDecisionService_1</call>
+                <call>affordabilityservice.AffordabilityRule1.AffordabilityDecisionService1</call>
             </arguments>
         </pattern>
     </decisionService>

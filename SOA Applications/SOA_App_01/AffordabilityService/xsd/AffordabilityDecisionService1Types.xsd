@@ -3,10 +3,10 @@
             attributeFormDefault="unqualified" 
             elementFormDefault="qualified"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns="http://xmlns.oracle.com/AffordabilityRule2/AffordabilityDecisionService_2"
+            xmlns="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1"
             xmlns:bpelpm="http://xmlns.oracle.com/bpel"
-            xmlns:tns="http://xmlns.oracle.com/AffordabilityRule2/AffordabilityDecisionService_2"
-            targetNamespace="http://xmlns.oracle.com/AffordabilityRule2/AffordabilityDecisionService_2">
+            xmlns:tns="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1"
+            targetNamespace="http://xmlns.oracle.com/AffordabilityRule1/AffordabilityDecisionService1">
 
   <!-- 
     Decision Service type definitions.
