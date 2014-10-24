@@ -66,6 +66,7 @@
     </variable>
     <variable name="FixedInterestRate" type="xsd:double"/>
     <variable name="AmountLeftAfterInstalment" type="xsd:double"/>
+    <variable name="InstalmentToBePaid" type="xsd:double"/>
   </variables>
 
   <!-- 
@@ -131,9 +132,15 @@
                 </assign>
               </sequence>
               <sequence name="AmountLeftAfterDesiredInstalment">
-                <assign name="DetermineAmountLeftAfterInstalment">
+                <assign name="DetermineInstalmentAmount">
                   <copy>
                     <from>((($inputVariable.payload/ns2:requestedLoanAmount - $inputVariable.payload/ns2:deposit) + $inputVariable.payload/ns2:extrasTotal + $inputVariable.payload/ns2:administrationFee) * $FixedInterestRate) div$inputVariable.payload/ns2:numberOfTerms</from>
+                    <to>$InstalmentToBePaid</to>
+                  </copy>
+                </assign>
+                <assign name="DetermineAmountLeftAfterInstalment">
+                  <copy>
+                    <from>$AmountLeft - $InstalmentToBePaid</from>
                     <to>$AmountLeftAfterInstalment</to>
                   </copy>
                 </assign>
@@ -143,7 +150,7 @@
               <documentation>
                 <![CDATA[If Requested Loan Amount Is Within Limit]]>
               </documentation>
-              <condition>($MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount)  and ($AmountLeftAfterInstalment &gt; 2000)</condition>
+              <condition>($MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount) and ($AmountLeftAfterInstalment &gt;= 3000)</condition>
               <assign name="AssignCanAfford">
                 <copy>
                   <from>true()</from>
