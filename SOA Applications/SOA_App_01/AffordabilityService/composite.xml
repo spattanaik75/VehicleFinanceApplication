@@ -12,10 +12,13 @@
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
   <import namespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
           location="AffordabilityProcessService.wsdl" importType="wsdl"/>
-  <service name="AffordabilityProcessServiceClient_ep"
+  <service name="AffordabilityService"
            ui:wsdlLocation="AffordabilityProcessService.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService#wsdl.interface(AffordabilityProcessService)"/>
-    <binding.ws port="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService#wsdl.endpoint(AffordabilityProcessServiceClient_ep/AffordabilityProcessService_pt)"/>
+    <binding.ws port="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService#wsdl.endpoint(AffordabilityService/AffordabilityProcessService_pt)">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">NEVER</property>
+    </binding.ws>
   </service>
   <property name="productVersion" type="xs:string" many="false">11.1.1.7.0</property>
   <component name="AffordabilityProcessService" version="2.0">
@@ -25,7 +28,7 @@
               many="false">async.persist</property>
   </component>
   <wire>
-    <source.uri>AffordabilityProcessServiceClient_ep</source.uri>
-    <target.uri>AffordabilityProcessService/AffordabilityProcessServiceClient</target.uri>
+    <source.uri>AffordabilityService</source.uri>
+    <target.uri>AffordabilityProcessService/AffordabilityService</target.uri>
   </wire>
 </composite>

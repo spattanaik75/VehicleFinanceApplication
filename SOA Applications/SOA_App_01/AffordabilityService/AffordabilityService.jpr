@@ -409,4 +409,8 @@
    </hash>
    <value n="ProcessName" v="AffordabilityProcessService"/>
    <value n="Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="UnacceptableInputAffordabilityService_Namespace" v="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/UnacceptableInputAffordabilityService"/>
+   <value n="UnacceptableInputAffordabilityService_ProcessName" v="UnacceptableInputAffordabilityService"/>
+   <value n="UnacceptableInputAffordabilityService_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="UnacceptableInputAffordabilityService_wsdl" v="UnacceptableInputAffordabilityService.wsdl"/>
 </jpr:project>

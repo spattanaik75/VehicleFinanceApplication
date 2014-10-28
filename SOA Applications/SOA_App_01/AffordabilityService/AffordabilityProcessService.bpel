@@ -44,7 +44,9 @@
       used for callback. The location and correlation information associated
       with the client role are automatically set using WS-Addressing.
     -->
-    <partnerLink name="AffordabilityProcessServiceClient" partnerLinkType="client:AffordabilityProcessService" myRole="AffordabilityProcessServiceProvider"/>
+    <partnerLink name="AffordabilityService"
+                 partnerLinkType="client:AffordabilityProcessService"
+                 myRole="AffordabilityProcessServiceProvider"/>
   </partnerLinks>
 
   <!-- 
@@ -69,6 +71,7 @@
     <variable name="InstalmentToBePaid" type="xsd:double"/>
     <variable name="TotalLoanAmountInclusive" type="xsd:double"/>
     <variable name="TotalInterestsToBePaid" type="xsd:double"/>
+    <variable name="ServiceFault" type="xsd:string"/>
   </variables>
 
   <!-- 
@@ -81,107 +84,132 @@
   <sequence name="main">
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in AffordabilityProcessService.wsdl) -->
-    <receive name="receiveInput" partnerLink="AffordabilityProcessServiceClient" portType="client:AffordabilityProcessService" operation="process" variable="inputVariable" createInstance="yes"/>
-    <assign name="AssignCanAffordByDefault">
-      <copy>
-        <from>true()</from>
-        <to>$outputVariable.payload/ns2:canAfford</to>
-      </copy>
-    </assign>
-    <if name="TestNettIncome">
+    <receive name="receiveInput" variable="inputVariable" createInstance="yes"
+             partnerLink="AffordabilityService"
+             portType="client:AffordabilityProcessService" operation="process"/>
+    <if name="CheckIfInputIsValid">
       <documentation>
-        <![CDATA[Income Is Above Threshold]]>
+        <![CDATA[Validations Passed]]>
       </documentation>
-      <condition>$inputVariable.payload/ns2:nettIncome &gt;= 8500</condition>
+      <condition>($inputVariable.payload/ns2:requestedLoanAmount &gt;= 20000.00) and ($inputVariable.payload/ns2:nettIncome &gt;= 8500) and ($inputVariable.payload/ns2:totalMonthlyExpenses &gt; 0) and ($inputVariable.payload/ns2:numberOfTerms &lt;= 60) and ($inputVariable.payload/ns2:deposit &gt;= ($inputVariable.payload/ns2:requestedLoanAmount * 0.1))</condition>
       <sequence>
-        <assign name="AssignAmountLeft">
+        <assign name="AssignCanAffordByDefault">
           <copy>
-            <from>$inputVariable.payload/ns2:nettIncome - ($inputVariable.payload/ns2:totalMonthlyExpenses + $inputVariable.payload/ns2:totalMonthlyCredit)</from>
-            <to>$AmountLeft</to>
+            <from>true()</from>
+            <to>$outputVariable.payload/ns2:canAfford</to>
           </copy>
         </assign>
-        <if name="TestAmountLeft">
+        <if name="TestNettIncome">
           <documentation>
-            <![CDATA[AmountLeft Is Greater Than 5000]]>
+            <![CDATA[Income Is Above Threshold]]>
           </documentation>
-          <condition>$AmountLeft &gt;= 5000</condition>
-          <sequence name="Sequence2">
-            <assign name="AssignFixedInterestRate">
-              <copy>
-                <from>0.135</from>
-                <to>$FixedInterestRate</to>
-              </copy>
-            </assign>
-            <assign name="SetFixedNumberOfTerms">
-              <copy>
-                <from> 60</from>
-                <to>$FixedNumberOfTerms</to>
-              </copy>
-            </assign>
-            <assign name="CalculateAmountLeft">
+          <condition>$inputVariable.payload/ns2:nettIncome &gt;= 8500</condition>
+          <sequence>
+            <assign name="AssignAmountLeft">
               <copy>
                 <from>$inputVariable.payload/ns2:nettIncome - ($inputVariable.payload/ns2:totalMonthlyExpenses + $inputVariable.payload/ns2:totalMonthlyCredit)</from>
                 <to>$AmountLeft</to>
               </copy>
             </assign>
-            <flow name="ParallelFlowTest">
-              <sequence name="MaximumAllowedLoanSequence">
-                <assign name="DetermineMaximumAllowedLoan">
-                  <copy>
-                    <from>($AmountLeft * 0.35) * 60</from>
-                    <to>$MaximumAllowedLoan</to>
-                  </copy>
-                </assign>
-              </sequence>
-              <sequence name="AmountLeftAfterDesiredInstalment">
-                <assign name="DetermineTotalLoanAmountInclusive">
-                  <copy>
-                    <from>(($inputVariable.payload/ns2:requestedLoanAmount - $inputVariable.payload/ns2:deposit) + $inputVariable.payload/ns2:extrasTotal + $inputVariable.payload/ns2:administrationFee)</from>
-                    <to>$TotalLoanAmountInclusive</to>
-                  </copy>
-                </assign>
-                <assign name="DetermineTotalInterestsToBePaid">
-                  <copy>
-                    <from>$TotalLoanAmountInclusive * $FixedInterestRate</from>
-                    <to>$TotalInterestsToBePaid</to>
-                  </copy>
-                </assign>
-                <assign name="DetermineInstalmentAmount">
-                  <copy>
-                    <from>($TotalLoanAmountInclusive + $TotalInterestsToBePaid) div $inputVariable.payload/ns2:numberOfTerms</from>
-                    <to>$InstalmentToBePaid</to>
-                  </copy>
-                </assign>
-                <assign name="DetermineAmountLeftAfterInstalment">
-                  <copy>
-                    <from>$AmountLeft - $InstalmentToBePaid</from>
-                    <to>$AmountLeftAfterInstalment</to>
-                  </copy>
-                </assign>
-              </sequence>
-            </flow>
-            <if name="TestMaximumLoan">
+            <if name="TestAmountLeft">
               <documentation>
-                <![CDATA[If Requested Loan Amount Is Within Limit]]>
+                <![CDATA[AmountLeft Is Greater Than 5000]]>
               </documentation>
-              <condition>($MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount) and ($AmountLeftAfterInstalment &gt;=2500)</condition>
-              <assign name="AssignCanAfford">
-                <copy>
-                  <from>true()</from>
-                  <to>$outputVariable.payload/ns2:canAfford</to>
-                </copy>
-              </assign>
+              <condition>$AmountLeft &gt;= 5000</condition>
+              <sequence name="Sequence2">
+                <assign name="AssignFixedInterestRate">
+                  <copy>
+                    <from>0.135</from>
+                    <to>$FixedInterestRate</to>
+                  </copy>
+                </assign>
+                <assign name="SetFixedNumberOfTerms">
+                  <copy>
+                    <from> 60</from>
+                    <to>$FixedNumberOfTerms</to>
+                  </copy>
+                </assign>
+                <assign name="CalculateAmountLeft">
+                  <copy>
+                    <from>$inputVariable.payload/ns2:nettIncome - ($inputVariable.payload/ns2:totalMonthlyExpenses + $inputVariable.payload/ns2:totalMonthlyCredit)</from>
+                    <to>$AmountLeft</to>
+                  </copy>
+                </assign>
+                <flow name="ParallelFlowTest">
+                  <sequence name="MaximumAllowedLoanSequence">
+                    <assign name="DetermineMaximumAllowedLoan">
+                      <copy>
+                        <from>($AmountLeft * 0.35) * 60</from>
+                        <to>$MaximumAllowedLoan</to>
+                      </copy>
+                    </assign>
+                  </sequence>
+                  <sequence name="AmountLeftAfterDesiredInstalment">
+                    <assign name="DetermineTotalLoanAmountInclusive">
+                      <copy>
+                        <from>(($inputVariable.payload/ns2:requestedLoanAmount - $inputVariable.payload/ns2:deposit) + $inputVariable.payload/ns2:extrasTotal + $inputVariable.payload/ns2:administrationFee)</from>
+                        <to>$TotalLoanAmountInclusive</to>
+                      </copy>
+                    </assign>
+                    <assign name="DetermineTotalInterestsToBePaid">
+                      <copy>
+                        <from>$TotalLoanAmountInclusive * $FixedInterestRate</from>
+                        <to>$TotalInterestsToBePaid</to>
+                      </copy>
+                    </assign>
+                    <assign name="DetermineInstalmentAmount">
+                      <copy>
+                        <from>($TotalLoanAmountInclusive + $TotalInterestsToBePaid) div $inputVariable.payload/ns2:numberOfTerms</from>
+                        <to>$InstalmentToBePaid</to>
+                      </copy>
+                    </assign>
+                    <assign name="DetermineAmountLeftAfterInstalment">
+                      <copy>
+                        <from>$AmountLeft - $InstalmentToBePaid</from>
+                        <to>$AmountLeftAfterInstalment</to>
+                      </copy>
+                    </assign>
+                  </sequence>
+                </flow>
+                <if name="TestMaximumLoan">
+                  <documentation>
+                    <![CDATA[If Requested Loan Amount Is Within Limit]]>
+                  </documentation>
+                  <condition>($MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount) and ($AmountLeftAfterInstalment &gt;=2500)</condition>
+                  <assign name="AssignCanAfford">
+                    <copy>
+                      <from>true()</from>
+                      <to>$outputVariable.payload/ns2:canAfford</to>
+                    </copy>
+                  </assign>
+                  <else>
+                    <documentation>
+                      <![CDATA[If Requested Loan Amount Is Beyond Limit]]>
+                    </documentation>
+                    <assign name="AssignCanNotAfford">
+                      <copy>
+                        <from>false()</from>
+                        <to>$outputVariable.payload/ns2:canAfford</to>
+                      </copy>
+                      <copy>
+                        <from>concat(concat('Customer cannot be granted loan amount above R', $MaximumAllowedLoan), ' or customer requested loan amount is too high')</from>
+                        <to>$outputVariable.payload/ns2:reason</to>
+                      </copy>
+                    </assign>
+                  </else>
+                </if>
+              </sequence>
               <else>
                 <documentation>
-                  <![CDATA[If Requested Loan Amount Is Beyond Limit]]>
+                  <![CDATA[AmountLeft is Less Than 5000]]>
                 </documentation>
                 <assign name="AssignCanNotAfford">
                   <copy>
-                    <from>false()</from>
+                    <from>false() </from>
                     <to>$outputVariable.payload/ns2:canAfford</to>
                   </copy>
                   <copy>
-                    <from>concat(concat('Customer cannot be granted loan amount above R', $MaximumAllowedLoan), ' or customer requested loan amount is too high')</from>
+                    <from>'Customer amount left is insufficient after expenses'</from>
                     <to>$outputVariable.payload/ns2:reason</to>
                   </copy>
                 </assign>
@@ -190,15 +218,15 @@
           </sequence>
           <else>
             <documentation>
-              <![CDATA[AmountLeft is Less Than 5000]]>
+              <![CDATA[Income Is Below Threshold]]>
             </documentation>
-            <assign name="AssignCanNotAfford">
+            <assign name="AssignCannotAfford">
               <copy>
-                <from>false() </from>
+                <from>false()</from>
                 <to>$outputVariable.payload/ns2:canAfford</to>
               </copy>
               <copy>
-                <from>'Customer amount left is insufficient after expenses'</from>
+                <from>'Customer Nett Income is less than R8500'</from>
                 <to>$outputVariable.payload/ns2:reason</to>
               </copy>
             </assign>
@@ -207,21 +235,20 @@
       </sequence>
       <else>
         <documentation>
-          <![CDATA[Income Is Below Threshold]]>
+          <![CDATA[Some Inputs Are Invalid]]>
         </documentation>
-        <assign name="AssignCannotAfford">
-          <copy>
-            <from>false()</from>
-            <to>$outputVariable.payload/ns2:canAfford</to>
-          </copy>
-          <copy>
-            <from>'Customer Nett Income is less than R8500'</from>
-            <to>$outputVariable.payload/ns2:reason</to>
-          </copy>
-        </assign>
+        <sequence name="Sequence3">
+          <assign name="AssignServiceFault">
+            <copy>
+              <from>'Some Inputs Are Invalid'</from>
+              <to>$ServiceFault</to>
+            </copy>
+          </assign>
+          <throw name="ThrowInvalidInputError" faultVariable="ServiceFault"/>
+        </sequence>
       </else>
     </if>
     <!-- Generate reply to synchronous request -->
-    <reply name="replyOutput" partnerLink="AffordabilityProcessServiceClient" portType="client:AffordabilityProcessService" operation="process" variable="outputVariable"/>
+    <reply name="replyOutput" partnerLink="AffordabilityService" portType="client:AffordabilityProcessService" operation="process" variable="outputVariable"/>
   </sequence>
 </process>
