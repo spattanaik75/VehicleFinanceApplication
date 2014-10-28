@@ -1,0 +1,25 @@
+<?binding.jca assetCostSelect_db.jca?>
+<wsdl:definitions name="assetCostSelect" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCostSelect" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/assetCostSelect" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCostSelect" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="assetCostSelect_plt">
+        <plt:role name="assetCostSelect_role">
+            <plt:portType name="tns:assetCostSelect_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/assetCostSelect" schemaLocation="xsd/assetCostSelect.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="assetCostSelectInput_msg">
+        <wsdl:part name="assetCostSelectInput_msg" element="db:assetCostSelectInput"/>
+    </wsdl:message>
+    <wsdl:message name="assetCostSelectOutput_msg">
+        <wsdl:part name="assetCostSelectOutput" element="db:assetCostSelectOutput"/>
+    </wsdl:message>
+    <wsdl:portType name="assetCostSelect_ptt">
+        <wsdl:operation name="assetCostSelect">
+            <wsdl:input message="tns:assetCostSelectInput_msg"/>
+            <wsdl:output message="tns:assetCostSelectOutput_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

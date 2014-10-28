@@ -1,0 +1,13 @@
+<adapter-config name="contactInfoSelect" adapter="Database Adapter" wsdlLocation="contactInfoSelect.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/test" UIConnectionName="test" adapterRef=""/>
+  <endpoint-interaction portType="contactInfoSelect_ptt" operation="contactInfoSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="SELECT MAX(CONTACT_ID) FROM CONTACT_INFO"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

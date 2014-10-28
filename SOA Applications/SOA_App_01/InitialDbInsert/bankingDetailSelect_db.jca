@@ -1,0 +1,13 @@
+<adapter-config name="bankingDetailSelect" adapter="Database Adapter" wsdlLocation="bankingDetailSelect.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/test" UIConnectionName="test" adapterRef=""/>
+  <endpoint-interaction portType="bankingDetailSelect_ptt" operation="bankingDetailSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="SELECT MAX(BANKING_DETAIL_ID) FROM BANKING_DETAIL"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

@@ -1,0 +1,13 @@
+<adapter-config name="dealDetailsSelect" adapter="Database Adapter" wsdlLocation="dealDetailsSelect.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/test" UIConnectionName="test" adapterRef=""/>
+  <endpoint-interaction portType="dealDetailsSelect_ptt" operation="dealDetailsSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="SELECT MAX(DEAL_DETAILS_ID) FROM DEAL_DETAILS"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <input/>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

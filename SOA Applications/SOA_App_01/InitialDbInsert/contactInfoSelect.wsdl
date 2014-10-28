@@ -1,0 +1,25 @@
+<?binding.jca contactInfoSelect_db.jca?>
+<wsdl:definitions name="contactInfoSelect" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/contactInfoSelect" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/contactInfoSelect" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/contactInfoSelect" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="contactInfoSelect_plt">
+        <plt:role name="contactInfoSelect_role">
+            <plt:portType name="tns:contactInfoSelect_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/contactInfoSelect" schemaLocation="xsd/contactInfoSelect.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="contactInfoSelectInput_msg">
+        <wsdl:part name="contactInfoSelectInput_msg" element="db:contactInfoSelectInput"/>
+    </wsdl:message>
+    <wsdl:message name="contactInfoSelectOutput_msg">
+        <wsdl:part name="contactInfoSelectOutput" element="db:contactInfoSelectOutput"/>
+    </wsdl:message>
+    <wsdl:portType name="contactInfoSelect_ptt">
+        <wsdl:operation name="contactInfoSelect">
+            <wsdl:input message="tns:contactInfoSelectInput_msg"/>
+            <wsdl:output message="tns:contactInfoSelectOutput_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
