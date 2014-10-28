@@ -1,0 +1,80 @@
+
+------------------------------------------------------
+Vehicle Finance Affordability Service - Specification
+------------------------------------------------------
+
+------------------------
+Constraints
+------------------------
+- The loan amount must not be less than R20000.00
+- Nett Income cannot be less than R8500.00
+- Total Monthly expenses cannot be R0.00
+- Terms of repayments cannot exceed 60 months
+- Deposit must be strictly 10% or more of the total vehicle selling price
+
+-----------------------
+Inputs
+-----------------------
+- Requested Loan Amount
+- Deposit
+- Total Monthly Expenses
+- Total Monthly Credit (credit with other creditors)
+- Total Extras Total 
+(Costs of extra vehicle features excluded from the purchase price, i.e. Alarm System, Automated Door System)
+- Administration Fee - Once Off
+- Number Of Terms (In months)
+
+-----------------------
+Fixed Values
+-----------------------
+Interest Rate: 13%
+
+-----------------------
+Outputs
+-----------------------
+Can Afford - True if the customer can afford, else false.
+Reason - if CanAfford is false then a reason is populated.
+
+-----------------------
+Rules
+-----------------------
+
+The customer is able to afford the loan if they meet all the points given below - if one
+point fails in the sequence, then it is regarded as the client cannot afford the loan:
+
+1.	The customer must earn a nett income of at least R8500 per month. 
+The service assumes that the income is deposited into their bank account each month and the customer
+must have worked for at least 3 months (in combination with the current and previous employer).
+
+2.	If so, then we calculate the amount the customer will be left with after their basic expenses and credit are deducted:
+
+Amount Left = Nett Income - (Total Monthly Expenses + Total Credit)
+
+If the customer is left with an amount less than R5000 after this calculation above, then
+the customer is deemed as being unable to afford a vehicle loan.
+
+3. If the customer is left with an amount equal to or greater than R5000 per month, from the calculation above then
+the maximum loan amount is calculated that the person can be granted.
+
+CALCULATION (A):
+
+Amount Left = Nett Income - (Total Monthly Expenses + Total Credit)
+Fixed Number of Terms = 60
+
+Maximum Allowed Loan Amount (Over 60 months / 5 years) = (Amount Left * 35% of Amount Left) * Fixed Number of Terms
+ 
+if Maximum Allowed Loan Amount > Requested Loan Amount then the customer cannot
+qualify for a loan.  
+
+CALCULATION (B):
+
+If the customer requested loan amount that they are allowed to be granted, then the following
+calculation is performed:
+
+Amount Left = Nett Income - (Total Monthly Expenses + Total Credit)
+Instalments to be paid = (((Loan Amount - Deposit) + Extras Total + Admin Fees) * Interest Rate) / Number of Terms
+
+if (Amount Left - Instalments to be paid) is greater than or equal to 3500, 
+then the customer qualifies for the loan.
+
+Both calculations A and B must pass for the customer to be deemed to be able to afford.
