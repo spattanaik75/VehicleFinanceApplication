@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process name="InitialParentInsert" targetNamespace="http://xmlns.oracle.com/InitialParentInsert/InitialParentInsert/InitialParentInsert" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/InitialParentInsert/InitialParentInsert/InitialParentInsert" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/InitialParentInsert/InitialParentInsert/financialApplicationInsert" xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/InitialParentInsert/InitialParentInsert/customerInsert" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/InitialParentInsert/InitialParentInsert/customerSelect" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.example.org" xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/customerInsert" xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/customerSelect" xmlns:ns7="http://xmlns.oracle.com/pcbpel/adapter/db/top/financialApplicationInsert" id="BpPrc0">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="initialparentinsert_client" partnerLinkType="client:InitialParentInsert" myRole="InitialParentInsertProvider"/>
+    <partnerLink name="financialApplicationInsert" partnerLinkType="ns1:financialApplicationInsert_plt" partnerRole="financialApplicationInsert_role"/>
+    <partnerLink name="customerInsert" partnerLinkType="ns2:customerInsert_plt" partnerRole="customerInsert_role"/>
+    <partnerLink name="customerSelect" partnerLinkType="ns3:customerSelect_plt" partnerRole="customerSelect_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:InitialParentInsertRequestMessage"/>
+    <variable name="Invoke1_insert_InputVariable" messageType="ns2:CustomerCollection_msg"/>
+    <variable name="SelectCustomerID_customerSelect_InputVariable" messageType="ns3:customerSelectInput_msg"/>
+    <variable name="SelectCustomerID_customerSelect_OutputVariable" messageType="ns3:customerSelectOutput_msg"/>
+    <variable name="InsertFinancialApplication_insert_InputVariable" messageType="ns1:FinancialApplicationCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main" id="BpSeq0">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in InitialParentInsert.wsdl) -->
+    <receive name="receiveInput" partnerLink="initialparentinsert_client" portType="client:InitialParentInsert" operation="process" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
+    <assign name="assignCustvalues" id="BpAss0">
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns4:customerAndFinancialApplication/ns4:personId"/>
+        <to variable="Invoke1_insert_InputVariable" part="CustomerCollection" query="/ns5:CustomerCollection/ns5:Customer/ns5:personId"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns4:customerAndFinancialApplication/ns4:contactId"/>
+        <to variable="Invoke1_insert_InputVariable" part="CustomerCollection" query="/ns5:CustomerCollection/ns5:Customer/ns5:contactId"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns4:customerAndFinancialApplication/ns4:bankingDetailId"/>
+        <to variable="Invoke1_insert_InputVariable" part="CustomerCollection" query="/ns5:CustomerCollection/ns5:Customer/ns5:bankingDetailId"/>
+      </copy>
+    </assign>
+    <invoke name="InsertCustomer" inputVariable="Invoke1_insert_InputVariable" partnerLink="customerInsert" portType="ns2:customerInsert_ptt" operation="insert" bpelx:invokeAsDetail="no" id="BpInv0"/>
+    <invoke name="SelectCustomerID" inputVariable="SelectCustomerID_customerSelect_InputVariable" outputVariable="SelectCustomerID_customerSelect_OutputVariable" partnerLink="customerSelect" portType="ns3:customerSelect_ptt" operation="customerSelect" bpelx:invokeAsDetail="no" id="BpInv1"/>
+    <assign name="assignFA" id="BpAss1">
+      <copy>
+        <from variable="SelectCustomerID_customerSelect_OutputVariable" part="customerSelectOutput" query="/ns6:customerSelectOutput/ns6:MAX_CUST_ID_"/>
+        <to variable="InsertFinancialApplication_insert_InputVariable" part="FinancialApplicationCollection" query="/ns7:FinancialApplicationCollection/ns7:FinancialApplication/ns7:custId"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns4:customerAndFinancialApplication/ns4:assetCostId"/>
+        <to variable="InsertFinancialApplication_insert_InputVariable" part="FinancialApplicationCollection" query="/ns7:FinancialApplicationCollection/ns7:FinancialApplication/ns7:assetCostId"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns4:customerAndFinancialApplication/ns4:assetDetailsId"/>
+        <to variable="InsertFinancialApplication_insert_InputVariable" part="FinancialApplicationCollection" query="/ns7:FinancialApplicationCollection/ns7:FinancialApplication/ns7:assetDetailsId"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload" query="/ns4:customerAndFinancialApplication/ns4:dealDetailsId"/>
+        <to variable="InsertFinancialApplication_insert_InputVariable" part="FinancialApplicationCollection" query="/ns7:FinancialApplicationCollection/ns7:FinancialApplication/ns7:dealDetailsId"/>
+      </copy>
+    </assign>
+    <invoke name="InsertFinancialApplication" inputVariable="InsertFinancialApplication_insert_InputVariable" partnerLink="financialApplicationInsert" portType="ns1:financialApplicationInsert_ptt" operation="insert" bpelx:invokeAsDetail="no" id="BpInv2"/>
+  </sequence>
+</process><!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Oct 28 13:51:43 CAT 2014
+  Author:  user
+  Type: BPEL 1.1 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->

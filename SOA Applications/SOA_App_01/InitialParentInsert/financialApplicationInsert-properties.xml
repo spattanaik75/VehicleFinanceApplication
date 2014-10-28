@@ -1,0 +1,46 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">FINANCIAL_APPLICATION</entry>
+   <entry key="FINANCIAL_APPLICATION.DATE_CREATED:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.FINANCIAL_APPLICATION_ID:db_column_type">NUMBER</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_9">IS_DECLINED</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_8">DOCUMENTS_SUBMITTED_ID</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_7">IS_APPROVED</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_6">IS_QUALIFIED</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_5">DEAL_DETAILS_ID</entry>
+   <entry key="FINANCIAL_APPLICATION.DOCUMENTS_SUBMITTED_ID:db_column_type">NUMBER</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_4">ASSET_DETAILS_ID</entry>
+   <entry key="FINANCIAL_APPLICATION.CUST_ID:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_DECLINED:db_column_not_null">false</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_3">ASSET_COST_ID</entry>
+   <entry key="FINANCIAL_APPLICATION.DATE_CREATED:db_column_type">DATE</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_2">CUST_ID</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_1">DATE_CREATED</entry>
+   <entry key="FINANCIAL_APPLICATION:db_column_0">FINANCIAL_APPLICATION_ID</entry>
+   <entry key="FINANCIAL_APPLICATION:db_table_type">TABLE</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_DECLINED:db_column_type">VARCHAR2</entry>
+   <entry key="FINANCIAL_APPLICATION.CUST_ID:db_column_precision">0</entry>
+   <entry key="FINANCIAL_APPLICATION.ASSET_DETAILS_ID:db_column_precision">0</entry>
+   <entry key="FINANCIAL_APPLICATION.ASSET_COST_ID:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_QUALIFIED:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_QUALIFIED:db_column_type">VARCHAR2</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_APPROVED:db_column_type">VARCHAR2</entry>
+   <entry key="FINANCIAL_APPLICATION.ASSET_COST_ID:db_column_precision">0</entry>
+   <entry key="FINANCIAL_APPLICATION.ASSET_DETAILS_ID:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.ASSET_DETAILS_ID:db_column_type">NUMBER</entry>
+   <entry key="FINANCIAL_APPLICATION.FINANCIAL_APPLICATION_ID:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_DECLINED:db_column_size">20</entry>
+   <entry key="FINANCIAL_APPLICATION.ASSET_COST_ID:db_column_type">NUMBER</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_QUALIFIED:db_column_size">20</entry>
+   <entry key="FINANCIAL_APPLICATION.DEAL_DETAILS_ID:db_column_precision">0</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_APPROVED:db_column_size">20</entry>
+   <entry key="FINANCIAL_APPLICATION.DOCUMENTS_SUBMITTED_ID:db_column_precision">0</entry>
+   <entry key="FINANCIAL_APPLICATION.CUST_ID:db_column_type">NUMBER</entry>
+   <entry key="FINANCIAL_APPLICATION.IS_APPROVED:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.FINANCIAL_APPLICATION_ID:db_column_precision">20</entry>
+   <entry key="FINANCIAL_APPLICATION.DOCUMENTS_SUBMITTED_ID:db_column_not_null">false</entry>
+   <entry key="FINANCIAL_APPLICATION.DEAL_DETAILS_ID:db_column_not_null">true</entry>
+   <entry key="FINANCIAL_APPLICATION.DEAL_DETAILS_ID:db_column_type">NUMBER</entry>
+   <entry key="FINANCIAL_APPLICATION.FINANCIAL_APPLICATION_ID:db_column_scale">0</entry>
+</properties>
