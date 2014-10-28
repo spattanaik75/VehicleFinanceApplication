@@ -1,0 +1,25 @@
+<?binding.jca customerSelect_db.jca?>
+<wsdl:definitions name="customerSelect" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/InitialParentInsert/InitialParentInsert/customerSelect" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/customerSelect" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/InitialParentInsert/InitialParentInsert/customerSelect" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="customerSelect_plt">
+        <plt:role name="customerSelect_role">
+            <plt:portType name="tns:customerSelect_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/customerSelect" schemaLocation="xsd/customerSelect.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="customerSelectInput_msg">
+        <wsdl:part name="customerSelectInput_msg" element="db:customerSelectInput"/>
+    </wsdl:message>
+    <wsdl:message name="customerSelectOutput_msg">
+        <wsdl:part name="customerSelectOutput" element="db:customerSelectOutput"/>
+    </wsdl:message>
+    <wsdl:portType name="customerSelect_ptt">
+        <wsdl:operation name="customerSelect">
+            <wsdl:input message="tns:customerSelectInput_msg"/>
+            <wsdl:output message="tns:customerSelectOutput_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

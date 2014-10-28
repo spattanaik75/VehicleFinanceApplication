@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:caf="http://www.example.org"
+            targetNamespace="http://www.example.org"
+            elementFormDefault="qualified">
+  <xsd:element name="customerAndFinancialApplication"
+               type="caf:customerAndFinancialApplicationType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A sample element
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="customerAndFinancialApplicationType">
+    <xsd:sequence>
+      <xsd:element name="personId" type="xsd:int"/>
+      <xsd:element name="contactId" type="xsd:int"/>
+      <xsd:element name="userId" type="xsd:int"/>
+      <xsd:element name="bankingDetailId" type="xsd:int"/>
+      <xsd:element name="dateCreated" type="xsd:date"/>
+      <xsd:element name="custId" type="xsd:int"/>
+      <xsd:element name="assetCostId" type="xsd:int"/>
+      <xsd:element name="assetDetailsId" type="xsd:int"/>
+      <xsd:element name="dealDetailsId" type="xsd:int"/>
+      <xsd:element name="isQualified" type="xsd:string"/>
+      <xsd:element name="isApproved" type="xsd:string"/>
+      <xsd:element name="documentsSubmittedId" type="xsd:int"/>
+      <xsd:element name="isDeclined" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
