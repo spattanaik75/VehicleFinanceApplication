@@ -19,7 +19,6 @@
         <xsd:element name="deposit" type="xsd:double"/>
         <xsd:element name="extrasTotal" type="xsd:double"/>
         <xsd:element name="administrationFee" type="xsd:double"/>
-        <xsd:element name="canAffordVehcileFinancing" type="xsd:boolean"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>

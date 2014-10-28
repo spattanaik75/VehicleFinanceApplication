@@ -238,8 +238,16 @@
           <![CDATA[Some Inputs Are Invalid]]>
         </documentation>
         <sequence name="Sequence3">
-          <throw name="ThrowInvalidInputError" faultVariable="ServiceFault"
-                 faultName="bpel:invalidVariables"/>
+          <assign name="AssignCannotAfford">
+            <copy>
+              <from>'User entered some invalid inputs'</from>
+              <to>$outputVariable.payload/ns2:reason</to>
+            </copy>
+            <copy>
+              <from>false()</from>
+              <to>$outputVariable.payload/ns2:canAfford</to>
+            </copy>
+          </assign>
         </sequence>
       </else>
     </if>
