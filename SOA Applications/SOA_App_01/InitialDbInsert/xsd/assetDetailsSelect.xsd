@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/assetDetailsSelect" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/assetDetailsSelect" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="assetDetailsSelectInput" type="assetDetailsSelectInput"/>
+   <xs:complexType name="assetDetailsSelectInput">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="assetDetailsSelectOutput" type="assetDetailsSelectOutput"/>
+   <xs:complexType name="assetDetailsSelectOutput">
+      <xs:sequence>
+         <xs:element name="MAX_ASSET_DETAILS_ID_" type="xs:decimal" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

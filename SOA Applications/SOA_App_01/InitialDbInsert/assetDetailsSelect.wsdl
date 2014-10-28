@@ -1,0 +1,25 @@
+<?binding.jca assetDetailsSelect_db.jca?>
+<wsdl:definitions name="assetDetailsSelect" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetailsSelect" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/assetDetailsSelect" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetailsSelect" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <plt:partnerLinkType name="assetDetailsSelect_plt">
+        <plt:role name="assetDetailsSelect_role">
+            <plt:portType name="tns:assetDetailsSelect_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/assetDetailsSelect" schemaLocation="xsd/assetDetailsSelect.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="assetDetailsSelectInput_msg">
+        <wsdl:part name="assetDetailsSelectInput_msg" element="db:assetDetailsSelectInput"/>
+    </wsdl:message>
+    <wsdl:message name="assetDetailsSelectOutput_msg">
+        <wsdl:part name="assetDetailsSelectOutput" element="db:assetDetailsSelectOutput"/>
+    </wsdl:message>
+    <wsdl:portType name="assetDetailsSelect_ptt">
+        <wsdl:operation name="assetDetailsSelect">
+            <wsdl:input message="tns:assetDetailsSelectInput_msg"/>
+            <wsdl:output message="tns:assetDetailsSelectOutput_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

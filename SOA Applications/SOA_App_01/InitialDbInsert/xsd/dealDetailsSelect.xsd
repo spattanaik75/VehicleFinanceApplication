@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/dealDetailsSelect" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/dealDetailsSelect" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="dealDetailsSelectInput" type="dealDetailsSelectInput"/>
+   <xs:complexType name="dealDetailsSelectInput">
+      <xs:sequence/>
+   </xs:complexType>
+   <xs:element name="dealDetailsSelectOutput" type="dealDetailsSelectOutput"/>
+   <xs:complexType name="dealDetailsSelectOutput">
+      <xs:sequence>
+         <xs:element name="MAX_DEAL_DETAILS_ID_" type="xs:decimal" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

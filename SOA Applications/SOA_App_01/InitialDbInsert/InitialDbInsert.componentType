@@ -25,4 +25,25 @@
   <reference name="assetDetails" ui:wsdlLocation="assetDetails.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetails#wsdl.interface(assetDetails_ptt)"/>
   </reference>
+  <reference name="assetCostSelect" ui:wsdlLocation="assetCostSelect.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCostSelect#wsdl.interface(assetCostSelect_ptt)"/>
+  </reference>
+  <reference name="assetDetailsSelect"
+             ui:wsdlLocation="assetDetailsSelect.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetailsSelect#wsdl.interface(assetDetailsSelect_ptt)"/>
+  </reference>
+  <reference name="personalInfoSelect"
+             ui:wsdlLocation="personalInfoSelect.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/personalInfoSelect#wsdl.interface(personalInfoSelect_ptt)"/>
+  </reference>
+  <reference name="contactInfoSelect" ui:wsdlLocation="contactInfoSelect.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/contactInfoSelect#wsdl.interface(contactInfoSelect_ptt)"/>
+  </reference>
+  <reference name="dealDetailsSelect" ui:wsdlLocation="dealDetailsSelect.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/dealDetailsSelect#wsdl.interface(dealDetailsSelect_ptt)"/>
+  </reference>
+  <reference name="bankingDetailSelect"
+             ui:wsdlLocation="bankingDetailSelect.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/bankingDetailSelect#wsdl.interface(bankingDetailSelect_ptt)"/>
+  </reference>
 </componentType>

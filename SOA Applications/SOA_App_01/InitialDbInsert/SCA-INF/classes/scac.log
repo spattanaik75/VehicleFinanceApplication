@@ -1,24 +1,24 @@
-23 Oct 2014 10:59:18 AM oracle.mds
+28 Oct 2014 1:31:19 PM oracle.mds
 NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
-23 Oct 2014 10:59:19 AM oracle.security.jps.internal.config.xml.XmlConfigurationFactory initDefaultConfiguration
+28 Oct 2014 1:31:19 PM oracle.security.jps.internal.config.xml.XmlConfigurationFactory initDefaultConfiguration
 SEVERE: java.io.FileNotFoundException: .\config\jps-config.xml (The system cannot find the path specified)
-23 Oct 2014 10:59:19 AM oracle.mds
+28 Oct 2014 1:31:19 PM oracle.mds
 NOTIFICATION: Auditing is disabled for component MDS.
-23 Oct 2014 10:59:19 AM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+28 Oct 2014 1:31:19 PM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
 INFO: XMLSchema incremental build enabled.
-23 Oct 2014 10:59:19 AM com.collaxa.cube.CubeLogger info
+28 Oct 2014 1:31:20 PM com.collaxa.cube.CubeLogger info
 INFO: validating "InitialDbInsert.bpel" ...
-23 Oct 2014 10:59:19 AM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+28 Oct 2014 1:31:20 PM oracle.integration.platform.blocks.FabricConfigManager <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-23 Oct 2014 10:59:19 AM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+28 Oct 2014 1:31:20 PM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
 WARNING: JRF is unable to determine the current application server platform.
-23 Oct 2014 10:59:20 AM com.collaxa.cube.CubeLogger info
-INFO: Composed "InitialDbInsert" in 78.5 milliseconds [nodes 24=0+24, 305.6 nodes/sec]
-23 Oct 2014 10:59:24 AM com.collaxa.cube.CubeLogger info
-INFO: Compiled "InitialDbInsert" in 3.624 seconds
-23 Oct 2014 10:59:24 AM com.collaxa.cube.CubeLogger info
-INFO: Gathered 3 files in 1.3 milliseconds
+28 Oct 2014 1:31:20 PM com.collaxa.cube.CubeLogger info
+INFO: Composed "InitialDbInsert" in 71.5 milliseconds [nodes 38=0+38, 531.6 nodes/sec]
+28 Oct 2014 1:31:21 PM com.collaxa.cube.CubeLogger info
+INFO: Compiled "InitialDbInsert" in 1.261 seconds
+28 Oct 2014 1:31:21 PM com.collaxa.cube.CubeLogger info
+INFO: Gathered 3 files in 0.5 milliseconds
 
-23 Oct 2014 10:59:24 AM com.collaxa.cube.CubeLogger info
-INFO: Packaged "InitialDbInsert" in 249.6 milliseconds
+28 Oct 2014 1:31:21 PM com.collaxa.cube.CubeLogger info
+INFO: Packaged "InitialDbInsert" in 8.9 milliseconds
 

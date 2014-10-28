@@ -30,7 +30,28 @@
          xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/bankingDetail"
          xmlns:ns11="http://xmlns.oracle.com/pcbpel/adapter/db/top/dealDetails"
          xmlns:ns12="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetDetails"
-         xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetCost">
+         xmlns:ns13="http://xmlns.oracle.com/pcbpel/adapter/db/top/assetCost"
+         xmlns:ns14="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetCostSelect"
+         xmlns:ns15="http://xmlns.oracle.com/pcbpel/adapter/db/assetCostSelect"
+         xmlns:ns16="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/assetDetailsSelect"
+         xmlns:ns17="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/personalInfoSelect"
+         xmlns:ns18="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/contactInfoSelect"
+         xmlns:ns19="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/dealDetailsSelect"
+         xmlns:ns20="http://xmlns.oracle.com/pcbpel/adapter/db/IntialDBInsert/InitialDbInsert/bankingDetailSelect"
+         xmlns:ns21="http://xmlns.oracle.com/pcbpel/adapter/db/assetDetailsSelect"
+         xmlns:ns22="http://xmlns.oracle.com/pcbpel/adapter/db/dealDetailsSelect"
+         xmlns:ns23="http://xmlns.oracle.com/pcbpel/adapter/db/personalInfoSelect"
+         xmlns:ns24="http://xmlns.oracle.com/pcbpel/adapter/db/contactInfoSelect"
+         xmlns:ns25="http://xmlns.oracle.com/pcbpel/adapter/db/bankingDetailSelect"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap">
 
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,6 +78,24 @@
                  partnerRole="dealDetails_role"/>
     <partnerLink name="assetDetails" partnerLinkType="ns6:assetDetails_plt"
                  partnerRole="assetDetails_role"/>
+    <partnerLink name="assetCostSelect"
+                 partnerLinkType="ns14:assetCostSelect_plt"
+                 partnerRole="assetCostSelect_role"/>
+    <partnerLink name="assetDetailsSelect"
+                 partnerLinkType="ns16:assetDetailsSelect_plt"
+                 partnerRole="assetDetailsSelect_role"/>
+    <partnerLink name="personalInfoSelect"
+                 partnerLinkType="ns17:personalInfoSelect_plt"
+                 partnerRole="personalInfoSelect_role"/>
+    <partnerLink name="contactInfoSelect"
+                 partnerLinkType="ns18:contactInfoSelect_plt"
+                 partnerRole="contactInfoSelect_role"/>
+    <partnerLink name="dealDetailsSelect"
+                 partnerLinkType="ns19:dealDetailsSelect_plt"
+                 partnerRole="dealDetailsSelect_role"/>
+    <partnerLink name="bankingDetailSelect"
+                 partnerLinkType="ns20:bankingDetailSelect_plt"
+                 partnerRole="bankingDetailSelect_role"/>
   </partnerLinks>
 
   <!-- 
@@ -83,6 +122,30 @@
               messageType="ns2:PersonalInfoCollection_msg"/>
     <variable name="contact_insert_InputVariable"
               messageType="ns3:ContactInfoCollection_msg"/>
+    <variable name="Invoke1_assetCostSelect_InputVariable"
+              messageType="ns14:assetCostSelectInput_msg"/>
+    <variable name="Invoke1_assetCostSelect_OutputVariable"
+              messageType="ns14:assetCostSelectOutput_msg"/>
+    <variable name="assetDetails_assetDetailsSelect_InputVariable"
+              messageType="ns16:assetDetailsSelectInput_msg"/>
+    <variable name="assetDetails_assetDetailsSelect_OutputVariable"
+              messageType="ns16:assetDetailsSelectOutput_msg"/>
+    <variable name="dealSelect_dealDetailsSelect_InputVariable"
+              messageType="ns19:dealDetailsSelectInput_msg"/>
+    <variable name="dealSelect_dealDetailsSelect_OutputVariable"
+              messageType="ns19:dealDetailsSelectOutput_msg"/>
+    <variable name="personalSelect_personalInfoSelect_InputVariable"
+              messageType="ns17:personalInfoSelectInput_msg"/>
+    <variable name="personalSelect_personalInfoSelect_OutputVariable"
+              messageType="ns17:personalInfoSelectOutput_msg"/>
+    <variable name="contactSelect_contactInfoSelect_InputVariable"
+              messageType="ns18:contactInfoSelectInput_msg"/>
+    <variable name="contactSelect_contactInfoSelect_OutputVariable"
+              messageType="ns18:contactInfoSelectOutput_msg"/>
+    <variable name="bankingSelect_bankingDetailSelect_InputVariable"
+              messageType="ns20:bankingDetailSelectInput_msg"/>
+    <variable name="bankingSelect_bankingDetailSelect_OutputVariable"
+              messageType="ns20:bankingDetailSelectOutput_msg"/>
   </variables>
 
   <!-- 
@@ -385,6 +448,105 @@
               operation="insert" bpelx:invokeAsDetail="no"/>
    </sequence>
     </flow>
+    <flow name="Flow2">
+      <sequence name="Sequence11">
+        <invoke name="personalSelect"
+                inputVariable="personalSelect_personalInfoSelect_InputVariable"
+                outputVariable="personalSelect_personalInfoSelect_OutputVariable"
+                partnerLink="personalInfoSelect"
+                portType="ns17:personalInfoSelect_ptt"
+                operation="personalInfoSelect" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence10">
+        <invoke name="contactSelect"
+                inputVariable="contactSelect_contactInfoSelect_InputVariable"
+                outputVariable="contactSelect_contactInfoSelect_OutputVariable"
+                partnerLink="contactInfoSelect"
+                portType="ns18:contactInfoSelect_ptt"
+                operation="contactInfoSelect" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence9">
+        <invoke name="bankingSelect"
+                inputVariable="bankingSelect_bankingDetailSelect_InputVariable"
+                outputVariable="bankingSelect_bankingDetailSelect_OutputVariable"
+                partnerLink="bankingDetailSelect"
+                portType="ns20:bankingDetailSelect_ptt"
+                operation="bankingDetailSelect" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence8">
+        <invoke name="dealSelect"
+                inputVariable="dealSelect_dealDetailsSelect_InputVariable"
+                outputVariable="dealSelect_dealDetailsSelect_OutputVariable"
+                partnerLink="dealDetailsSelect"
+                portType="ns19:dealDetailsSelect_ptt"
+                operation="dealDetailsSelect" bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence">
+        <invoke name="assetCostSelect"
+                inputVariable="Invoke1_assetCostSelect_InputVariable"
+                outputVariable="Invoke1_assetCostSelect_OutputVariable"
+                partnerLink="assetCostSelect"
+                portType="ns14:assetCostSelect_ptt" operation="assetCostSelect"
+                bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <sequence name="Sequence7">
+        <invoke name="assetDetails"
+                inputVariable="assetDetails_assetDetailsSelect_InputVariable"
+                outputVariable="assetDetails_assetDetailsSelect_OutputVariable"
+                partnerLink="assetDetailsSelect"
+                portType="ns16:assetDetailsSelect_ptt"
+                operation="assetDetailsSelect" bpelx:invokeAsDetail="no"/>
+      </sequence>
+    </flow>
+    <assign name="AssignOutput">
+      <copy>
+        <from variable="Invoke1_assetCostSelect_OutputVariable"
+              part="assetCostSelectOutput"
+              query="/ns15:assetCostSelectOutput/ns15:MAX_ASSET_COST_ID_"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns7:customerAndFinancialApplication/ns7:assetCostId"/>
+      </copy>
+      <copy>
+        <from variable="assetDetails_assetDetailsSelect_OutputVariable"
+              part="assetDetailsSelectOutput"
+              query="/ns21:assetDetailsSelectOutput/ns21:MAX_ASSET_DETAILS_ID_"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns7:customerAndFinancialApplication/ns7:assetDetailsId"/>
+      </copy>
+      <copy>
+        <from variable="personalSelect_personalInfoSelect_OutputVariable"
+              part="personalInfoSelectOutput"
+              query="/ns23:personalInfoSelectOutput/ns23:MAX_PERSON_ID_"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns7:customerAndFinancialApplication/ns7:personId"/>
+      </copy>
+      <copy>
+        <from variable="dealSelect_dealDetailsSelect_OutputVariable"
+              part="dealDetailsSelectOutput"
+              query="/ns22:dealDetailsSelectOutput/ns22:MAX_DEAL_DETAILS_ID_"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns7:customerAndFinancialApplication/ns7:dealDetailsId"/>
+      </copy>
+      <copy>
+        <from variable="contactSelect_contactInfoSelect_OutputVariable"
+              part="contactInfoSelectOutput"
+              query="/ns24:contactInfoSelectOutput/ns24:MAX_CONTACT_ID_"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns7:customerAndFinancialApplication/ns7:contactId"/>
+      </copy>
+      <copy>
+        <from variable="bankingSelect_bankingDetailSelect_OutputVariable"
+              part="bankingDetailSelectOutput"
+              query="/ns25:bankingDetailSelectOutput/ns25:MAX_BANKING_DETAIL_ID_"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns7:customerAndFinancialApplication/ns7:bankingDetailId"/>
+      </copy>
+      <copy>
+        <from expression="xp20:current-date()"/>
+        <to variable="outputVariable" part="payload"
+            query="/ns7:customerAndFinancialApplication/ns7:dateCreated"/>
+      </copy>
+    </assign>
     <!-- Generate reply to synchronous request -->
     <reply name="replyOutput" partnerLink="initialdbinsert_client" portType="client:InitialDbInsert" operation="process" variable="outputVariable"/>
   </sequence>
