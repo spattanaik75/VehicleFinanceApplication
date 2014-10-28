@@ -238,13 +238,8 @@
           <![CDATA[Some Inputs Are Invalid]]>
         </documentation>
         <sequence name="Sequence3">
-          <assign name="AssignServiceFault">
-            <copy>
-              <from>'Some Inputs Are Invalid'</from>
-              <to>$ServiceFault</to>
-            </copy>
-          </assign>
-          <throw name="ThrowInvalidInputError" faultVariable="ServiceFault"/>
+          <throw name="ThrowInvalidInputError" faultVariable="ServiceFault"
+                 faultName="bpel:invalidVariables"/>
         </sequence>
       </else>
     </if>
