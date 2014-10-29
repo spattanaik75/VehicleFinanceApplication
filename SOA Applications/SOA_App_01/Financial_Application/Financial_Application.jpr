@@ -60,6 +60,12 @@
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
    </list>
    <value n="defaultPackage" v="financial_application"/>
+   <url n="FinancialApplication_bpelFileURL" path="FinancialApplication.bpel"/>
+   <value n="FinancialApplication_Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"/>
+   <value n="FinancialApplication_ProcessName" v="FinancialApplication"/>
+   <value n="FinancialApplication_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="FinancialApplication_wsdl" v="FinancialApplication.wsdl"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -352,4 +358,6 @@
          </list>
       </hash>
    </hash>
+   <value n="ProcessName" v="FinancialApplication"/>
+   <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>
