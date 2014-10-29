@@ -1,0 +1,90 @@
+--------------------------------------------------------------------------------
+VEHICLE FINANCIAL APPLICATION BPEL PROCESS
+--------------------------------------------------------------------------------
+
+This is a synchrnous BPEL process used for the processing of the Financial 
+Application and notify the user the status of the Application. 
+
+--------------------------------------------------------------------------------
+INPUTS
+--------------------------------------------------------------------------------
+
+* FirstNames
+* LastName
+* Gender
+* DOB
+* IdNum
+* Email
+* CellNum
+* AddressLine1
+* AddressLine2
+* AddressLine3
+* AddressLine4
+* AreaCode
+* BankName
+* AccountHolderName
+* AccountNumber
+* AccountTypeId
+* BranchCode
+* DateChanged
+* PaymentTypeId
+* PaymentFreq
+* PaymentMethod
+* IsFixedInterestRate
+* PurchasePrice
+* ExtrasTotal
+* Deposit
+* Terms
+* BalloonPercentage
+* AdminFees
+* DealerAmt
+* CategoryId
+* IsNewCar
+* MakeDesc 
+* ModelName
+* KmTravelled
+* Requested Loan Amount
+* Deposit
+* Total Monthly Expenses
+* Total Monthly Credit
+* Total Extras Total 
+* Administration Fee
+* Number Of Terms (In months)
+ 
+
+--------------------------------------------------------------------------------
+OUTPUTS
+--------------------------------------------------------------------------------
+
+
+* ApplicationId
+* Status
+
+--------------------------------------------------------------------------------
+BUSINESS LOGIC
+--------------------------------------------------------------------------------
+
+** The Application ID is generated.
+
+** Bpel process calls the Notify.jws webservice which takes Application ID and 
+   status as input and notifies the user via Email/sms that Application has been
+   submitted.
+
+** Bpel process then calls the Affordability check webservice to see if the 
+   person can afford the loan or not.Gets a boolean value (true/false) and reason
+   for application rejection as output.
+
+** If the canAfford value is FALSE then the process calls NOtify.jws which is a
+   one way bpel process to notify the user.
+
+** If the canAfford value is TRUE then the process continues with the invocation
+   of Credit check web service.
+
+** CreditRating.jws takes the IdNum as input and determines whether the user 
+   qualifies or not and returns a status field.
+
+** If CreditRating is not good then again Notify.jws is called which is one of 
+   the process endpoints.
+
+** Else Add the user to the Qualified list and Ask him to submit the necessary
+  p documents.
