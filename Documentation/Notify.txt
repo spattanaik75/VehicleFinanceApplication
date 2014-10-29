@@ -1,0 +1,16 @@
+-------------------
+NOTIFY WEB SERVICE
+-------------------
+
+This is a one way web service is invoked to send a user notification.
+
+
+-------------------
+INPUTS
+-------------------
+
+* ApplicationID
+* UserName
+* Email
+* Mobile
+* status

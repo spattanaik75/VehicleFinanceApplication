@@ -1,0 +1,5 @@
+This application Generates the Application ID , 
+application status = "Application Submitted"
+dateCreated = "CurrentDate"
+
+Mail these information to the user

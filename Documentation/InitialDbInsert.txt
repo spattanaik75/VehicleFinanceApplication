@@ -1,0 +1,64 @@
+------------------------------------------------------------------
+VEHICLE FINANCIAL APPLICATION INTIAL CHILD TABLE INSERT WEBSERVICE
+------------------------------------------------------------------
+
+This web service is used to populate 6 tables such as PERSONAL_INFO, CONTACT_INFO,
+BANK_DETAILS, DEAL_DETAILS, ASSET_COST, ASSET_DETAILS
+
+-------
+INPUTS
+-------
+
+* FirstNames
+* LastName
+* Gender
+* DOB
+* IdNum
+* Email
+* CellNum
+* AddressLine1
+* AddressLine2
+* AddressLine3
+* AddressLine4
+* AreaCode
+* BankName
+* AccountHolderName
+* AccountNumber
+* AccountTypeId
+* BranchCode
+* DateChanged
+* PaymentTypeId
+* PaymentFreq
+* PaymentMethod
+* IsFixedInterestRate
+* PurchasePrice
+* ExtrasTotal
+* Deposit
+* Terms
+* BalloonPercentage
+* AdminFees
+* DealerAmt
+* CategoryId
+* IsNewCar
+* MakeDesc 
+* ModelName
+* KmTravelled
+
+--------
+OUTPUTS
+--------
+
+* personId
+* contactId
+* userId
+* bankingDetailId
+* dateCreated
+* custId
+* assetCostId
+* dealDetailsId
+* isQualified
+* isApproved
+* documentsSubmitted
+* isDeclined
+
+--------- 

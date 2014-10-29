@@ -5,9 +5,7 @@
             elementFormDefault="qualified">
   <xsd:element name="customer_info" type="ci:customer_info_type">
     <xsd:annotation>
-      <xsd:documentation>
-        A sample element
-      </xsd:documentation>
+      <xsd:documentation>A sample element</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
   <xsd:complexType name="customer_info_type">
@@ -46,6 +44,15 @@
       <xsd:element name="MakeDesc" type="xsd:int"/>
       <xsd:element name="ModelName" type="xsd:string"/>
       <xsd:element name="KmTravelled" type="xsd:int"/>
+      <xsd:element name="requestedLoanAmount" type="xsd:double"/>
+      <xsd:element name="nettIncome" type="xsd:double"/>
+      <xsd:element name="totalMonthlyExpenses" type="xsd:double"/>
+      <xsd:element name="numberOfTerms" type="xsd:integer"/>
+      <xsd:element name="totalMonthlyCredit" type="xsd:double"/>
+      <xsd:element name="deposit" type="xsd:double"/>
+      <xsd:element name="extrasTotal" type="xsd:double"/>
+      <xsd:element name="administrationFee" type="xsd:double"/>
+      <xsd:element name="canAffordVehcileFinancing" type="xsd:boolean"/>
     </xsd:sequence>
   </xsd:complexType>
 </xsd:schema>
