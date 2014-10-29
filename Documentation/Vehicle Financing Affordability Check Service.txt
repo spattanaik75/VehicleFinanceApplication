@@ -78,3 +78,17 @@ if (Amount Left - Instalments to be paid) is greater than or equal to 2500,
 then the customer qualifies for the loan.
 
 Both calculations A and B must pass for the customer to be deemed to be able to afford.
+
+----------------------------------
+WSDL Information
+----------------------------------
+The url for the WSDL is:
+http://tsepo.reverside.co.za:8001/soa-infra/services/default/AffordabilityService/AffordabilityService?wsdl
+
+
+
+----------------------------------
+CONTRIBUTORS
+----------------------------------
+Sandiswa
+Tsepo
