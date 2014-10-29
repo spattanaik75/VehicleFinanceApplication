@@ -1,2 +1,6 @@
+# The GIT Ignore File for the SOA applications
 
 **/classes/**
+**/.rulesdesigner/**
+**/deploy/**
+**/.data/**
