@@ -15,7 +15,7 @@ Constraints
 -----------------------
 Inputs
 -----------------------
-- Requested Loan Amount
+- Requested Loan Amount (Purchase Price of the vehicle)
 - Deposit
 - Nett Income (Gross Income - Deductions such as Tax, Pension, UIF etc)
 - Total Monthly Expenses
