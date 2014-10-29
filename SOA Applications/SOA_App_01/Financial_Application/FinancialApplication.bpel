@@ -1,0 +1,214 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Oct 29 11:23:47 CAT 2014
+  Author:  user
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="FinancialApplication"
+               targetNamespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/SOA_App_01/AffordabilityServiceDummy/BPELProcess1"
+         xmlns:ns2="http://xmlns.oracle.com/SOA_App_01/Notify/Notify"
+         xmlns:ns3="http://xmlns.oracle.com/CreditRating/CreditRating/BPELProcess1"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns4="http://www.reverside.co.za/schema/affordability-service"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns5="http://www.example.org"
+         xmlns:ns6="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/finanacialApplicationStatusFlag"
+         xmlns:ns7="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"
+         xmlns:ns8="http://xmlns.oracle.com/InitialParentInsert/InitialParentInsert/InitialParentInsert">
+
+    <import namespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication" location="FinancialApplication.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="financialapplication_client" partnerLinkType="client:FinancialApplication" myRole="FinancialApplicationProvider"/>
+    <partnerLink name="AffordabilityCheck" partnerLinkType="ns1:BPELProcess1"
+                 partnerRole="BPELProcess1Provider"/>
+    <partnerLink name="Notify" partnerLinkType="ns2:Notify"
+                 partnerRole="NotifyProvider"/>
+    <partnerLink name="CreditCheckDummy" partnerLinkType="ns3:BPELProcess1"
+                 partnerRole="BPELProcess1Provider"/>
+    <partnerLink name="finanacialApplicationStatusFlag"
+                 partnerLinkType="ns6:finanacialApplicationStatusFlag_plt"
+                 partnerRole="finanacialApplicationStatusFlag_role"/>
+    <partnerLink name="InitialChildTableInsert"
+                 partnerLinkType="ns7:InitialDbInsert"
+                 partnerRole="InitialDbInsertProvider"/>
+    <partnerLink name="InitialParentPopulate"
+                 partnerLinkType="ns8:InitialParentInsert"
+                 partnerRole="InitialParentInsertProvider"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:FinancialApplicationRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:FinancialApplicationResponseMessage"/>
+    <variable name="Invoke1_process_InputVariable"
+              messageType="ns2:NotifyRequestMessage"/>
+    <variable name="AffordabilityCheck_process_InputVariable"
+              messageType="ns1:BPELProcess1RequestMessage"/>
+    <variable name="AffordabilityCheck_process_OutputVariable"
+              messageType="ns1:BPELProcess1ResponseMessage"/>
+    <variable name="Invoke1_update_InputVariable"
+              messageType="ns6:FinancialApplicationCollection_msg"/>
+    <variable name="InputFinancial"
+              messageType="ns6:FinancialApplicationCollection_msg"/>
+    <variable name="InputFinancialFail"
+              messageType="ns6:FinancialApplicationCollection_msg"/>
+    <variable name="NotifyFail_InputWebservice"
+              messageType="ns2:NotifyRequestMessage"/>
+    <variable name="NotifyPass_InputWebservice"
+              messageType="ns2:NotifyRequestMessage"/>
+    <variable name="CreditCheck_process_InputVariable"
+              messageType="ns3:BPELProcess1RequestMessage"/>
+    <variable name="CreditCheck_process_OutputVariable"
+              messageType="ns3:BPELProcess1ResponseMessage"/>
+    <variable name="InitialDBInsert_process_InputVariable"
+              messageType="ns7:InitialDbInsertRequestMessage"/>
+    <variable name="InitialDBInsert_process_OutputVariable"
+              messageType="ns7:InitialDbInsertResponseMessage"/>
+    <variable name="ParentInsert_process_InputVariable"
+              messageType="ns8:InitialParentInsertRequestMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in FinancialApplication.wsdl) -->
+    <receive name="receiveInput" partnerLink="financialapplication_client" portType="client:FinancialApplication" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="NotifyInput"></assign>
+    <invoke name="NotifyInsert" partnerLink="Notify"
+            portType="ns2:Notify" operation="process"
+            inputVariable="Invoke1_process_InputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="InitialDBInsertInput"></assign>
+    <invoke name="InitialDBInsert"
+            partnerLink="InitialChildTableInsert"
+            portType="ns7:InitialDbInsert" operation="process"
+            inputVariable="InitialDBInsert_process_InputVariable"
+            outputVariable="InitialDBInsert_process_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="ParentInsertInput"></assign>
+    <invoke name="ParentInsert"
+            partnerLink="InitialParentPopulate"
+            portType="ns8:InitialParentInsert" operation="process"
+            inputVariable="ParentInsert_process_InputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="AffordabilityInput"></assign>
+    <invoke name="AffordabilityCheck"
+            partnerLink="AffordabilityCheck" portType="ns1:BPELProcess1"
+            operation="process"
+            inputVariable="AffordabilityCheck_process_InputVariable"
+            outputVariable="AffordabilityCheck_process_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="If1">
+      <documentation>
+        <![CDATA[pass]]>
+      </documentation>
+      <condition>$AffordabilityCheck_process_OutputVariable.payload/ns5:canAfford == "true"</condition>
+      <sequence name="Sequence1">
+        <assign name="InputFinancialPass"></assign>
+        <invoke name="financialappPass"
+                partnerLink="finanacialApplicationStatusFlag"
+                portType="ns6:finanacialApplicationStatusFlag_ptt"
+                operation="update" inputVariable="InputFinancial"
+                bpelx:invokeAsDetail="no"/>
+        <invoke name="NotifyPass"
+                partnerLink="Notify" portType="ns2:Notify" operation="process"
+                inputVariable="NotifyPass_InputWebservice"
+                bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <else>
+        <documentation>
+          <![CDATA[fail]]>
+        </documentation>
+        <sequence name="Sequence2">
+          <assign name="InputFinancialFail"></assign>
+          <invoke name="financialappFail"
+                  partnerLink="finanacialApplicationStatusFlag"
+                  portType="ns6:finanacialApplicationStatusFlag_ptt"
+                  operation="update" inputVariable="InputFinancialFail"
+                  bpelx:invokeAsDetail="no"/>
+          <invoke name="NotifyFail"
+                  partnerLink="Notify" portType="ns2:Notify"
+                  operation="process"
+                  inputVariable="NotifyFail_InputWebservice"
+                  bpelx:invokeAsDetail="no"/>
+          <exit name="Exit1"/>
+        </sequence>
+      </else>
+    </if>
+    <assign name="InputCreditCheck"></assign>
+    <invoke name="CreditCheck"
+            partnerLink="CreditCheckDummy" portType="ns3:BPELProcess1"
+            operation="process"
+            inputVariable="CreditCheck_process_InputVariable"
+            outputVariable="CreditCheck_process_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="If2">
+      <documentation>
+        <![CDATA[pass]]>
+      </documentation>
+      <condition/>
+      <sequence name="Sequence3">
+        <assign name="Assign1"></assign>
+        <invoke name="InsertFlag"/>
+        <invoke name="Notify"/>
+      </sequence>
+      <else>
+        <documentation>
+          <![CDATA[fail]]>
+        </documentation>
+        <sequence name="Sequence4">
+          <assign name="Assign2"></assign>
+          <invoke name="InsertFlag"/>
+          <invoke name="Notify"/>
+          <exit name="Exit2"/>
+        </sequence>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="financialapplication_client" portType="client:FinancialApplication" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>
