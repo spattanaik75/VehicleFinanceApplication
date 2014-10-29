@@ -135,16 +135,24 @@
                     <to>$AmountLeft</to>
                   </copy>
                 </assign>
-                <flow name="ParallelFlowTest">
-                  <sequence name="MaximumAllowedLoanSequence">
-                    <assign name="DetermineMaximumAllowedLoan">
+                <assign name="DetermineMaximumAllowedLoan">
+                  <copy>
+                    <from>($AmountLeft * 0.35) * 60</from>
+                    <to>$MaximumAllowedLoan</to>
+                  </copy>
+                </assign>
+                <if name="TestMaxLoanAllowed">
+                  <documentation>
+                    <![CDATA[Customer Requested Less Than Allowed]]>
+                  </documentation>
+                  <condition>$inputVariable.payload/ns2:requestedLoanAmount &lt;= $MaximumAllowedLoan</condition>
+                  <sequence>
+                    <assign name="CalculateAmountLeft">
                       <copy>
-                        <from>($AmountLeft * 0.35) * 60</from>
-                        <to>$MaximumAllowedLoan</to>
+                        <from>$inputVariable.payload/ns2:nettIncome - ($inputVariable.payload/ns2:totalMonthlyExpenses + $inputVariable.payload/ns2:totalMonthlyCredit)</from>
+                        <to>$AmountLeft</to>
                       </copy>
                     </assign>
-                  </sequence>
-                  <sequence name="AmountLeftAfterDesiredInstalment">
                     <assign name="DetermineTotalLoanAmountInclusive">
                       <copy>
                         <from>(($inputVariable.payload/ns2:requestedLoanAmount - $inputVariable.payload/ns2:deposit) + $inputVariable.payload/ns2:extrasTotal + $inputVariable.payload/ns2:administrationFee)</from>
@@ -169,30 +177,45 @@
                         <to>$AmountLeftAfterInstalment</to>
                       </copy>
                     </assign>
+                    <if name="TestAmountLeftAfterCarInstalment">
+                      <documentation>
+                        <![CDATA[Amount Left After Paying Vehicle Is Sufficient]]>
+                      </documentation>
+                      <condition>$AmountLeftAfterInstalment &gt;=2500</condition>
+                      <assign name="AssignCanAfford">
+                        <copy>
+                          <from>true()</from>
+                          <to>$outputVariable.payload/ns2:canAfford</to>
+                        </copy>
+                      </assign>
+                      <else>
+                        <documentation>
+                          <![CDATA[Amount Left After Paying Vehicle Is Insufficient]]>
+                        </documentation>
+                        <assign name="AssignCanNotAfford">
+                          <copy>
+                            <from>false()</from>
+                            <to>$outputVariable.payload/ns2:canAfford</to>
+                          </copy>
+                          <copy>
+                            <from>concat(concat('Customer will not be left with sufficient income : R', $AmountLeftAfterInstalment), '  after paying loan and other vehicle expenses')</from>
+                            <to>$outputVariable.payload/ns2:reason</to>
+                          </copy>
+                        </assign>
+                      </else>
+                    </if>
                   </sequence>
-                </flow>
-                <if name="TestMaximumLoan">
-                  <documentation>
-                    <![CDATA[If Requested Loan Amount Is Within Limit]]>
-                  </documentation>
-                  <condition>($MaximumAllowedLoan &lt;= $inputVariable.payload/ns2:requestedLoanAmount) and ($AmountLeftAfterInstalment &gt;=2500)</condition>
-                  <assign name="AssignCanAfford">
-                    <copy>
-                      <from>true()</from>
-                      <to>$outputVariable.payload/ns2:canAfford</to>
-                    </copy>
-                  </assign>
                   <else>
                     <documentation>
-                      <![CDATA[If Requested Loan Amount Is Beyond Limit]]>
+                      <![CDATA[Customer Requested More Than Allowed]]>
                     </documentation>
-                    <assign name="AssignCanNotAfford">
+                    <assign name="AssignCannotAfford">
                       <copy>
                         <from>false()</from>
                         <to>$outputVariable.payload/ns2:canAfford</to>
                       </copy>
                       <copy>
-                        <from>concat(concat('Customer cannot be granted loan amount above R', $MaximumAllowedLoan), ' or customer requested loan amount is too high')</from>
+                        <from>concat('Customer cannot be granted loan amount above R', $MaximumAllowedLoan)</from>
                         <to>$outputVariable.payload/ns2:reason</to>
                       </copy>
                     </assign>
