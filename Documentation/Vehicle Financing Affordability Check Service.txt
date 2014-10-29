@@ -74,7 +74,7 @@ calculation is performed:
 Amount Left = Nett Income - (Total Monthly Expenses + Total Credit)
 Instalments to be paid = (((Loan Amount - Deposit) + Extras Total + Admin Fees) * Interest Rate) / Number of Terms
 
-if (Amount Left - Instalments to be paid) is greater than or equal to 3500, 
+if (Amount Left - Instalments to be paid) is greater than or equal to 2500, 
 then the customer qualifies for the loan.
 
 Both calculations A and B must pass for the customer to be deemed to be able to afford.
