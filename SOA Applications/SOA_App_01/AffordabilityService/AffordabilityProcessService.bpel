@@ -91,7 +91,7 @@
       <documentation>
         <![CDATA[Validations Passed]]>
       </documentation>
-      <condition>($inputVariable.payload/ns2:requestedLoanAmount &gt;= 20000.00) and ($inputVariable.payload/ns2:nettIncome &gt;= 8500) and ($inputVariable.payload/ns2:totalMonthlyExpenses &gt; 0) and ($inputVariable.payload/ns2:numberOfTerms &lt;= 60) and ($inputVariable.payload/ns2:deposit &gt;= ($inputVariable.payload/ns2:requestedLoanAmount * 0.1))</condition>
+      <condition>($inputVariable.payload/ns2:requestedLoanAmount &gt;= 20000.00) and ($inputVariable.payload/ns2:nettIncome &gt;= 8500) and ($inputVariable.payload/ns2:totalMonthlyExpenses &gt; 0) and (($inputVariable.payload/ns2:numberOfTerms &gt;= 12) and ($inputVariable.payload/ns2:numberOfTerms &lt;= 60)) and (($inputVariable.payload/ns2:deposit &gt;= ($inputVariable.payload/ns2:requestedLoanAmount * 0.1)) and ($inputVariable.payload/ns2:deposit &lt; ($inputVariable.payload/ns2:requestedLoanAmount * 0.6)))</condition>
       <sequence>
         <assign name="AssignCanAffordByDefault">
           <copy>
@@ -215,7 +215,7 @@
                         <to>$outputVariable.payload/ns2:canAfford</to>
                       </copy>
                       <copy>
-                        <from>concat('Customer cannot be granted loan amount above R', $MaximumAllowedLoan)</from>
+                        <from>concat('Customer cannot be granted loan amount above R',floor( $MaximumAllowedLoan))</from>
                         <to>$outputVariable.payload/ns2:reason</to>
                       </copy>
                     </assign>
@@ -263,7 +263,7 @@
         <sequence name="Sequence3">
           <assign name="AssignCannotAfford">
             <copy>
-              <from>'Could not determine the affordability - please ensure that &amp;#13;the following conditions are met:  &amp;#13; -The purchase price must not be less than R20000.00&amp;#13;- Nett Income cannot be less than R8500.00&amp;#13;- Total Monthly expenses cannot be R0.00&amp;#13;- Terms of repayments cannot exceed 60 months&amp;#13;- Deposit must be strictly 10% or more of the total vehicle selling price'</from>
+              <from>'Could not determine the affordability - please ensure that &amp;#13;the following conditions are met:  &amp;#13; -The purchase price must not be less than R20000.00&amp;#13;- The nett income cannot be less than R8500.00&amp;#13;- Total Monthly expenses cannot be R0.00&amp;#13;- Deposit must be strictly 10% or more of the total vehicle selling price. &amp;#13; - The number of terms should be between 12 and 60 months'</from>
               <to>$outputVariable.payload/ns2:reason</to>
             </copy>
             <copy>
