@@ -7,10 +7,10 @@ Vehicle Finance Affordability Service - Specification
 Constraints
 ------------------------
 - The loan amount must not be less than R20000.00
-- Nett Income cannot be less than R8500.00
-- Total Monthly expenses cannot be R0.00
-- Terms of repayments cannot exceed 60 months
-- Deposit must be strictly 10% or more of the total vehicle selling price
+- The nett income cannot be less than R8500.00
+- Total monthly expenses cannot be R0.00
+- Terms of repayments should be between 12 and 60 months
+- Deposit must be strictly 10% or more of the total vehicle purchase price
 
 -----------------------
 Inputs
@@ -85,8 +85,7 @@ WSDL Information
 ----------------------------------
 The url for the WSDL is:
 http://tsepo.reverside.co.za:8001/soa-infra/services/default/AffordabilityService/AffordabilityService?wsdl
-
-
+Use the InfoPath Form provided under ./Documentation/Affordability Check Form.xsn
 
 ----------------------------------
 CONTRIBUTORS
