@@ -1,0 +1,54 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="root_descriptor_alias">CREDIT_RATING</entry>
+   <entry key="CREDIT_RATING.RECENT_ACC_DURATION:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING:db_table_type">TABLE</entry>
+   <entry key="CREDIT_RATING.LOAN_APPLIED_IN_12_MONTHS:db_column_scale">0</entry>
+   <entry key="CREDIT_RATING.FIRST_LOAN_ACC_DURATION:db_column_precision">16</entry>
+   <entry key="CREDIT_RATING.CREDIT_RATING:db_column_not_null">true</entry>
+   <entry key="CREDIT_RATING.LOAN_APPLIED_IN_12_MONTHS:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING.PAST_DUE_ACCS:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING.NUMBER_OF_ACC_CURRENT_BAL:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING.MISSED_PAYMENT:db_column_precision">16</entry>
+   <entry key="CREDIT_RATING:db_column_9">PAST_DUE_ACCS</entry>
+   <entry key="CREDIT_RATING:db_column_8">MISSED_PAYMENT</entry>
+   <entry key="CREDIT_RATING.RECENT_ACC_DURATION:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING:db_column_7">TOTAL_BALANCE</entry>
+   <entry key="CREDIT_RATING:db_column_6">NUMBER_OF_ACC_CURRENT_BAL</entry>
+   <entry key="CREDIT_RATING:db_column_5">RECENT_ACC_DURATION</entry>
+   <entry key="CREDIT_RATING:db_column_4">LOAN_APPLIED_IN_12_MONTHS</entry>
+   <entry key="CREDIT_RATING:db_column_3">FIRST_LOAN_ACC_DURATION</entry>
+   <entry key="CREDIT_RATING:db_column_2">NUMBER_OF_CC_CARDS</entry>
+   <entry key="CREDIT_RATING.ID_NUM:db_column_type">VARCHAR2</entry>
+   <entry key="CREDIT_RATING.NUMBER_OF_ACC_CURRENT_BAL:db_column_scale">0</entry>
+   <entry key="CREDIT_RATING:db_column_1">CREDIT_RATING</entry>
+   <entry key="CREDIT_RATING:db_column_0">ID_NUM</entry>
+   <entry key="CREDIT_RATING.TOTAL_BALANCE:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING.PAST_DUE_ACCS:db_column_precision">16</entry>
+   <entry key="CREDIT_RATING.RECENT_ACC_DURATION:db_column_precision">16</entry>
+   <entry key="CREDIT_RATING.LOAN_APPLIED_IN_12_MONTHS:db_column_precision">16</entry>
+   <entry key="CREDIT_RATING.CREDIT_RATING:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING.TOTAL_BALANCE:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING.TOTAL_BALANCE:db_column_scale">0</entry>
+   <entry key="CREDIT_RATING.LOAN_APPLIED_IN_12_MONTHS:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING.TOTAL_BALANCE:db_column_precision">16</entry>
+   <entry key="CREDIT_RATING.NUMBER_OF_ACC_CURRENT_BAL:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING.NUMBER_OF_ACC_CURRENT_BAL:db_column_precision">16</entry>
+   <entry key="CREDIT_RATING.ID_NUM:db_column_not_null">true</entry>
+   <entry key="CREDIT_RATING.ID_NUM:db_column_size">20</entry>
+   <entry key="CREDIT_RATING.FIRST_LOAN_ACC_DURATION:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING.MISSED_PAYMENT:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING.NUMBER_OF_CC_CARDS:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING.RECENT_ACC_DURATION:db_column_scale">0</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="CREDIT_RATING.NUMBER_OF_CC_CARDS:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING.MISSED_PAYMENT:db_column_not_null">false</entry>
+   <entry key="CREDIT_RATING.CREDIT_RATING:db_column_precision">0</entry>
+   <entry key="CREDIT_RATING.NUMBER_OF_CC_CARDS:db_column_precision">0</entry>
+   <entry key="CREDIT_RATING.PAST_DUE_ACCS:db_column_scale">0</entry>
+   <entry key="CREDIT_RATING.MISSED_PAYMENT:db_column_scale">0</entry>
+   <entry key="CREDIT_RATING.FIRST_LOAN_ACC_DURATION:db_column_type">NUMBER</entry>
+   <entry key="CREDIT_RATING.FIRST_LOAN_ACC_DURATION:db_column_scale">0</entry>
+   <entry key="CREDIT_RATING.PAST_DUE_ACCS:db_column_type">NUMBER</entry>
+</properties>
