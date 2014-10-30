@@ -2,6 +2,7 @@
 ------------------------------------------------------
 Vehicle Finance Affordability Service - Specification
 ------------------------------------------------------
+Version: 2014-10-30 11:10.00
 
 ------------------------
 Constraints
@@ -62,7 +63,7 @@ CALCULATION (A):
 Amount Left = Nett Income - (Total Monthly Expenses + Total Credit)
 Fixed Number of Terms = 60
 
-Maximum Allowed Loan Amount (Over 60 months / 5 years) = (Amount Left * 35% of Amount Left) * Fixed Number of Terms
+Maximum Allowed Loan Amount (Over 60 months / 5 years) = (35% of the Amount Left) * Fixed Number of Terms
  
 if Maximum Allowed Loan Amount > Requested Loan Amount then the customer cannot
 qualify for a loan.  
@@ -73,7 +74,7 @@ If the customer requested loan amount that they are allowed to be granted, then 
 calculation is performed:
 
 Amount Left = Nett Income - (Total Monthly Expenses + Total Credit)
-Instalments to be paid = (((Loan Amount - Deposit) + Extras Total + Admin Fees) * Interest Rate) / Number of Terms
+Instalments to be paid = (((Loan Amount - Deposit) + Extras Total + Admin Fees) * Fixed Interest Rate) / Number of Terms
 
 if (Amount Left - Instalments to be paid) is greater than or equal to R2500, 
 then the customer qualifies for the loan.
@@ -85,7 +86,8 @@ WSDL Information
 ----------------------------------
 The url for the WSDL is:
 http://tsepo.reverside.co.za:8001/soa-infra/services/default/AffordabilityService/AffordabilityService?wsdl
-Use the InfoPath Form provided under ./Documentation/Affordability Check Form.xsn
+Use the InfoPath Form provided under " ./Documentation/Affordability Check Form.xsn " to test the 
+web service using an HTML-like form.
 
 ----------------------------------
 CONTRIBUTORS
