@@ -263,14 +263,85 @@
         <sequence name="Sequence3">
           <assign name="AssignCannotAfford">
             <copy>
-              <from>'Could not determine customer affordability - please ensure that the following conditions are met:  &amp;#13; -The purchase price must not be less than R20000.00&amp;#13;- The nett income cannot be less than R8500.00&amp;#13;- Total Monthly expenses cannot be R0.00&amp;#13;- Deposit should be from 10% up to 60% of the total vehicle purchase price. &amp;#13; - The number of terms should be between 12 and 60 months'</from>
-              <to>$outputVariable.payload/ns2:reason</to>
-            </copy>
-            <copy>
               <from>false()</from>
               <to>$outputVariable.payload/ns2:canAfford</to>
             </copy>
+            <copy>
+              <from>''</from>
+              <to>$outputVariable.payload/ns2:reason</to>
+            </copy>
           </assign>
+          <if name="TestForSpecificInvalidInputs">
+            <documentation>
+              <![CDATA[Loan Amount is less than R20 000.00]]>
+            </documentation>
+            <condition>$inputVariable.payload/ns2:requestedLoanAmount &lt; 20000.0</condition>
+            <assign name="AppendReason">
+              <copy>
+                <from>concat( $outputVariable.payload/ns2:reason, '- Loan Amount cannot be less than R20 000.00 &amp;#13;')</from>
+                <to>$outputVariable.payload/ns2:reason</to>
+              </copy>
+            </assign>
+            <elseif>
+              <documentation>
+                <![CDATA[Nett Income is less than R8500.00]]>
+              </documentation>
+              <condition>$inputVariable.payload/ns2:nettIncome &lt; 8500.00</condition>
+              <assign name="AppendReason">
+                <copy>
+                  <from>concat( $outputVariable.payload/ns2:reason, '-The minimum nett income required is R8500.00 &amp;#13;')</from>
+                  <to>$outputVariable.payload/ns2:reason</to>
+                </copy>
+              </assign>
+            </elseif>
+            <elseif>
+              <documentation>
+                <![CDATA[No Total Expenses specified]]>
+              </documentation>
+              <condition>$inputVariable.payload/ns2:totalMonthlyExpenses &lt;= 0.00</condition>
+              <assign name="AppendReason">
+                <copy>
+                  <from>concat( $outputVariable.payload/ns2:reason, '- Total Monthly Expenses should be specified. &amp;#13;')</from>
+                  <to>$outputVariable.payload/ns2:reason</to>
+                </copy>
+              </assign>
+            </elseif>
+            <elseif>
+              <documentation>
+                <![CDATA[Terms are not within 12 - 60 months]]>
+              </documentation>
+              <condition>$inputVariable.payload/ns2:numberOfTerms &lt; 12 or $inputVariable.payload/ns2:numberOfTerms &gt; 60</condition>
+              <assign name="AppendReason">
+                <copy>
+                  <from>concat( $outputVariable.payload/ns2:reason, '- Number Of Terms must be between 12 and 60 months. &amp;#13;')</from>
+                  <to>$outputVariable.payload/ns2:reason</to>
+                </copy>
+              </assign>
+            </elseif>
+            <elseif>
+              <documentation>
+                <![CDATA[Deposit is not within 10% and 60%]]>
+              </documentation>
+              <condition>$inputVariable.payload/ns2:deposit &lt; ($inputVariable.payload/ns2:requestedLoanAmount * 0.1) or $inputVariable.payload/ns2:deposit &gt; ($inputVariable.payload/ns2:requestedLoanAmount * 0.6)</condition>
+              <assign name="AppendReason">
+                <copy>
+                  <from>concat( $outputVariable.payload/ns2:reason, '- Deposit must be at least 10% and not more than 60% of the purchase price. &amp;#13;')</from>
+                  <to>$outputVariable.payload/ns2:reason</to>
+                </copy>
+              </assign>
+            </elseif>
+            <else>
+              <documentation>
+                <![CDATA[Reason Unknown]]>
+              </documentation>
+              <assign name="AppendReason">
+                <copy>
+                  <from>''</from>
+                  <to>$outputVariable.payload/ns2:reason</to>
+                </copy>
+              </assign>
+            </else>
+          </if>
         </sequence>
       </else>
     </if>
