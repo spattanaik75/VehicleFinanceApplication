@@ -263,7 +263,7 @@
         <sequence name="Sequence3">
           <assign name="AssignCannotAfford">
             <copy>
-              <from>'User entered some invalid inputs'</from>
+              <from>'Could not determine the affordability - please ensure that &amp;#13;the following conditions are met:  &amp;#13; -The purchase price must not be less than R20000.00&amp;#13;- Nett Income cannot be less than R8500.00&amp;#13;- Total Monthly expenses cannot be R0.00&amp;#13;- Terms of repayments cannot exceed 60 months&amp;#13;- Deposit must be strictly 10% or more of the total vehicle selling price'</from>
               <to>$outputVariable.payload/ns2:reason</to>
             </copy>
             <copy>
