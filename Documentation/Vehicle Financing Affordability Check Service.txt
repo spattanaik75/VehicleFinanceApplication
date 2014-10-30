@@ -74,7 +74,8 @@ If the customer requested loan amount that they are allowed to be granted, then 
 calculation is performed:
 
 Amount Left = Nett Income - (Total Monthly Expenses + Total Credit)
-Instalments to be paid = (((Loan Amount - Deposit) + Extras Total + Admin Fees) * Fixed Interest Rate) / Number of Terms
+Total Interests Amount = ((Loan Amount - Deposit) + Extras Total + Admin Fees) * Fixed Interest Rate
+Instalments to be paid = (((Loan Amount - Deposit) + Extras Total + Admin Fees) + Total Interests Amount) / Number of Terms
 
 if (Amount Left - Instalments to be paid) is greater than or equal to R2500, 
 then the customer qualifies for the loan.
