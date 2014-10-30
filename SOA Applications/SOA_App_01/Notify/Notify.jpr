@@ -51,21 +51,27 @@
    <list n="contentSets">
       <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
       <string v="oracle.ide.model.ResourcePaths/resourcesContentSet"/>
+      <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
       <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
-      <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
+      <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
-   <value n="defaultPackage" v="financial_application"/>
-   <url n="FinancialApplication_bpelFileURL" path="FinancialApplication.bpel"/>
-   <value n="FinancialApplication_Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"/>
-   <value n="FinancialApplication_ProcessName" v="FinancialApplication"/>
-   <value n="FinancialApplication_Template" v="BPEL_SYNC_PROCESS"/>
-   <value n="FinancialApplication_wsdl" v="FinancialApplication.wsdl"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"/>
+   <value n="defaultPackage" v="notify"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SOA_App_01/Notify/Notify"/>
+   <url n="notify_bpelFileURL" path="notify.bpel"/>
+   <url n="Notify_bpelFileURL" path="Notify.bpel"/>
+   <value n="notify_Namespace" v="http://xmlns.oracle.com/SOA_App_01/Notify/notify"/>
+   <value n="Notify_Namespace" v="http://xmlns.oracle.com/SOA_App_01/Notify/Notify"/>
+   <value n="notify_ProcessName" v="notify"/>
+   <value n="Notify_ProcessName" v="Notify"/>
+   <value n="notify_Template" v="BPEL_ONE_WAY_PROCESS"/>
+   <value n="Notify_Template" v="BPEL_ONE_WAY_PROCESS"/>
+   <value n="notify_wsdl" v="notify.wsdl"/>
+   <value n="Notify_wsdl" v="Notify.wsdl"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -74,6 +80,7 @@
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="SOA"/>
+         <string v="XML"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
@@ -114,7 +121,7 @@
    </hash>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
       <hash n="profileDefinitions">
-         <hash n="Financial_Application">
+         <hash n="Notify">
             <hash n="archiveOptions">
                <value n="hasManifest" v="false"/>
             </hash>
@@ -256,21 +263,21 @@
                   </hash>
                </list>
             </hash>
-            <url n="jarURL" path="deploy/sca_Financial_Application${composite.revision_id}.jar"/>
+            <url n="jarURL" path="deploy/sca_Notify${composite.revision_id}.jar"/>
             <hash n="libraryDependencies">
                <value n="IncludeLibrariesFromOtherContainers" v="true"/>
             </hash>
             <value n="profileClass" v="oracle.tip.tools.ide.fabric.deploy.sar.SarProfile"/>
-            <value n="profileName" v="Financial_Application"/>
+            <value n="profileName" v="Notify"/>
          </hash>
       </hash>
       <list n="profileList">
-         <string v="Financial_Application"/>
+         <string v="Notify"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="SOA_App_01-Financial_Application-webapp"/>
-      <value n="j2eeWebContextRoot" v="SOA_App_01-Financial_Application-context-root"/>
+      <value n="j2eeWebAppName" v="SOA_App_01-Notify-webapp"/>
+      <value n="j2eeWebContextRoot" v="SOA_App_01-Notify-context-root"/>
    </hash>
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
@@ -358,6 +365,16 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="FinancialApplication"/>
-   <value n="Template" v="BPEL_SYNC_PROCESS"/>
+   <hash n="oracle.toplink.workbench.addin">
+      <hash n="toplinkContentSet">
+         <list n="pattern-filters">
+            <string v="+**"/>
+         </list>
+         <list n="url-path">
+            <url path="toplink/"/>
+         </list>
+      </hash>
+   </hash>
+   <value n="ProcessName" v="Notify"/>
+   <value n="Template" v="BPEL_ONE_WAY_PROCESS"/>
 </jpr:project>

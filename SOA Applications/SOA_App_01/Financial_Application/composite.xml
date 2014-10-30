@@ -10,5 +10,125 @@
            xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
            xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
+  <import namespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"
+          location="FinancialApplication.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SOA_App_01/Notify/Notify"
+          location="http://Soumya:8001/soa-infra/services/default/Notify/Notify.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/CreditRating/CreditRating/BPELProcess1"
+          location="http://Soumya:8001/soa-infra/services/default/CreditRating/BPELProcess1.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SOA_App_01/AffordabilityServiceDummy/BPELProcess1"
+          location="http://Soumya:8001/soa-infra/services/default/AffordabilityServiceDummy/BPELProcess1.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/finanacialApplicationStatusFlag"
+          location="finanacialApplicationStatusFlag.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"
+          location="http://Soumya:8001/soa-infra/services/default/InitialDbInsert/InitialDbInsert.wsdl"
+          importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/InitialParentInsert/InitialParentInsert/InitialParentInsert"
+          location="http://Soumya:8001/soa-infra/services/default/InitialParentInsert/InitialParentInsert.wsdl"
+          importType="wsdl"/>
+  <service name="financialapplication_client_ep"
+           ui:wsdlLocation="FinancialApplication.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication#wsdl.interface(FinancialApplication)"/>
+    <binding.ws port="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication#wsdl.endpoint(financialapplication_client_ep/FinancialApplication_pt)"/>
+  </service>
   <property name="productVersion" type="xs:string" many="false">11.1.1.7.0</property>
+  <component name="FinancialApplication" version="2.0">
+    <implementation.bpel src="FinancialApplication.bpel"/>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string"
+              many="false">async.persist</property>
+  </component>
+  <reference name="Notify"
+             ui:wsdlLocation="http://Soumya:8001/soa-infra/services/default/Notify/Notify.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/Notify/Notify#wsdl.interface(Notify)"/>
+    <binding.ws port="http://xmlns.oracle.com/SOA_App_01/Notify/Notify#wsdl.endpoint(notify_client_ep/Notify_pt)"
+                location="http://soumya:8001/soa-infra/services/default/Notify/notify_client_ep?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="CreditCheckDummy"
+             ui:wsdlLocation="http://Soumya:8001/soa-infra/services/default/CreditRating/BPELProcess1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/CreditRating/CreditRating/BPELProcess1#wsdl.interface(BPELProcess1)"/>
+    <binding.ws port="http://xmlns.oracle.com/CreditRating/CreditRating/BPELProcess1#wsdl.endpoint(bpelprocess1_client_ep/BPELProcess1_pt)"
+                location="http://soumya:8001/soa-infra/services/default/CreditRating/bpelprocess1_client_ep?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="AffordabilityCheck"
+             ui:wsdlLocation="http://Soumya:8001/soa-infra/services/default/AffordabilityServiceDummy/BPELProcess1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/AffordabilityServiceDummy/BPELProcess1#wsdl.interface(BPELProcess1)"/>
+    <binding.ws port="http://xmlns.oracle.com/SOA_App_01/AffordabilityServiceDummy/BPELProcess1#wsdl.endpoint(bpelprocess1_client_ep/BPELProcess1_pt)"
+                location="http://soumya:8001/soa-infra/services/default/AffordabilityServiceDummy/bpelprocess1_client_ep?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="finanacialApplicationStatusFlag"
+             ui:wsdlLocation="finanacialApplicationStatusFlag.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/finanacialApplicationStatusFlag#wsdl.interface(finanacialApplicationStatusFlag_ptt)"/>
+    <binding.jca config="finanacialApplicationStatusFlag_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
+  <reference name="InitialChildTableInsert"
+             ui:wsdlLocation="http://Soumya:8001/soa-infra/services/default/InitialDbInsert/InitialDbInsert.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert#wsdl.interface(InitialDbInsert)"/>
+    <binding.ws port="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert#wsdl.endpoint(initialdbinsert_client_ep/InitialDbInsert_pt)"
+                location="http://soumya:8001/soa-infra/services/default/InitialDbInsert/initialdbinsert_client_ep?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <reference name="InitialParentPopulate"
+             ui:wsdlLocation="http://Soumya:8001/soa-infra/services/default/InitialParentInsert/InitialParentInsert.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/InitialParentInsert/InitialParentInsert/InitialParentInsert#wsdl.interface(InitialParentInsert)"/>
+    <binding.ws port="http://xmlns.oracle.com/InitialParentInsert/InitialParentInsert/InitialParentInsert#wsdl.endpoint(initialparentinsert_client_ep/InitialParentInsert_pt)"
+                location="http://soumya:8001/soa-infra/services/default/InitialParentInsert/initialparentinsert_client_ep?WSDL"
+                soapVersion="1.1">
+      <property name="weblogic.wsee.wsat.transaction.flowOption"
+                type="xs:string" many="false">WSDLDriven</property>
+    </binding.ws>
+  </reference>
+  <wire>
+    <source.uri>financialapplication_client_ep</source.uri>
+    <target.uri>FinancialApplication/financialapplication_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>FinancialApplication/AffordabilityCheck</source.uri>
+    <target.uri>AffordabilityCheck</target.uri>
+  </wire>
+  <wire>
+    <source.uri>FinancialApplication/Notify</source.uri>
+    <target.uri>Notify</target.uri>
+  </wire>
+  <wire>
+    <source.uri>FinancialApplication/CreditCheckDummy</source.uri>
+    <target.uri>CreditCheckDummy</target.uri>
+  </wire>
+  <wire>
+    <source.uri>FinancialApplication/finanacialApplicationStatusFlag</source.uri>
+    <target.uri>finanacialApplicationStatusFlag</target.uri>
+  </wire>
+  <wire>
+    <source.uri>FinancialApplication/InitialChildTableInsert</source.uri>
+    <target.uri>InitialChildTableInsert</target.uri>
+  </wire>
+  <wire>
+    <source.uri>FinancialApplication/InitialParentPopulate</source.uri>
+    <target.uri>InitialParentPopulate</target.uri>
+  </wire>
 </composite>

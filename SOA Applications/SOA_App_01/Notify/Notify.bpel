@@ -1,0 +1,233 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Oct 29 10:55:49 CAT 2014
+  Author:  user
+  Type: BPEL 1.1 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="Notify"
+               targetNamespace="http://xmlns.oracle.com/SOA_App_01/Notify/Notify"
+               xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+               xmlns:client="http://xmlns.oracle.com/SOA_App_01/Notify/Notify"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:ns1="http://xmlns.oracle.com/ias/pcbpel/NotificationService"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Notify/financialAppInsert"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel2="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns3="http://www.example.org"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/top/financialAppInsert"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions">
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="notify_client" partnerLinkType="client:Notify" myRole="NotifyProvider"/>
+    <partnerLink name="NotificationService1"
+                 partnerLinkType="ns1:NotificationServiceLink"
+                 partnerRole="NotificationServiceProvider"/>
+    <partnerLink name="NotificationService2"
+                 partnerLinkType="ns1:NotificationServiceLink"
+                 partnerRole="NotificationServiceProvider"/>
+    <partnerLink name="financialAppInsert"
+                 partnerLinkType="ns2:financialAppInsert_plt"
+                 partnerRole="financialAppInsert_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:NotifyRequestMessage"/>
+    <variable name="Invoke1_merge_InputVariable"
+              messageType="ns2:FinancialApplicationCollection_msg"/>
+    <variable name="Invoke1_insert_InputVariable"
+              messageType="ns2:FinancialApplicationCollection_msg"/>
+    <variable name="Invoke1_insert_InputVariable_1"
+              messageType="ns2:FinancialApplicationCollection_msg"/>
+    <variable name="Invoke1_insert_InputVariable_2"
+              messageType="ns2:FinancialApplicationCollection_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in Notify.wsdl) -->
+    <receive name="receiveInput" partnerLink="notify_client" portType="client:Notify" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="Assign1">
+      <copy>
+        <from variable="inputVariable" part="payload"
+              query="/ns3:Input/ns3:ApplicationID"/>
+        <to variable="Invoke1_insert_InputVariable_2"
+            part="FinancialApplicationCollection"
+            query="/ns4:FinancialApplicationCollection/ns4:FinancialApplication/ns4:financialApplicationId"/>
+      </copy>
+      <copy>
+        <from variable="inputVariable" part="payload"
+              query="/ns3:Input/ns3:status"/>
+        <to variable="Invoke1_insert_InputVariable_2"
+            part="FinancialApplicationCollection"
+            query="/ns4:FinancialApplicationCollection/ns4:FinancialApplication/ns4:status"/>
+      </copy>
+    </assign>
+    <invoke name="Invoke1"
+            inputVariable="Invoke1_insert_InputVariable_2"
+            partnerLink="financialAppInsert"
+            portType="ns2:financialAppInsert_ptt" operation="insert"
+            bpelx:invokeAsDetail="no"/>
+    <flow name="Flow1">
+      <sequence name="Sequence">
+        <scope name="Email1">
+          <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:email"></bpelx:pattern>
+          </bpelx:annotation>
+          <variables>
+            <variable name="varNotificationReq"
+                      messageType="ns1:EmailNotificationRequest"/>
+            <variable name="varNotificationResponse"
+                      messageType="ns1:ArrayOfResponse"/>
+            <variable name="NotificationServiceFaultVariable"
+                      messageType="ns1:NotificationServiceErrorMessage"/>
+          </variables>
+          <sequence name="Sequence2">
+            <assign name="EmailParamsAssign">
+              <copy>
+                <from expression="string('Default')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:FromAccountName"/>
+              </copy>
+              <copy>
+                <from expression="string('spattanaik75')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:FromUserName"/>
+              </copy>
+              <copy>
+                <from expression="string('')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:Bcc"/>
+              </copy>
+              <copy>
+                <from expression="string('')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:Cc"/>
+              </copy>
+              <copy>
+                <from expression="string('')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:ReplyToAddress"/>
+              </copy>
+              <copy>
+                <from expression="string('test')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:Subject"/>
+              </copy>
+              <copy>
+                <from expression="bpws:getVariableData('inputVariable','payload','/ns3:Input/ns3:Email')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:To"/>
+              </copy>
+              <copy>
+                <from expression="string('test')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:Content/ns1:ContentBody"/>
+              </copy>
+              <copy>
+                <from expression="string('text/html; charset=UTF-8')"/>
+                <to variable="varNotificationReq" part="EmailPayload"
+                    query="/EmailPayload/ns1:Content/ns1:MimeType"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeNotificationService"
+                    portType="ns1:NotificationService"
+                    partnerLink="NotificationService1"
+                    inputVariable="varNotificationReq"
+                    outputVariable="varNotificationResponse"
+                    operation="sendEmailNotification"/>
+          </sequence>
+        </scope>
+      </sequence>
+      <sequence name="Sequence1">
+        <scope name="SMS2">
+          <bpelx:annotation>
+            <bpelx:pattern patternName="bpelx:sms"></bpelx:pattern>
+          </bpelx:annotation>
+          <variables>
+            <variable name="varNotificationReq"
+                      messageType="ns1:SMSNotificationRequest"/>
+            <variable name="varNotificationResponse"
+                      messageType="ns1:ArrayOfResponse"/>
+            <variable name="NotificationServiceFaultVariable"
+                      messageType="ns1:NotificationServiceErrorMessage"/>
+          </variables>
+          <sequence name="Sequence3">
+            <assign name="SMSParamsAssign">
+              <copy>
+                <from expression="string('074829635')"/>
+                <to variable="varNotificationReq" part="SMSPayload"
+                    query="ns1:From"/>
+              </copy>
+              <copy>
+                <from expression="string('test')"/>
+                <to variable="varNotificationReq" part="SMSPayload"
+                    query="ns1:Content/ns1:ContentBody"/>
+              </copy>
+              <copy>
+                <from expression="string('text/plain')"/>
+                <to variable="varNotificationReq" part="SMSPayload"
+                    query="ns1:Content/ns1:MimeType"/>
+              </copy>
+              <copy>
+                <from expression="string('test')"/>
+                <to variable="varNotificationReq" part="SMSPayload"
+                    query="ns1:Subject"/>
+              </copy>
+              <copy>
+                <from expression="bpws:getVariableData('inputVariable','payload','/ns3:Input/ns3:Mobile')"/>
+                <to variable="varNotificationReq" part="SMSPayload"
+                    query="ns1:To"/>
+              </copy>
+            </assign>
+            <invoke name="InvokeNotificationService"
+                    portType="ns1:NotificationService"
+                    partnerLink="NotificationService2"
+                    inputVariable="varNotificationReq"
+                    outputVariable="varNotificationResponse"
+                    operation="sendSMSNotification"/>
+          </sequence>
+        </scope>
+      </sequence>
+    </flow>
+  </sequence>
+</process>

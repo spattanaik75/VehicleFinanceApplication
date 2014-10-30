@@ -1,0 +1,24 @@
+29 Oct 2014 11:16:20 AM oracle.mds
+NOTIFICATION: PManager instance is created without multitenancy support as JVM flag "oracle.multitenant.enabled" is not set to enable multitenancy support.
+29 Oct 2014 11:16:20 AM oracle.security.jps.internal.config.xml.XmlConfigurationFactory initDefaultConfiguration
+SEVERE: java.io.FileNotFoundException: .\config\jps-config.xml (The system cannot find the path specified)
+29 Oct 2014 11:16:20 AM oracle.mds
+NOTIFICATION: Auditing is disabled for component MDS.
+29 Oct 2014 11:16:21 AM oracle.fabric.common.wsdl.SchemaManager isIncrementalBuildSupported
+INFO: XMLSchema incremental build enabled.
+29 Oct 2014 11:16:21 AM com.collaxa.cube.CubeLogger info
+INFO: validating "Notify.bpel" ...
+29 Oct 2014 11:16:21 AM oracle.integration.platform.blocks.FabricConfigManager <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+29 Oct 2014 11:16:21 AM oracle.integration.platform.blocks.WLSPlatformConfigurationProvider <clinit>
+WARNING: JRF is unable to determine the current application server platform.
+29 Oct 2014 11:16:21 AM com.collaxa.cube.CubeLogger info
+INFO: Composed "Notify" in 38.9 milliseconds [nodes 23=2+21, 591.1 nodes/sec]
+29 Oct 2014 11:16:22 AM com.collaxa.cube.CubeLogger info
+INFO: Compiled "Notify" in 1.128 seconds
+29 Oct 2014 11:16:22 AM com.collaxa.cube.CubeLogger info
+INFO: Gathered 6 files in 0.5 milliseconds
+
+29 Oct 2014 11:16:22 AM com.collaxa.cube.CubeLogger info
+INFO: Packaged "Notify" in 7.1 milliseconds
+

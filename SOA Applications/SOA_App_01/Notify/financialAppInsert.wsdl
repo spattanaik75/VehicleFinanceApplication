@@ -1,0 +1,21 @@
+<?binding.jca financialAppInsert_db.jca?>
+<wsdl:definitions name="financialAppInsert" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Notify/financialAppInsert" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Notify/financialAppInsert" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/financialAppInsert">
+    <plt:partnerLinkType name="financialAppInsert_plt">
+        <plt:role name="financialAppInsert_role">
+            <plt:portType name="tns:financialAppInsert_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/financialAppInsert" schemaLocation="xsd/financialAppInsert_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="FinancialApplicationCollection_msg">
+        <wsdl:part name="FinancialApplicationCollection" element="top:FinancialApplicationCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="financialAppInsert_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:FinancialApplicationCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
