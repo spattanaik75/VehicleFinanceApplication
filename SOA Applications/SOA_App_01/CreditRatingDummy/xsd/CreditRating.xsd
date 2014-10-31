@@ -7,6 +7,7 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="CreditRating" type="xsd:int"/>
+        <xsd:element name="CreditResult" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>

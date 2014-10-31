@@ -10,22 +10,21 @@
            xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
            xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
-  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/CreditRating/CreditRating/CreditRatingService"
-          location="CreditRatingService.wsdl" importType="wsdl"/>
-  <import namespace="http://xmlns.oracle.com/CreditRating/CreditRating/BPELProcess1"
-          location="BPELProcess1.wsdl" importType="wsdl"/>
-  <service name="bpelprocess1_client_ep" ui:wsdlLocation="BPELProcess1.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/CreditRating/CreditRating/BPELProcess1#wsdl.interface(BPELProcess1)"/>
-    <binding.ws port="http://xmlns.oracle.com/CreditRating/CreditRating/BPELProcess1#wsdl.endpoint(bpelprocess1_client_ep/BPELProcess1_pt)"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/CreditRating/creditCheck"
+          location="creditCheck.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest"
+          location="creditTest.wsdl" importType="wsdl"/>
+  <service name="creditTest_ep" ui:wsdlLocation="creditTest.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest#wsdl.interface(execute_ptt)"/>
+    <binding.ws port="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest#wsdl.endpoint(creditTest_ep/execute_pt)"/>
   </service>
   <property name="productVersion" type="xs:string" many="false">11.1.1.7.0</property>
-  <component name="CreditRatingRouting">
-    <implementation.mediator src="CreditRatingRouting.mplan"/>
+  <component name="creditTest">
+    <implementation.mediator src="creditTest.mplan"/>
   </component>
-  <reference name="CreditRatingService"
-             ui:wsdlLocation="CreditRatingService.wsdl">
-    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/CreditRating/CreditRating/CreditRatingService#wsdl.interface(CreditRatingService_ptt)"/>
-    <binding.jca config="CreditRatingService_db.jca"/>
+  <reference name="creditCheck" ui:wsdlLocation="creditCheck.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/CreditRating/creditCheck#wsdl.interface(creditCheck_ptt)"/>
+    <binding.jca config="creditCheck_db.jca"/>
     <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
     <property name="jca.retry.interval" type="xs:int" many="false"
               override="may">1</property>
@@ -35,11 +34,11 @@
               override="may">120</property>
   </reference>
   <wire>
-    <source.uri>bpelprocess1_client_ep</source.uri>
-    <target.uri>CreditRatingRouting/CreditRatingRouting</target.uri>
+    <source.uri>creditTest_ep</source.uri>
+    <target.uri>creditTest/creditTest</target.uri>
   </wire>
   <wire>
-    <source.uri>CreditRatingRouting/CreditRatingService</source.uri>
-    <target.uri>CreditRatingService</target.uri>
+    <source.uri>creditTest/creditCheck</source.uri>
+    <target.uri>creditCheck</target.uri>
   </wire>
 </composite>
