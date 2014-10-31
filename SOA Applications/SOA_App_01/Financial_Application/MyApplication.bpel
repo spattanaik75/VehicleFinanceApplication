@@ -1,0 +1,451 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Thu Oct 30 19:24:02 CAT 2014
+  Author:  user
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="MyApplication"
+               targetNamespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/IntialDBInsert/InitialDbInsert/InitialDbInsert"
+         xmlns:ns2="http://xmlns.oracle.com/SOA_App_01/UpdateStatus/UpdateStatus"
+         xmlns:ns3="http://www.example.org"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/customerMerge"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/customerMerge"
+         xmlns:ns6="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
+         xmlns:ns7="http://www.reverside.co.za/schema/affordability-service"
+         xmlns:ns8="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest">
+
+    <import namespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication" location="MyApplication.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="myapplication_client" partnerLinkType="client:MyApplication" myRole="MyApplicationProvider"/>
+    <partnerLink name="AllInsert" partnerLinkType="ns1:InitialDbInsert"
+                 partnerRole="InitialDbInsertProvider"/>
+    <partnerLink name="UpdateStatus" partnerLinkType="ns2:UpdateStatus"
+                 partnerRole="UpdateStatusProvider"/>
+    <partnerLink name="customerMerge" partnerLinkType="ns4:customerMerge_plt"
+                 partnerRole="customerMerge_role"/>
+    <partnerLink name="Affordable"
+                 partnerLinkType="ns6:AffordabilityProcessService"
+                 partnerRole="AffordabilityProcessServiceProvider"/>
+    <partnerLink name="TransUnion" partnerLinkType="ns8:TransUnion"
+                 partnerRole="execute_ptt"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:MyApplicationRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:MyApplicationResponseMessage"/>
+    <variable name="UpdateStatus_process_InputVariable"
+              messageType="ns2:UpdateStatusRequestMessage"/>
+    <variable name="UpdateStatus_process_OutputVariable"
+              messageType="ns2:UpdateStatusResponseMessage"/>
+    <variable name="AllInsert_process_InputVariable"
+              messageType="ns1:InitialDbInsertRequestMessage"/>
+    <variable name="AllInsert_process_OutputVariable"
+              messageType="ns1:InitialDbInsertResponseMessage"/>
+    <variable name="customerTable_merge_InputVariable"
+              messageType="ns4:CustomerCollection_msg"/>
+    <variable name="callAffordability_process_InputVariable"
+              messageType="ns6:AffordabilityProcessServiceRequestMessage"/>
+    <variable name="callAffordability_process_OutputVariable"
+              messageType="ns6:AffordabilityProcessServiceResponseMessage"/>
+    <variable name="QualifyTrue_process_InputVariable"
+              messageType="ns2:UpdateStatusRequestMessage"/>
+    <variable name="QualifyTrue_process_OutputVariable"
+              messageType="ns2:UpdateStatusResponseMessage"/>
+    <variable name="CreditCheck_execute_InputVariable"
+              messageType="ns8:requestMessage"/>
+    <variable name="CreditCheck_execute_OutputVariable"
+              messageType="ns8:replyMessage"/>
+    <variable name="NotDeclined_process_InputVariable"
+              messageType="ns2:UpdateStatusRequestMessage"/>
+    <variable name="NotDeclined_process_OutputVariable"
+              messageType="ns2:UpdateStatusResponseMessage"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in MyApplication.wsdl) -->
+    <receive name="receiveInput" partnerLink="myapplication_client" portType="client:MyApplication" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignStatus">
+      <copy>
+        <from>$inputVariable.payload/ns3:FirstNames</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:UserName</to>
+      </copy>
+      <copy>
+        <from>concat($inputVariable.payload/ns3:IdNum,$inputVariable.payload/ns3:AreaCode)</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:ApplicationID</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:Email</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:Email</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:CellNum</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:Mobile</to>
+      </copy>
+      <copy>
+        <from>"Application Submitted"</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:status</to>
+      </copy>
+      <copy>
+        <from>"false"</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:isQualified</to>
+      </copy>
+      <copy>
+        <from>"true"</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:isDeclined</to>
+      </copy>
+      <copy>
+        <from>"false"</from>
+        <to>$UpdateStatus_process_InputVariable.payload/ns3:isApproved</to>
+      </copy>
+    </assign>
+    <invoke name="UpdateStatus"
+            partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
+            operation="process"
+            inputVariable="UpdateStatus_process_InputVariable"
+            outputVariable="UpdateStatus_process_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="AllInsertAssign">
+      <copy>
+        <from>$inputVariable.payload/ns3:FirstNames</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:FirstNames</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:DateChanged</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:DateChanged</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:LastName</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:LastName</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:Gender</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:Gender</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:DOB</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:DOB</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:IdNum</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:IdNum</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:Email</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:Email</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:CellNum</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:CellNum</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AddressLine1</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AddressLine1</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AddressLine2</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AddressLine2</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AddressLine3</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AddressLine3</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AddressLine4</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AddressLine4</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AreaCode</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AreaCode</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:BankName</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:BankName</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AccountHolderName</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AccountHolderName</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AccountNumber</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AccountNumber</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AccountTypeId</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AccountTypeId</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:BranchCode</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:BranchCode</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:PaymentTypeId</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:PaymentTypeId</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:PaymentFreq</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:PaymentFreq</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:PaymentMethodId</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:PaymentMethodId</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:IsFixedInterestRate</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:IsFixedInterestRate</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:PurchasePrice</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:PurchasePrice</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:ExtrasTotal</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:ExtrasTotal</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:Deposit</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:Deposit</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:Terms</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:Terms</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:BalloonPercentage</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:BalloonPercentage</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AdminFees</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:AdminFees</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:DealerAmt</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:DealerAmt</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:CategoryId</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:CategoryId</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:IsNewCar</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:IsNewCar</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:MakeDesc</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:MakeDesc</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:ModelName</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:ModelName</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:KmTravelled</from>
+        <to>$AllInsert_process_InputVariable.payload/ns3:KmTravelled</to>
+      </copy>
+    </assign>
+    <invoke name="AllInsert" partnerLink="AllInsert"
+            portType="ns1:InitialDbInsert" operation="process"
+            inputVariable="AllInsert_process_InputVariable"
+            outputVariable="AllInsert_process_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="AssignCustomer">
+      <copy>
+        <from>$AllInsert_process_OutputVariable.payload/ns3:personId</from>
+        <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:personId</to>
+      </copy>
+      <copy>
+        <from>$AllInsert_process_OutputVariable.payload/ns3:contactId</from>
+        <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:contactId</to>
+      </copy>
+      <copy>
+        <from>$AllInsert_process_OutputVariable.payload/ns3:userId</from>
+        <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:userId</to>
+      </copy>
+      <copy>
+        <from>$AllInsert_process_OutputVariable.payload/ns3:bankingDetailId</from>
+        <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:bankingDetailId</to>
+      </copy>
+      <copy>
+        <from>$UpdateStatus_process_OutputVariable.payload/ns3:id</from>
+        <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:custId</to>
+      </copy>
+    </assign>
+    <invoke name="customerTable"
+            partnerLink="customerMerge" portType="ns4:customerMerge_ptt"
+            operation="merge"
+            inputVariable="customerTable_merge_InputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="AffordInput">
+      <copy>
+        <from>$inputVariable.payload/ns3:PurchasePrice</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:requestedLoanAmount</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:Deposit</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:deposit</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:nettIncome</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:nettIncome</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:totalMonthlyExpenses</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:totalMonthlyExpenses</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:totalMonthlyCredit</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:totalMonthlyCredit</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:ExtrasTotal</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:extrasTotal</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:Terms</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:numberOfTerms</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns3:AdminFees</from>
+        <to>$callAffordability_process_InputVariable.payload/ns7:administrationFee</to>
+      </copy>
+    </assign>
+    <invoke name="callAffordability"
+            partnerLink="Affordable"
+            portType="ns6:AffordabilityProcessService" operation="process"
+            inputVariable="callAffordability_process_InputVariable"
+            outputVariable="callAffordability_process_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="canAfford">
+      <documentation>
+        <![CDATA[true]]>
+      </documentation>
+      <condition>$callAffordability_process_OutputVariable.payload/ns7:canAfford = "true"</condition>
+      <sequence name="Sequence1">
+        <assign name="QualifyTrue">
+          <copy>
+            <from>$UpdateStatus_process_OutputVariable.payload/ns3:id</from>
+            <to>$QualifyTrue_process_InputVariable.payload/ns3:ApplicationID</to>
+          </copy>
+          <copy>
+            <from>$callAffordability_process_OutputVariable.payload/ns7:canAfford</from>
+            <to>$QualifyTrue_process_InputVariable.payload/ns3:isQualified</to>
+          </copy>
+          <copy>
+            <from>concat($UpdateStatus_process_OutputVariable.payload/ns3:status," is affordable")</from>
+            <to>$QualifyTrue_process_InputVariable.payload/ns3:status</to>
+          </copy>
+        </assign>
+        <invoke name="QualifyTrue" partnerLink="UpdateStatus"
+                portType="ns2:UpdateStatus" operation="process"
+                inputVariable="QualifyTrue_process_InputVariable"
+                outputVariable="QualifyTrue_process_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <else>
+        <documentation>
+          <![CDATA[false]]>
+        </documentation>
+        <empty name="falseEmpty"/>
+      </else>
+    </if>
+    <assign name="Assign">
+      <copy>
+        <from>$inputVariable.payload/ns3:IdNum</from>
+        <to>$CreditCheck_execute_InputVariable.request/ns3:IdNum</to>
+      </copy>
+    </assign>
+    <invoke name="CreditCheck"
+            partnerLink="TransUnion" portType="ns8:execute_ptt"
+            operation="execute"
+            inputVariable="CreditCheck_execute_InputVariable"
+            outputVariable="CreditCheck_execute_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <if name="If1">
+      <documentation>
+        <![CDATA[good]]>
+      </documentation>
+      <condition>$CreditCheck_execute_OutputVariable.reply/ns3:CreditRating&gt;500</condition>
+      <sequence name="Sequence3">
+        <assign name="inputDecline">
+          <copy>
+            <from>$QualifyTrue_process_OutputVariable.payload/ns3:id</from>
+            <to>$NotDeclined_process_InputVariable.payload/ns3:ApplicationID</to>
+          </copy>
+          <copy>
+            <from>concat($QualifyTrue_process_OutputVariable.payload/ns3:status," and credit rating is good ")</from>
+            <to>$NotDeclined_process_InputVariable.payload/ns3:status</to>
+          </copy>
+        </assign>
+        <invoke name="NotDeclined"
+                partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
+                operation="process"
+                inputVariable="NotDeclined_process_InputVariable"
+                outputVariable="NotDeclined_process_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+      </sequence>
+      <else>
+        <documentation>
+          <![CDATA[bad]]>
+        </documentation>
+        <empty name="badEmpty"/>
+      </else>
+    </if>
+    <assign name="AssignOutput">
+      <copy>
+        <from>$NotDeclined_process_OutputVariable.payload/ns3:status</from>
+        <to>$outputVariable.payload/ns3:status</to>
+      </copy>
+    </assign>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="myapplication_client" portType="client:MyApplication" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

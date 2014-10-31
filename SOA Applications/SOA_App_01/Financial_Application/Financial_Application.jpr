@@ -1,5 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
+   <url n="Application_bpelFileURL" path="Application.bpel"/>
+   <value n="Application_Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/Application"/>
+   <value n="Application_ProcessName" v="Application"/>
+   <value n="Application_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="Application_wsdl" v="Application.wsdl"/>
    <hash n="component-versions">
       <value n="oracle.adfdt.controller.adfc.source.migration.AdfControllerSchemaMigrator" v="11.1.1.1.0"/>
       <value n="oracle.adfdt.controller.common.migrator.ProjectMigrator" v="11.1.1.1.0"/>
@@ -51,21 +56,22 @@
    <list n="contentSets">
       <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
       <string v="oracle.ide.model.ResourcePaths/resourcesContentSet"/>
+      <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
       <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
-      <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
       <string v="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider/sca-content"/>
+      <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
    <value n="defaultPackage" v="financial_application"/>
-   <url n="FinancialApplication_bpelFileURL" path="FinancialApplication.bpel"/>
-   <value n="FinancialApplication_Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"/>
-   <value n="FinancialApplication_ProcessName" v="FinancialApplication"/>
-   <value n="FinancialApplication_Template" v="BPEL_SYNC_PROCESS"/>
-   <value n="FinancialApplication_wsdl" v="FinancialApplication.wsdl"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/FinancialApplication"/>
+   <url n="MyApplication_bpelFileURL" path="MyApplication.bpel"/>
+   <value n="MyApplication_Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"/>
+   <value n="MyApplication_ProcessName" v="MyApplication"/>
+   <value n="MyApplication_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="MyApplication_wsdl" v="MyApplication.wsdl"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -274,13 +280,25 @@
    </hash>
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
-         <list n="pattern-filters">
-            <string v="+**"/>
+         <list n="constituent-sets">
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="src/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="SCA-INF/src/"/>
+               </list>
+            </hash>
          </list>
-         <list n="url-path">
-            <url path="src/"/>
-            <url path="SCA-INF/src/"/>
-         </list>
+         <list n="url-path"/>
       </hash>
    </hash>
    <hash n="oracle.jdeveloper.runner.RunConfigurations">
@@ -349,7 +367,7 @@
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
-      <url n="outputDirectory" path="SCA-INF\classes/"/>
+      <url n="outputDirectory" path="SCA-INF/classes/"/>
    </hash>
    <hash n="oracle.tip.tools.ide.fabric.addin.SCAContentSetProvider">
       <hash n="sca-content">
@@ -358,6 +376,16 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="FinancialApplication"/>
+   <hash n="oracle.toplink.workbench.addin">
+      <hash n="toplinkContentSet">
+         <list n="pattern-filters">
+            <string v="+**"/>
+         </list>
+         <list n="url-path">
+            <url path="toplink/"/>
+         </list>
+      </hash>
+   </hash>
+   <value n="ProcessName" v="MyApplication"/>
    <value n="Template" v="BPEL_SYNC_PROCESS"/>
 </jpr:project>

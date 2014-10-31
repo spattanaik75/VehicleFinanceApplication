@@ -4,21 +4,18 @@
    <annotationfile/>
    <iconize/>
    <partnerlink_locations>
-      <partnerlink name="financialapplication_client" x="0" y="1156" side="left"/>
-      <partnerlink name="InitialChildTableInsert" x="0" y="461" side="left"/>
-      <partnerlink name="InitialParentPopulate" x="0" y="644" side="left"/>
-      <partnerlink name="AffordabilityCheck" x="751" y="827" side="right"/>
-      <partnerlink name="Notify" x="751" y="918" side="right"/>
-      <partnerlink name="CreditCheckDummy" x="751" y="1569" side="right"/>
-      <partnerlink name="finanacialApplicationStatusFlag" x="751" y="1144" side="right"/>
+      <partnerlink name="myapplication_client" x="1" y="1017" side="left"/>
+      <partnerlink name="customerMerge" x="1" y="644" side="left"/>
+      <partnerlink name="Affordable" x="1" y="827" side="left"/>
+      <partnerlink name="TransUnion" x="1" y="1386" side="left"/>
+      <partnerlink name="AllInsert" x="944" y="461" side="right"/>
+      <partnerlink name="UpdateStatus" x="944" y="1041" side="right"/>
    </partnerlink_locations>
-   <graph_layout viewport="0,1772,881,508" show_swimlanes="true">
+   <graph_layout viewport="0,1275,1060,508" show_swimlanes="true">
       <layout_item collapsed="false" xpath="/process" type="process" showhandlers="true"/>
       <layout_item collapsed="false" xpath="/process/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/if[1]/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/if[1]/else/sequence" type="sequence"/>
       <layout_item collapsed="false" xpath="/process/sequence/if[2]/sequence" type="sequence"/>
-      <layout_item collapsed="false" xpath="/process/sequence/if[2]/else/sequence" type="sequence"/>
    </graph_layout>
    <bookmarks/>
 </graphics>

@@ -3,12 +3,12 @@
             xmlns:ci="http://www.example.org"
             targetNamespace="http://www.example.org"
             elementFormDefault="qualified">
-  <xsd:element name="customer_info" type="ci:customer_info_type">
+  <xsd:element name="customer" type="ci:customertype">
     <xsd:annotation>
       <xsd:documentation>A sample element</xsd:documentation>
     </xsd:annotation>
   </xsd:element>
-  <xsd:complexType name="customer_info_type">
+  <xsd:complexType name="customertype">
     <xsd:sequence>
       <xsd:element name="FirstNames" type="xsd:string"/>
       <xsd:element name="LastName" type="xsd:string"/>
@@ -33,8 +33,11 @@
       <xsd:element name="PaymentMethodId" type="xsd:int"/>
       <xsd:element name="IsFixedInterestRate" type="xsd:string"/>
       <xsd:element name="PurchasePrice" type="xsd:int"/>
-      <xsd:element name="ExtrasTotal" type="xsd:int"/>
       <xsd:element name="Deposit" type="xsd:int"/>
+      <xsd:element name="nettIncome" type="xsd:double"/>
+      <xsd:element name="totalMonthlyExpenses" type="xsd:double"/>
+      <xsd:element name="totalMonthlyCredit" type="xsd:double"/>
+      <xsd:element name="ExtrasTotal" type="xsd:int"/>
       <xsd:element name="Terms" type="xsd:int"/>
       <xsd:element name="BalloonPercentage" type="xsd:int"/>
       <xsd:element name="AdminFees" type="xsd:int"/>
@@ -44,15 +47,6 @@
       <xsd:element name="MakeDesc" type="xsd:int"/>
       <xsd:element name="ModelName" type="xsd:string"/>
       <xsd:element name="KmTravelled" type="xsd:int"/>
-      <xsd:element name="requestedLoanAmount" type="xsd:double"/>
-      <xsd:element name="nettIncome" type="xsd:double"/>
-      <xsd:element name="totalMonthlyExpenses" type="xsd:double"/>
-      <xsd:element name="numberOfTerms" type="xsd:integer"/>
-      <xsd:element name="totalMonthlyCredit" type="xsd:double"/>
-      <xsd:element name="deposit" type="xsd:double"/>
-      <xsd:element name="extrasTotal" type="xsd:double"/>
-      <xsd:element name="administrationFee" type="xsd:double"/>
-      <xsd:element name="canAffordVehcileFinancing" type="xsd:boolean"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="ApplicationStatus" type="ci:ApplicationStatusType"/>

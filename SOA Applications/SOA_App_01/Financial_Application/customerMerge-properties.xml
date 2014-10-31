@@ -1,0 +1,26 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="CUSTOMER.CONTACT_ID:db_column_precision">0</entry>
+   <entry key="CUSTOMER.CONTACT_ID:db_column_not_null">false</entry>
+   <entry key="CUSTOMER:db_table_type">TABLE</entry>
+   <entry key="CUSTOMER.USER_ID:db_column_precision">0</entry>
+   <entry key="CUSTOMER.USER_ID:db_column_not_null">false</entry>
+   <entry key="CUSTOMER.CUST_ID:db_column_size">20</entry>
+   <entry key="CUSTOMER.CUST_ID:db_column_not_null">true</entry>
+   <entry key="CUSTOMER.PERSON_ID:db_column_type">NUMBER</entry>
+   <entry key="CUSTOMER.PERSON_ID:db_column_not_null">false</entry>
+   <entry key="CUSTOMER:db_column_4">BANKING_DETAIL_ID</entry>
+   <entry key="CUSTOMER:db_column_3">USER_ID</entry>
+   <entry key="CUSTOMER:db_column_2">CONTACT_ID</entry>
+   <entry key="CUSTOMER:db_column_1">PERSON_ID</entry>
+   <entry key="CUSTOMER:db_column_0">CUST_ID</entry>
+   <entry key="root_descriptor_alias">CUSTOMER</entry>
+   <entry key="CUSTOMER.BANKING_DETAIL_ID:db_column_not_null">false</entry>
+   <entry key="CUSTOMER.BANKING_DETAIL_ID:db_column_precision">0</entry>
+   <entry key="CUSTOMER.PERSON_ID:db_column_precision">0</entry>
+   <entry key="CUSTOMER.BANKING_DETAIL_ID:db_column_type">NUMBER</entry>
+   <entry key="CUSTOMER.USER_ID:db_column_type">NUMBER</entry>
+   <entry key="CUSTOMER.CONTACT_ID:db_column_type">NUMBER</entry>
+   <entry key="CUSTOMER.CUST_ID:db_column_type">VARCHAR2</entry>
+</properties>
