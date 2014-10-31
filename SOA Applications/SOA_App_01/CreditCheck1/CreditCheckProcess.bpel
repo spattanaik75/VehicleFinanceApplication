@@ -1,0 +1,203 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Oct 29 15:37:18 CAT 2014
+  Author:  Thandeka
+  Type: BPEL 2.0 Process
+  Purpose: Synchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="CreditCheckProcess"
+               targetNamespace="http://xmlns.oracle.com/SOA_App_01/CreditCheck1/CreditCheckProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/SOA_App_01/CreditCheck1/CreditCheckProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/CreditCheck1/CreditRatingFromDB"
+         xmlns:ns3="http://xmlns.oracle.com/pcbpel/adapter/db/top/CreditRatingFromDB"
+         xmlns:ns2="http://www.example.org"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap"
+         xmlns:ns4="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/CreditCheck1/YieldCustomerCreditInformationService"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/YieldCustomerCreditInformationService">
+
+    <import namespace="http://xmlns.oracle.com/SOA_App_01/CreditCheck1/CreditCheckProcess" location="CreditCheckProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="creditcheckprocess_client" partnerLinkType="client:CreditCheckProcess" myRole="CreditCheckProcessProvider"/>
+    <partnerLink name="YieldCustomerCreditInformationService"
+                 partnerLinkType="ns4:YieldCustomerCreditInformationService_plt"
+                 partnerRole="YieldCustomerCreditInformationService_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:CreditCheckProcessRequestMessage"/>
+
+    <!-- Reference to the message that will be returned to the requester-->
+    <variable name="outputVariable" messageType="client:CreditCheckProcessResponseMessage"/>
+    <variable name="InovokeYieldCustomerCreditInformationService_OutputVariable"
+              messageType="ns4:CreditRatingCollection_msg"/>
+    <variable name="NumberOfCreditCards" type="xsd:double"/>
+    <variable name="InovokeYieldCustomerCreditInformationService_InputVariable"
+              messageType="ns4:YieldCustomerCreditInformationServiceSelect_inputParameters"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in CreditCheckProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="creditcheckprocess_client" portType="client:CreditCheckProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignIDNumber">
+      <copy>
+        <from>$inputVariable.payload/ns2:IdNum</from>
+        <to>$InovokeYieldCustomerCreditInformationService_InputVariable.YieldCustomerCreditInformationServiceSelect_inputParameters/ns5:IdentityNumber</to>
+      </copy>
+    </assign>
+    <invoke name="InovokeYieldCustomerCreditInformationService"
+            partnerLink="YieldCustomerCreditInformationService"
+            portType="ns4:YieldCustomerCreditInformationService_ptt"
+            operation="YieldCustomerCreditInformationServiceSelect"
+            inputVariable="InovokeYieldCustomerCreditInformationService_InputVariable"
+            outputVariable="InovokeYieldCustomerCreditInformationService_OutputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="AssignNumOfCreditCards">
+      <copy>
+        <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:numberOfCcCards</from>
+        <to>$NumberOfCreditCards</to>
+      </copy>
+    </assign>
+    <if name="CheckNumberOfCreditCards">
+      <documentation>
+        <![CDATA[Number Of CC Greater Than1]]>
+      </documentation>
+      <condition>$NumberOfCreditCards &gt;= 1</condition>
+      <sequence name="Sequence1">
+        <if name="CheckCreditScore">
+          <documentation>
+            <![CDATA[Credit Score Between 0 and 615]]>
+          </documentation>
+          <condition>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &gt; 0 and $InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &lt;= 615</condition>
+          <assign name="AssignCreditStatus">
+            <copy>
+              <from>'POOR'</from>
+              <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+            </copy>
+            <copy>
+              <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
+              <to>$outputVariable.payload/ns2:CreditRatingScore</to>
+            </copy>
+          </assign>
+          <elseif>
+            <documentation>
+              <![CDATA[Credit Score Between 615 and 729]]>
+            </documentation>
+            <condition>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &gt; 615 and $InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &lt;= 729</condition>
+            <assign name="AssignCreditStatus">
+              <copy>
+                <from>'FAIR'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
+                <to>$outputVariable.payload/ns2:CreditRatingScore</to>
+              </copy>
+            </assign>
+          </elseif>
+          <elseif>
+            <documentation>
+              <![CDATA[Credit Score Between 730 and 821]]>
+            </documentation>
+            <condition>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &gt; 729 and $InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &lt;= 821</condition>
+            <assign name="AssignCreditStatus">
+              <copy>
+                <from>'GOOD'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
+                <to>$outputVariable.payload/ns2:CreditRatingScore</to>
+              </copy>
+            </assign>
+          </elseif>
+          <elseif>
+            <documentation>
+              <![CDATA[Credit Score Between 822 and 917]]>
+            </documentation>
+            <condition>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &gt; 729 and $InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating &lt;= 821</condition>
+            <assign name="AssignCreditStatus">
+              <copy>
+                <from>'VERY GOOD'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
+                <to>$outputVariable.payload/ns2:CreditRatingScore</to>
+              </copy>
+            </assign>
+          </elseif>
+          <else>
+            <documentation>
+              <![CDATA[Credit Score Between 918 and 999]]>
+            </documentation>
+            <assign name="AssignCreditStatus">
+              <copy>
+                <from>'EXCELLENT'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
+                <to>$outputVariable.payload/ns2:CreditRatingScore</to>
+              </copy>
+            </assign>
+          </else>
+        </if>
+      </sequence>
+      <else>
+        <assign name="AssignAsPoorRating">
+          <copy>
+            <from>'POOR'</from>
+            <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+          </copy>
+        </assign>
+      </else>
+    </if>
+    <!-- Generate reply to synchronous request -->
+    <reply name="replyOutput" partnerLink="creditcheckprocess_client" portType="client:CreditCheckProcess" operation="process" variable="outputVariable"/>
+  </sequence>
+</process>

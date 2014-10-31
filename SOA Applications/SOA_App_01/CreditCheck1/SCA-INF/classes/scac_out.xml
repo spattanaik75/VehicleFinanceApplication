@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>101</line>
+      <col/>
+      <file>CreditCheckProcess.bpel</file>
+      <name>CreditCheckProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns5:CreditRating" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>122</line>
+      <col/>
+      <file>CreditCheckProcess.bpel</file>
+      <name>CreditCheckProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns5:CreditRating" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>137</line>
+      <col/>
+      <file>CreditCheckProcess.bpel</file>
+      <name>CreditCheckProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns5:CreditRating" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>153</line>
+      <col/>
+      <file>CreditCheckProcess.bpel</file>
+      <name>CreditCheckProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns5:CreditRating" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>169</line>
+      <col/>
+      <file>CreditCheckProcess.bpel</file>
+      <name>CreditCheckProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns5:CreditRating" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc/>
+      <line>184</line>
+      <col/>
+      <file>CreditCheckProcess.bpel</file>
+      <name>CreditCheckProcess.bpel</name>
+      <fix>Add a predicate to select an element from the sequence.</fix>
+      <msg>The XPath segment "child::ns5:CreditRating" selects a sequence of elements - a predicate MAY be needed to correctly select an element.</msg>
+   </Fault>
+</Faults>

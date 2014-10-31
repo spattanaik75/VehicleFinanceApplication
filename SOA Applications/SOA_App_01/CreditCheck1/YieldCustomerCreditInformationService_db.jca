@@ -1,0 +1,14 @@
+<adapter-config name="YieldCustomerCreditInformationService" adapter="Database Adapter" wsdlLocation="YieldCustomerCreditInformationService.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/CreditCheckSimple" UIConnectionName="CreditCheckSimple" adapterRef=""/>
+  <endpoint-interaction portType="YieldCustomerCreditInformationService_ptt" operation="YieldCustomerCreditInformationServiceSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="YieldCustomerCreditInformationService.CreditRating"/>
+      <property name="QueryName" value="YieldCustomerCreditInformationServiceSelect"/>
+      <property name="MappingsMetaDataURL" value="YieldCustomerCreditInformationService-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>
