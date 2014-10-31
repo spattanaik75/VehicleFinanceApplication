@@ -116,6 +116,10 @@
           <assign name="AssignCreditStatus">
             <copy>
               <from>'POOR'</from>
+              <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+            </copy>
+            <copy>
+              <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
               <to>$outputVariable.payload/ns2:CreditRatingScore</to>
             </copy>
           </assign>
@@ -127,6 +131,10 @@
             <assign name="AssignCreditStatus">
               <copy>
                 <from>'FAIR'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
                 <to>$outputVariable.payload/ns2:CreditRatingScore</to>
               </copy>
             </assign>
@@ -139,6 +147,10 @@
             <assign name="AssignCreditStatus">
               <copy>
                 <from>'GOOD'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
                 <to>$outputVariable.payload/ns2:CreditRatingScore</to>
               </copy>
             </assign>
@@ -151,6 +163,10 @@
             <assign name="AssignCreditStatus">
               <copy>
                 <from>'VERY GOOD'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
                 <to>$outputVariable.payload/ns2:CreditRatingScore</to>
               </copy>
             </assign>
@@ -162,6 +178,10 @@
             <assign name="AssignCreditStatus">
               <copy>
                 <from>'EXCELLENT'</from>
+                <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
+              </copy>
+              <copy>
+                <from>$InovokeYieldCustomerCreditInformationService_OutputVariable.CreditRatingCollection/ns5:CreditRating/ns5:creditRating</from>
                 <to>$outputVariable.payload/ns2:CreditRatingScore</to>
               </copy>
             </assign>
@@ -172,7 +192,7 @@
         <assign name="AssignAsPoorRating">
           <copy>
             <from>'POOR'</from>
-            <to>$outputVariable.payload/ns2:CreditRatingScore</to>
+            <to>$outputVariable.payload/ns2:CreditRatingStatus</to>
           </copy>
         </assign>
       </else>
