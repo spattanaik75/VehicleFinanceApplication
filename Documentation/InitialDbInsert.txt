@@ -61,4 +61,14 @@ OUTPUTS
 * documentsSubmitted
 * isDeclined
 
---------- 
+--------- -------
+WSDL Information
+-----------------
+
+http://soumya:8001/soa-infra/services/default/InitialDbInsert/initialdbinsert_client_ep?WSDL
+
+-------------
+CONTRIBUTORS
+-------------
+
+Soumya Ranjan Pattanaik

@@ -140,7 +140,7 @@
         <to>$UpdateStatus_process_InputVariable.payload/ns3:Mobile</to>
       </copy>
       <copy>
-        <from>"Application Submitted"</from>
+        <from>concat("Application Submitted with Ref id: ",concat($inputVariable.payload/ns3:IdNum,$inputVariable.payload/ns3:AreaCode))</from>
         <to>$UpdateStatus_process_InputVariable.payload/ns3:status</to>
       </copy>
       <copy>
@@ -420,7 +420,7 @@
                 <to>$NotDeclined_process_InputVariable.payload/ns3:ApplicationID</to>
               </copy>
               <copy>
-                <from>concat($QualifyTrue_process_OutputVariable.payload/ns3:status," and credit rating is good ")</from>
+                <from>concat($QualifyTrue_process_OutputVariable.payload/ns3:status," and credit rating is good please submit the documents ASAP. Thank you ")</from>
                 <to>$NotDeclined_process_InputVariable.payload/ns3:status</to>
               </copy>
             </assign>

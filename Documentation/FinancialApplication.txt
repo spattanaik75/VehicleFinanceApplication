@@ -1,9 +1,11 @@
 --------------------------------------------------------------------------------
 VEHICLE FINANCIAL APPLICATION BPEL PROCESS
 --------------------------------------------------------------------------------
+Modified : 2014/11/03 11:49
+
 
 This is a synchrnous BPEL process used for the processing of the Financial 
-Application and notify the user the status of the Application. 
+Application and UpdateStatus the user the status of the Application. 
 
 --------------------------------------------------------------------------------
 INPUTS
@@ -56,35 +58,69 @@ INPUTS
 OUTPUTS
 --------------------------------------------------------------------------------
 
-
-* ApplicationId
 * Status
 
+Cases
+
+1. if all checks passed - 
+   "Application Submitted is affordable and credit rating is good"
+
+2. if affordability check fails-
+   "Application Submitted is not affordable. Please contact Customer Care"
+
+3. if creditcheck fails-
+   "Application Submitted is affordable but credit rating is not good.
+   please contact customer care"
+
 --------------------------------------------------------------------------------
-BUSINESS LOGIC
+DEPENDENCIES
 --------------------------------------------------------------------------------
 
-** The Application ID is generated.
+* InitialDbInsert
+* Affordability Check
+* CreditRating 
+* UpdateStatus
 
-** Bpel process calls the Notify.jws webservice which takes Application ID and 
-   status as input and notifies the user via Email/sms that Application has been
-   submitted.
+--------------------------------------------------------------------------------
+LOGIC
+--------------------------------------------------------------------------------
 
-** Bpel process then calls the Affordability check webservice to see if the 
+** ApplicationID generated.
+
+** Bpel process calls the UpdateStatus webservice where the ApplicationID and 
+   status is inserted in to the Database.
+
+** Then the Affordability check webservice is called to see if the 
    person can afford the loan or not.Gets a boolean value (true/false) and reason
    for application rejection as output.
 
-** If the canAfford value is FALSE then the process calls NOtify.jws which is a
-   one way bpel process to notify the user.
+** If the canAfford value is FALSE then the process calls UpdateStatus.jws which
+   is a one way bpel process to UpdateStatus the user.The Bpel process ends here.
 
 ** If the canAfford value is TRUE then the process continues with the invocation
    of Credit check web service.
 
 ** CreditRating.jws takes the IdNum as input and determines whether the user 
-   qualifies or not and returns a status field.
+   qualifies or not and returns a status field & Credit Rating value. 
 
-** If CreditRating is not good then again Notify.jws is called which is one of 
-   the process endpoints.
+** If CreditRating is not good then again UpdateStatus.jws is called which is 
+   one of the process endpoints.
+
+** If the CreditRating is good then UpdateStatus is called and the user is 
+   notified to submit the documents.
 
 ** Else Add the user to the Qualified list and Ask him to submit the necessary
   p documents.
+
+--------------------------------------------------------------------------------
+WSDL Information
+--------------------------------------------------------------------------------
+http://soumya:8001/soa-infra/services/default/Financial_Application/
+myapplication_client_ep?WSDL
+
+
+--------------------------------------------------------------------------------
+CONTRIBUTORS
+--------------------------------------------------------------------------------
+
+Soumya Ranjan Pattanaik
