@@ -101,6 +101,14 @@
               messageType="ns2:UpdateStatusRequestMessage"/>
     <variable name="NotDeclined_process_OutputVariable"
               messageType="ns2:UpdateStatusResponseMessage"/>
+    <variable name="QualifyFalse_process_InputVariable"
+              messageType="ns2:UpdateStatusRequestMessage"/>
+    <variable name="QualifyFalse_process_OutputVariable"
+              messageType="ns2:UpdateStatusResponseMessage"/>
+    <variable name="Declined_process_InputVariable"
+              messageType="ns2:UpdateStatusRequestMessage"/>
+    <variable name="Declined_process_OutputVariable"
+              messageType="ns2:UpdateStatusResponseMessage"/>
   </variables>
 
   <!-- 
@@ -389,62 +397,106 @@
                 inputVariable="QualifyTrue_process_InputVariable"
                 outputVariable="QualifyTrue_process_OutputVariable"
                 bpelx:invokeAsDetail="no"/>
+        <assign name="Assign">
+          <copy>
+            <from>$inputVariable.payload/ns3:IdNum</from>
+            <to>$CreditCheck_execute_InputVariable.request/ns3:IdNum</to>
+          </copy>
+        </assign>
+        <invoke name="CreditCheck" partnerLink="TransUnion"
+                portType="ns8:execute_ptt" operation="execute"
+                inputVariable="CreditCheck_execute_InputVariable"
+                outputVariable="CreditCheck_execute_OutputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <if name="If1">
+          <documentation>
+            <![CDATA[good]]>
+          </documentation>
+          <condition>$CreditCheck_execute_OutputVariable.reply/ns3:CreditRating&gt;500</condition>
+          <sequence name="Sequence3">
+            <assign name="inputNotDecline">
+              <copy>
+                <from>$QualifyTrue_process_OutputVariable.payload/ns3:id</from>
+                <to>$NotDeclined_process_InputVariable.payload/ns3:ApplicationID</to>
+              </copy>
+              <copy>
+                <from>concat($QualifyTrue_process_OutputVariable.payload/ns3:status," and credit rating is good ")</from>
+                <to>$NotDeclined_process_InputVariable.payload/ns3:status</to>
+              </copy>
+            </assign>
+            <invoke name="NotDeclined" partnerLink="UpdateStatus"
+                    portType="ns2:UpdateStatus" operation="process"
+                    inputVariable="NotDeclined_process_InputVariable"
+                    outputVariable="NotDeclined_process_OutputVariable"
+                    bpelx:invokeAsDetail="no"/>
+            <assign name="AssignOutput">
+              <copy>
+                <from>$NotDeclined_process_OutputVariable.payload/ns3:status</from>
+                <to>$outputVariable.payload/ns3:status</to>
+              </copy>
+            </assign>
+          </sequence>
+          <else>
+            <documentation>
+              <![CDATA[bad]]>
+            </documentation>
+            <sequence name="Sequence5">
+              <assign name="inputDecline">
+                <copy>
+                  <from>$QualifyTrue_process_OutputVariable.payload/ns3:id</from>
+                  <to>$Declined_process_InputVariable.payload/ns3:ApplicationID</to>
+                </copy>
+                <copy>
+                  <from>concat($QualifyTrue_process_OutputVariable.payload/ns3:status," but credit rating is not good. please contact customer care")</from>
+                  <to>$Declined_process_InputVariable.payload/ns3:status</to>
+                </copy>
+              </assign>
+              <invoke name="Declined"
+                      partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
+                      operation="process"
+                      inputVariable="Declined_process_InputVariable"
+                      outputVariable="Declined_process_OutputVariable"
+                      bpelx:invokeAsDetail="no"/>
+              <assign name="AssignOutput">
+                <copy>
+                  <from>$Declined_process_OutputVariable.payload/ns3:status</from>
+                  <to>$outputVariable.payload/ns3:status</to>
+                </copy>
+              </assign>
+            </sequence>
+          </else>
+        </if>
       </sequence>
       <else>
         <documentation>
           <![CDATA[false]]>
         </documentation>
-        <empty name="falseEmpty"/>
+        <sequence name="Sequence4">
+          <assign name="QualifyFalse">
+            <copy>
+              <from>$UpdateStatus_process_OutputVariable.payload/ns3:id</from>
+              <to>$QualifyFalse_process_InputVariable.payload/ns3:ApplicationID</to>
+            </copy>
+            <copy>
+              <from>concat($UpdateStatus_process_OutputVariable.payload/ns3:status," is not affordable. Please contact Customer Care")</from>
+              <to>$QualifyFalse_process_InputVariable.payload/ns3:status</to>
+            </copy>
+          </assign>
+          <invoke name="QualifyFalse"
+                  partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
+                  operation="process"
+                  inputVariable="QualifyFalse_process_InputVariable"
+                  outputVariable="QualifyFalse_process_OutputVariable"
+                  bpelx:invokeAsDetail="no"/>
+          <assign name="AssignOutput">
+            <copy>
+              <from>$QualifyFalse_process_OutputVariable.payload/ns3:status</from>
+              <to>$outputVariable.payload/ns3:status</to>
+            </copy>
+          </assign>
+        </sequence>
       </else>
     </if>
-    <assign name="Assign">
-      <copy>
-        <from>$inputVariable.payload/ns3:IdNum</from>
-        <to>$CreditCheck_execute_InputVariable.request/ns3:IdNum</to>
-      </copy>
-    </assign>
-    <invoke name="CreditCheck"
-            partnerLink="TransUnion" portType="ns8:execute_ptt"
-            operation="execute"
-            inputVariable="CreditCheck_execute_InputVariable"
-            outputVariable="CreditCheck_execute_OutputVariable"
-            bpelx:invokeAsDetail="no"/>
-    <if name="If1">
-      <documentation>
-        <![CDATA[good]]>
-      </documentation>
-      <condition>$CreditCheck_execute_OutputVariable.reply/ns3:CreditRating&gt;500</condition>
-      <sequence name="Sequence3">
-        <assign name="inputDecline">
-          <copy>
-            <from>$QualifyTrue_process_OutputVariable.payload/ns3:id</from>
-            <to>$NotDeclined_process_InputVariable.payload/ns3:ApplicationID</to>
-          </copy>
-          <copy>
-            <from>concat($QualifyTrue_process_OutputVariable.payload/ns3:status," and credit rating is good ")</from>
-            <to>$NotDeclined_process_InputVariable.payload/ns3:status</to>
-          </copy>
-        </assign>
-        <invoke name="NotDeclined"
-                partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
-                operation="process"
-                inputVariable="NotDeclined_process_InputVariable"
-                outputVariable="NotDeclined_process_OutputVariable"
-                bpelx:invokeAsDetail="no"/>
-      </sequence>
-      <else>
-        <documentation>
-          <![CDATA[bad]]>
-        </documentation>
-        <empty name="badEmpty"/>
-      </else>
-    </if>
-    <assign name="AssignOutput">
-      <copy>
-        <from>$NotDeclined_process_OutputVariable.payload/ns3:status</from>
-        <to>$outputVariable.payload/ns3:status</to>
-      </copy>
-    </assign>
     <!-- Generate reply to synchronous request -->
     <reply name="replyOutput" partnerLink="myapplication_client" portType="client:MyApplication" operation="process" variable="outputVariable"/>
   </sequence>
