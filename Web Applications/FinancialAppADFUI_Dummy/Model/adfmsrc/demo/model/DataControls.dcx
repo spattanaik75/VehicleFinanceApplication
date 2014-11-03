@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration"
+                    version="11.1.1.64.93" id="DataControls"
+                    Package="demo.model">
+  <AdapterDataControl id="financialWS"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.adfinternal.model.adapter.webservice.WSDefinition"
+                      SupportsTransactions="false"
+                      SupportsSortCollection="false" SupportsResetState="false"
+                      SupportsRangesize="false" SupportsFindMode="false"
+                      SupportsUpdates="true" Definition="demo.model.financialWS"
+                      BeanClass="demo.model.financialWS"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <Source>
+      <definition xmlns="http://xmlns.oracle.com/adfm/adapter/webservice"
+                  name="financialWS" version="1.0"
+                  provider="oracle.adfinternal.model.adapter.webservice.provider.soap.SOAPProvider"
+                  wsdl="http://Soumya:8001/soa-infra/services/default/Financial_Application/myapplication_client_ep?WSDL">
+        <service name="myapplication_client_ep"
+                 namespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"
+                 connection="financialWS">
+          <port name="MyApplication_pt">
+            <operation name="process"/>
+          </port>
+        </service>
+      </definition>
+    </Source>
+  </AdapterDataControl>
+</DataControlConfigs>

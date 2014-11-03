@@ -1,0 +1,431 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:pageTemplate viewId="/oracle/templates/threeColumnTemplate.jspx"
+                         id="pt1">
+          <f:facet name="center">
+            <af:panelTabbed id="pt2">
+              <af:showDetailItem text="Personal Info" id="sdi1">
+                <af:inputText value="#{bindings.FirstNames.inputValue}"
+                              label="#{bindings.FirstNames.hints.label}"
+                              required="#{bindings.FirstNames.hints.mandatory}"
+                              columns="#{bindings.FirstNames.hints.displayWidth}"
+                              maximumLength="#{bindings.FirstNames.hints.precision}"
+                              shortDesc="#{bindings.FirstNames.hints.tooltip}"
+                              id="it1">
+                  <f:validator binding="#{bindings.FirstNames.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.LastName.inputValue}"
+                              label="#{bindings.LastName.hints.label}"
+                              required="#{bindings.LastName.hints.mandatory}"
+                              columns="#{bindings.LastName.hints.displayWidth}"
+                              maximumLength="#{bindings.LastName.hints.precision}"
+                              shortDesc="#{bindings.LastName.hints.tooltip}"
+                              id="it2">
+                  <f:validator binding="#{bindings.LastName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Gender.inputValue}"
+                              label="#{bindings.Gender.hints.label}"
+                              required="#{bindings.Gender.hints.mandatory}"
+                              columns="#{bindings.Gender.hints.displayWidth}"
+                              maximumLength="#{bindings.Gender.hints.precision}"
+                              shortDesc="#{bindings.Gender.hints.tooltip}"
+                              id="it3">
+                  <f:validator binding="#{bindings.Gender.validator}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.DOB.inputValue}"
+                              label="#{bindings.DOB.hints.label}"
+                              required="#{bindings.DOB.hints.mandatory}"
+                              shortDesc="#{bindings.DOB.hints.tooltip}"
+                              id="id1">
+                  <f:validator binding="#{bindings.DOB.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.DOB.format}"/>
+                </af:inputDate>
+                <af:inputText value="#{bindings.IdNum.inputValue}"
+                              label="#{bindings.IdNum.hints.label}"
+                              required="#{bindings.IdNum.hints.mandatory}"
+                              columns="#{bindings.IdNum.hints.displayWidth}"
+                              maximumLength="#{bindings.IdNum.hints.precision}"
+                              shortDesc="#{bindings.IdNum.hints.tooltip}"
+                              id="it4">
+                  <f:validator binding="#{bindings.IdNum.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.IdNum.format}"/>
+                </af:inputText>
+              </af:showDetailItem>
+              <af:showDetailItem text=" Contact Info" id="sdi2">
+                <af:inputText value="#{bindings.Email.inputValue}"
+                              label="#{bindings.Email.hints.label}"
+                              required="#{bindings.Email.hints.mandatory}"
+                              columns="#{bindings.Email.hints.displayWidth}"
+                              maximumLength="#{bindings.Email.hints.precision}"
+                              shortDesc="#{bindings.Email.hints.tooltip}"
+                              id="it5">
+                  <f:validator binding="#{bindings.Email.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.CellNum.inputValue}"
+                              label="#{bindings.CellNum.hints.label}"
+                              required="#{bindings.CellNum.hints.mandatory}"
+                              columns="#{bindings.CellNum.hints.displayWidth}"
+                              maximumLength="#{bindings.CellNum.hints.precision}"
+                              shortDesc="#{bindings.CellNum.hints.tooltip}"
+                              id="it6">
+                  <f:validator binding="#{bindings.CellNum.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.CellNum.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine1.inputValue}"
+                              label="#{bindings.AddressLine1.hints.label}"
+                              required="#{bindings.AddressLine1.hints.mandatory}"
+                              columns="#{bindings.AddressLine1.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressLine1.hints.precision}"
+                              shortDesc="#{bindings.AddressLine1.hints.tooltip}"
+                              id="it7">
+                  <f:validator binding="#{bindings.AddressLine1.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine2.inputValue}"
+                              label="#{bindings.AddressLine2.hints.label}"
+                              required="#{bindings.AddressLine2.hints.mandatory}"
+                              columns="#{bindings.AddressLine2.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressLine2.hints.precision}"
+                              shortDesc="#{bindings.AddressLine2.hints.tooltip}"
+                              id="it8">
+                  <f:validator binding="#{bindings.AddressLine2.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine3.inputValue}"
+                              label="#{bindings.AddressLine3.hints.label}"
+                              required="#{bindings.AddressLine3.hints.mandatory}"
+                              columns="#{bindings.AddressLine3.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressLine3.hints.precision}"
+                              shortDesc="#{bindings.AddressLine3.hints.tooltip}"
+                              id="it9">
+                  <f:validator binding="#{bindings.AddressLine3.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AddressLine4.inputValue}"
+                              label="#{bindings.AddressLine4.hints.label}"
+                              required="#{bindings.AddressLine4.hints.mandatory}"
+                              columns="#{bindings.AddressLine4.hints.displayWidth}"
+                              maximumLength="#{bindings.AddressLine4.hints.precision}"
+                              shortDesc="#{bindings.AddressLine4.hints.tooltip}"
+                              id="it10">
+                  <f:validator binding="#{bindings.AddressLine4.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AreaCode.inputValue}"
+                              label="#{bindings.AreaCode.hints.label}"
+                              required="#{bindings.AreaCode.hints.mandatory}"
+                              columns="#{bindings.AreaCode.hints.displayWidth}"
+                              maximumLength="#{bindings.AreaCode.hints.precision}"
+                              shortDesc="#{bindings.AreaCode.hints.tooltip}"
+                              id="it11">
+                  <f:validator binding="#{bindings.AreaCode.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.AreaCode.format}"/>
+                </af:inputText>
+              </af:showDetailItem>
+              <af:showDetailItem text="Banking Detail" id="sdi3">
+                <af:inputText value="#{bindings.BankName.inputValue}"
+                              label="#{bindings.BankName.hints.label}"
+                              required="#{bindings.BankName.hints.mandatory}"
+                              columns="#{bindings.BankName.hints.displayWidth}"
+                              maximumLength="#{bindings.BankName.hints.precision}"
+                              shortDesc="#{bindings.BankName.hints.tooltip}"
+                              id="it12">
+                  <f:validator binding="#{bindings.BankName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AccountHolderName.inputValue}"
+                              label="#{bindings.AccountHolderName.hints.label}"
+                              required="#{bindings.AccountHolderName.hints.mandatory}"
+                              columns="#{bindings.AccountHolderName.hints.displayWidth}"
+                              maximumLength="#{bindings.AccountHolderName.hints.precision}"
+                              shortDesc="#{bindings.AccountHolderName.hints.tooltip}"
+                              id="it15">
+                  <f:validator binding="#{bindings.AccountHolderName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AccountNumber.inputValue}"
+                              label="#{bindings.AccountNumber.hints.label}"
+                              required="#{bindings.AccountNumber.hints.mandatory}"
+                              columns="#{bindings.AccountNumber.hints.displayWidth}"
+                              maximumLength="#{bindings.AccountNumber.hints.precision}"
+                              shortDesc="#{bindings.AccountNumber.hints.tooltip}"
+                              id="it13">
+                  <f:validator binding="#{bindings.AccountNumber.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.AccountNumber.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AccountTypeId.inputValue}"
+                              label="#{bindings.AccountTypeId.hints.label}"
+                              required="#{bindings.AccountTypeId.hints.mandatory}"
+                              columns="#{bindings.AccountTypeId.hints.displayWidth}"
+                              maximumLength="#{bindings.AccountTypeId.hints.precision}"
+                              shortDesc="#{bindings.AccountTypeId.hints.tooltip}"
+                              id="it14">
+                  <f:validator binding="#{bindings.AccountTypeId.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.AccountTypeId.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.BranchCode.inputValue}"
+                              label="#{bindings.BranchCode.hints.label}"
+                              required="#{bindings.BranchCode.hints.mandatory}"
+                              columns="#{bindings.BranchCode.hints.displayWidth}"
+                              maximumLength="#{bindings.BranchCode.hints.precision}"
+                              shortDesc="#{bindings.BranchCode.hints.tooltip}"
+                              id="it16">
+                  <f:validator binding="#{bindings.BranchCode.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.BranchCode.format}"/>
+                </af:inputText>
+                <af:inputDate value="#{bindings.DateChanged.inputValue}"
+                              label="#{bindings.DateChanged.hints.label}"
+                              required="#{bindings.DateChanged.hints.mandatory}"
+                              shortDesc="#{bindings.DateChanged.hints.tooltip}"
+                              id="id2">
+                  <f:validator binding="#{bindings.DateChanged.validator}"/>
+                  <af:convertDateTime pattern="#{bindings.DateChanged.format}"/>
+                </af:inputDate>
+              </af:showDetailItem>
+              <af:showDetailItem text="Deal Details" id="sdi4">
+                <af:inputText value="#{bindings.PaymentTypeId.inputValue}"
+                              label="#{bindings.PaymentTypeId.hints.label}"
+                              required="#{bindings.PaymentTypeId.hints.mandatory}"
+                              columns="#{bindings.PaymentTypeId.hints.displayWidth}"
+                              maximumLength="#{bindings.PaymentTypeId.hints.precision}"
+                              shortDesc="#{bindings.PaymentTypeId.hints.tooltip}"
+                              id="it17">
+                  <f:validator binding="#{bindings.PaymentTypeId.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.PaymentTypeId.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.PaymentFreq.inputValue}"
+                              label="#{bindings.PaymentFreq.hints.label}"
+                              required="#{bindings.PaymentFreq.hints.mandatory}"
+                              columns="#{bindings.PaymentFreq.hints.displayWidth}"
+                              maximumLength="#{bindings.PaymentFreq.hints.precision}"
+                              shortDesc="#{bindings.PaymentFreq.hints.tooltip}"
+                              id="it18">
+                  <f:validator binding="#{bindings.PaymentFreq.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.PaymentMethodId.inputValue}"
+                              label="#{bindings.PaymentMethodId.hints.label}"
+                              required="#{bindings.PaymentMethodId.hints.mandatory}"
+                              columns="#{bindings.PaymentMethodId.hints.displayWidth}"
+                              maximumLength="#{bindings.PaymentMethodId.hints.precision}"
+                              shortDesc="#{bindings.PaymentMethodId.hints.tooltip}"
+                              id="it19">
+                  <f:validator binding="#{bindings.PaymentMethodId.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.PaymentMethodId.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.IsFixedInterestRate.inputValue}"
+                              label="#{bindings.IsFixedInterestRate.hints.label}"
+                              required="#{bindings.IsFixedInterestRate.hints.mandatory}"
+                              columns="#{bindings.IsFixedInterestRate.hints.displayWidth}"
+                              maximumLength="#{bindings.IsFixedInterestRate.hints.precision}"
+                              shortDesc="#{bindings.IsFixedInterestRate.hints.tooltip}"
+                              id="it20">
+                  <f:validator binding="#{bindings.IsFixedInterestRate.validator}"/>
+                </af:inputText>
+              </af:showDetailItem>
+              <af:showDetailItem text="Asset Cost" id="sdi6">
+                <af:inputText value="#{bindings.PurchasePrice.inputValue}"
+                              label="#{bindings.PurchasePrice.hints.label}"
+                              required="#{bindings.PurchasePrice.hints.mandatory}"
+                              columns="#{bindings.PurchasePrice.hints.displayWidth}"
+                              maximumLength="#{bindings.PurchasePrice.hints.precision}"
+                              shortDesc="#{bindings.PurchasePrice.hints.tooltip}"
+                              id="it26">
+                  <f:validator binding="#{bindings.PurchasePrice.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.PurchasePrice.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Deposit.inputValue}"
+                              label="#{bindings.Deposit.hints.label}"
+                              required="#{bindings.Deposit.hints.mandatory}"
+                              columns="#{bindings.Deposit.hints.displayWidth}"
+                              maximumLength="#{bindings.Deposit.hints.precision}"
+                              shortDesc="#{bindings.Deposit.hints.tooltip}"
+                              id="it28">
+                  <f:validator binding="#{bindings.Deposit.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.Deposit.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.nettIncome.inputValue}"
+                              label="#{bindings.nettIncome.hints.label}"
+                              required="#{bindings.nettIncome.hints.mandatory}"
+                              columns="#{bindings.nettIncome.hints.displayWidth}"
+                              maximumLength="#{bindings.nettIncome.hints.precision}"
+                              shortDesc="#{bindings.nettIncome.hints.tooltip}"
+                              id="it33">
+                  <f:validator binding="#{bindings.nettIncome.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.nettIncome.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.totalMonthlyExpenses.inputValue}"
+                              label="#{bindings.totalMonthlyExpenses.hints.label}"
+                              required="#{bindings.totalMonthlyExpenses.hints.mandatory}"
+                              columns="#{bindings.totalMonthlyExpenses.hints.displayWidth}"
+                              maximumLength="#{bindings.totalMonthlyExpenses.hints.precision}"
+                              shortDesc="#{bindings.totalMonthlyExpenses.hints.tooltip}"
+                              id="it34">
+                  <f:validator binding="#{bindings.totalMonthlyExpenses.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.totalMonthlyExpenses.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.totalMonthlyCredit.inputValue}"
+                              label="#{bindings.totalMonthlyCredit.hints.label}"
+                              required="#{bindings.totalMonthlyCredit.hints.mandatory}"
+                              columns="#{bindings.totalMonthlyCredit.hints.displayWidth}"
+                              maximumLength="#{bindings.totalMonthlyCredit.hints.precision}"
+                              shortDesc="#{bindings.totalMonthlyCredit.hints.tooltip}"
+                              id="it35">
+                  <f:validator binding="#{bindings.totalMonthlyCredit.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.totalMonthlyCredit.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ExtrasTotal.inputValue}"
+                              label="#{bindings.ExtrasTotal.hints.label}"
+                              required="#{bindings.ExtrasTotal.hints.mandatory}"
+                              columns="#{bindings.ExtrasTotal.hints.displayWidth}"
+                              maximumLength="#{bindings.ExtrasTotal.hints.precision}"
+                              shortDesc="#{bindings.ExtrasTotal.hints.tooltip}"
+                              id="it36">
+                  <f:validator binding="#{bindings.ExtrasTotal.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.ExtrasTotal.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.Terms.inputValue}"
+                              label="#{bindings.Terms.hints.label}"
+                              required="#{bindings.Terms.hints.mandatory}"
+                              columns="#{bindings.Terms.hints.displayWidth}"
+                              maximumLength="#{bindings.Terms.hints.precision}"
+                              shortDesc="#{bindings.Terms.hints.tooltip}"
+                              id="it29">
+                  <f:validator binding="#{bindings.Terms.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.Terms.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.BalloonPercentage.inputValue}"
+                              label="#{bindings.BalloonPercentage.hints.label}"
+                              required="#{bindings.BalloonPercentage.hints.mandatory}"
+                              columns="#{bindings.BalloonPercentage.hints.displayWidth}"
+                              maximumLength="#{bindings.BalloonPercentage.hints.precision}"
+                              shortDesc="#{bindings.BalloonPercentage.hints.tooltip}"
+                              id="it30">
+                  <f:validator binding="#{bindings.BalloonPercentage.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.BalloonPercentage.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.AdminFees.inputValue}"
+                              label="#{bindings.AdminFees.hints.label}"
+                              required="#{bindings.AdminFees.hints.mandatory}"
+                              columns="#{bindings.AdminFees.hints.displayWidth}"
+                              maximumLength="#{bindings.AdminFees.hints.precision}"
+                              shortDesc="#{bindings.AdminFees.hints.tooltip}"
+                              id="it31">
+                  <f:validator binding="#{bindings.AdminFees.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.AdminFees.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.DealerAmt.inputValue}"
+                              label="#{bindings.DealerAmt.hints.label}"
+                              required="#{bindings.DealerAmt.hints.mandatory}"
+                              columns="#{bindings.DealerAmt.hints.displayWidth}"
+                              maximumLength="#{bindings.DealerAmt.hints.precision}"
+                              shortDesc="#{bindings.DealerAmt.hints.tooltip}"
+                              id="it32">
+                  <f:validator binding="#{bindings.DealerAmt.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.DealerAmt.format}"/>
+                </af:inputText>
+              </af:showDetailItem>
+              <af:showDetailItem text="Asset Details" id="sdi5">
+                <af:inputText value="#{bindings.CategoryId.inputValue}"
+                              label="#{bindings.CategoryId.hints.label}"
+                              required="#{bindings.CategoryId.hints.mandatory}"
+                              columns="#{bindings.CategoryId.hints.displayWidth}"
+                              maximumLength="#{bindings.CategoryId.hints.precision}"
+                              shortDesc="#{bindings.CategoryId.hints.tooltip}"
+                              id="it21">
+                  <f:validator binding="#{bindings.CategoryId.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.CategoryId.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.IsNewCar.inputValue}"
+                              label="#{bindings.IsNewCar.hints.label}"
+                              required="#{bindings.IsNewCar.hints.mandatory}"
+                              columns="#{bindings.IsNewCar.hints.displayWidth}"
+                              maximumLength="#{bindings.IsNewCar.hints.precision}"
+                              shortDesc="#{bindings.IsNewCar.hints.tooltip}"
+                              id="it22">
+                  <f:validator binding="#{bindings.IsNewCar.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.MakeDesc.inputValue}"
+                              label="#{bindings.MakeDesc.hints.label}"
+                              required="#{bindings.MakeDesc.hints.mandatory}"
+                              columns="#{bindings.MakeDesc.hints.displayWidth}"
+                              maximumLength="#{bindings.MakeDesc.hints.precision}"
+                              shortDesc="#{bindings.MakeDesc.hints.tooltip}"
+                              id="it23">
+                  <f:validator binding="#{bindings.MakeDesc.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.MakeDesc.format}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.ModelName.inputValue}"
+                              label="#{bindings.ModelName.hints.label}"
+                              required="#{bindings.ModelName.hints.mandatory}"
+                              columns="#{bindings.ModelName.hints.displayWidth}"
+                              maximumLength="#{bindings.ModelName.hints.precision}"
+                              shortDesc="#{bindings.ModelName.hints.tooltip}"
+                              id="it24">
+                  <f:validator binding="#{bindings.ModelName.validator}"/>
+                </af:inputText>
+                <af:inputText value="#{bindings.KmTravelled.inputValue}"
+                              label="#{bindings.KmTravelled.hints.label}"
+                              required="#{bindings.KmTravelled.hints.mandatory}"
+                              columns="#{bindings.KmTravelled.hints.displayWidth}"
+                              maximumLength="#{bindings.KmTravelled.hints.precision}"
+                              shortDesc="#{bindings.KmTravelled.hints.tooltip}"
+                              id="it25">
+                  <f:validator binding="#{bindings.KmTravelled.validator}"/>
+                  <af:convertNumber groupingUsed="false"
+                                    pattern="#{bindings.KmTravelled.format}"/>
+                </af:inputText>
+              </af:showDetailItem>
+            </af:panelTabbed>
+          </f:facet>
+          <f:facet name="header">
+            <f:verbatim>
+              Financial Application
+            </f:verbatim>
+          </f:facet>
+          <f:facet name="end">
+            <af:group id="g1">
+              <af:panelAccordion id="pa1">
+                <af:showDetailItem text="Submit" id="sdi7">
+                  <af:commandButton actionListener="#{bindings.process.execute}"
+                                    text="process"
+                                    disabled="#{!bindings.process.enabled}"
+                                    id="cb1"/>
+                  <af:panelLabelAndMessage label="RESULT"
+                                           id="plam1">
+                    <af:outputText value="#{bindings.Return.inputValue}"
+                                   id="ot1"/>
+                  </af:panelLabelAndMessage>
+                </af:showDetailItem>
+              </af:panelAccordion>
+            </af:group>
+          </f:facet>
+          <f:facet name="branding"/>
+          <f:facet name="copyright"/>
+          <f:facet name="status"/>
+        </af:pageTemplate>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

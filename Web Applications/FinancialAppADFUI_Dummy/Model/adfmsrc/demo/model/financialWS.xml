@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.64.93"
+          id="financialWS" Package="demo.model"
+          BeanClass="demo.model.financialWS" isJavaBased="false">
+  <AccessorAttribute id="process_parameters" IsCollection="false"
+                     BeanClass="financialWS.Types.process"/>
+  <MethodAccessor IsCollection="false" Type="java.lang.String" id="process"
+                  ReturnNodeName="Return">
+    <ParameterInfo id="payload" Type="java.lang.Object" isStructured="false">
+      <Properties>
+        <Property Name="__SET_INITIAL_VALUE" Value="true"/>
+      </Properties>
+    </ParameterInfo>
+  </MethodAccessor>
+</JavaBean>

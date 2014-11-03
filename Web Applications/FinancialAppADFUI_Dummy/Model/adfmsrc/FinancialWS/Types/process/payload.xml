@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.64.93"
+          id="payload" Package="financialWS.Types.process"
+          BeanClass="financialWS.Types.process.payload" isJavaBased="false">
+  <Attribute Name="FirstNames" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="LastName" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="Gender" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="DOB" IsNotNull="true" Type="java.sql.Date"/>
+  <Attribute Name="IdNum" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="Email" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="CellNum" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="AddressLine1" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="AddressLine2" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="AddressLine3" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="AddressLine4" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="AreaCode" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="BankName" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="AccountHolderName" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="AccountNumber" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="AccountTypeId" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="BranchCode" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="DateChanged" IsNotNull="true" Type="java.sql.Date"/>
+  <Attribute Name="PaymentTypeId" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="PaymentFreq" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="PaymentMethodId" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="IsFixedInterestRate" IsNotNull="true"
+             Type="java.lang.String"/>
+  <Attribute Name="PurchasePrice" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="Deposit" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="nettIncome" IsNotNull="true" Type="java.lang.Double"/>
+  <Attribute Name="totalMonthlyExpenses" IsNotNull="true"
+             Type="java.lang.Double"/>
+  <Attribute Name="totalMonthlyCredit" IsNotNull="true"
+             Type="java.lang.Double"/>
+  <Attribute Name="ExtrasTotal" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="Terms" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="BalloonPercentage" IsNotNull="true"
+             Type="java.lang.Integer"/>
+  <Attribute Name="AdminFees" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="DealerAmt" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="CategoryId" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="IsNewCar" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="MakeDesc" IsNotNull="true" Type="java.lang.Integer"/>
+  <Attribute Name="ModelName" IsNotNull="true" Type="java.lang.String"/>
+  <Attribute Name="KmTravelled" IsNotNull="true" Type="java.lang.Integer"/>
+</JavaBean>

@@ -1,0 +1,323 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<References xmlns="http://xmlns.oracle.com/adf/jndi">
+   <Reference name="FinancialWS" className="oracle.adf.model.connection.webservice.impl.WebServiceConnectionImpl" xmlns="">
+      <Factory className="oracle.adf.model.connection.webservice.api.WebServiceConnectionFactory"/>
+      <RefAddresses>
+         <XmlRefAddr addrType="WebServiceConnection">
+            <Contents>
+               <wsconnection description="http://soumya:8001/soa-infra/services/default/Financial_Application/myapplication_client_ep?WSDL" service="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}myapplication_client_ep">
+                  <model name="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplication" xmlns="http://oracle.com/ws/model">
+                     <types xmlns="http://oracle.com/oracle/webservices/mdds">
+                        <complexType elementQualified="true" namespace="http://www.example.org" localPart="customertype" prefix="ci" xmlns="">
+                           <sequence minOccurs="1" maxOccurs="1">
+                              <part name="FirstNames" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="LastName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="Gender" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="DOB" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="date"/>
+                              </part>
+                              <part name="IdNum" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="Email" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="CellNum" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="AddressLine1" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AddressLine2" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AddressLine3" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AddressLine4" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AreaCode" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="BankName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AccountHolderName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AccountNumber" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="AccountTypeId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="BranchCode" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="DateChanged" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="date"/>
+                              </part>
+                              <part name="PaymentTypeId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="PaymentFreq" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="PaymentMethodId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="IsFixedInterestRate" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="PurchasePrice" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="Deposit" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="nettIncome" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="double"/>
+                              </part>
+                              <part name="totalMonthlyExpenses" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="double"/>
+                              </part>
+                              <part name="totalMonthlyCredit" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="double"/>
+                              </part>
+                              <part name="ExtrasTotal" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="Terms" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="BalloonPercentage" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="AdminFees" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="DealerAmt" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="CategoryId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="IsNewCar" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="MakeDesc" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="ModelName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="KmTravelled" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                           </sequence>
+                        </complexType>
+                        <complexType elementQualified="true" namespace="http://www.example.org" localPart="ApplicationStatusType" prefix="ci" xmlns="">
+                           <sequence minOccurs="1" maxOccurs="1">
+                              <part name="status" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                           </sequence>
+                        </complexType>
+                        <types-in-elements/>
+                     </types>
+                     <service name="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}myapplication_client_ep">
+                        <port name="MyApplication_pt" binding="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplicationBinding" portType="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplication">
+                           <soap addressUrl="http://soumya:8001/soa-infra/services/default/Financial_Application/myapplication_client_ep" xmlns="http://schemas.xmlsoap.org/wsdl/soap/"/>
+                           <operation name="process">
+                              <soap soapAction="process" xmlns="http://schemas.xmlsoap.org/wsdl/soap/"/>
+                              <input name="" message="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplicationRequestMessage">
+                                 <message style="2" use="1" soapVersion="1" encodingStyle="" docLitWrapped="false" namespace="http://www.example.org" localPart="customer" xmlns="http://oracle.com/oracle/webservices/mdds">
+                                    <part name="payload" required="true" xmlns="">
+                                       <type namespace="http://www.example.org" localPart="customertype" prefix="ci"/>
+                                    </part>
+                                 </message>
+                              </input>
+                              <output name="" message="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplicationResponseMessage">
+                                 <message style="2" use="1" soapVersion="1" encodingStyle="" docLitWrapped="true" namespace="http://www.example.org" localPart="ApplicationStatus" xmlns="http://oracle.com/oracle/webservices/mdds">
+                                    <part name="payload" required="true" xmlns="">
+                                       <type namespace="http://www.example.org" localPart="ApplicationStatusType" prefix="ci"/>
+                                    </part>
+                                 </message>
+                              </output>
+                           </operation>
+                        </port>
+                     </service>
+                  </model>
+               </wsconnection>
+            </Contents>
+         </XmlRefAddr>
+      </RefAddresses>
+   </Reference>
+   <Reference name="financialWS" className="oracle.adf.model.connection.webservice.impl.WebServiceConnectionImpl" xmlns="">
+      <Factory className="oracle.adf.model.connection.webservice.api.WebServiceConnectionFactory"/>
+      <RefAddresses>
+         <XmlRefAddr addrType="WebServiceConnection">
+            <Contents>
+               <wsconnection description="http://Soumya:8001/soa-infra/services/default/Financial_Application/myapplication_client_ep?WSDL" service="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}myapplication_client_ep">
+                  <model name="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplication" xmlns="http://oracle.com/ws/model">
+                     <types xmlns="http://oracle.com/oracle/webservices/mdds">
+                        <complexType elementQualified="true" namespace="http://www.example.org" localPart="customertype" prefix="ci" xmlns="">
+                           <sequence minOccurs="1" maxOccurs="1">
+                              <part name="FirstNames" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="LastName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="Gender" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="DOB" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="date"/>
+                              </part>
+                              <part name="IdNum" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="Email" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="CellNum" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="AddressLine1" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AddressLine2" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AddressLine3" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AddressLine4" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AreaCode" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="BankName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AccountHolderName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="AccountNumber" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="AccountTypeId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="BranchCode" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="DateChanged" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="date"/>
+                              </part>
+                              <part name="PaymentTypeId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="PaymentFreq" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="PaymentMethodId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="IsFixedInterestRate" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="PurchasePrice" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="Deposit" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="nettIncome" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="double"/>
+                              </part>
+                              <part name="totalMonthlyExpenses" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="double"/>
+                              </part>
+                              <part name="totalMonthlyCredit" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="double"/>
+                              </part>
+                              <part name="ExtrasTotal" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="Terms" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="BalloonPercentage" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="AdminFees" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="DealerAmt" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="CategoryId" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="IsNewCar" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="MakeDesc" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                              <part name="ModelName" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                              <part name="KmTravelled" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="int"/>
+                              </part>
+                           </sequence>
+                        </complexType>
+                        <complexType elementQualified="true" namespace="http://www.example.org" localPart="ApplicationStatusType" prefix="ci" xmlns="">
+                           <sequence minOccurs="1" maxOccurs="1">
+                              <part name="status" required="true" namespace="http://www.example.org" elementQualified="true">
+                                 <type namespace="http://www.w3.org/2001/XMLSchema" localPart="string"/>
+                              </part>
+                           </sequence>
+                        </complexType>
+                        <types-in-elements/>
+                     </types>
+                     <service name="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}myapplication_client_ep">
+                        <port name="MyApplication_pt" binding="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplicationBinding" portType="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplication">
+                           <soap addressUrl="http://soumya:8001/soa-infra/services/default/Financial_Application/myapplication_client_ep" xmlns="http://schemas.xmlsoap.org/wsdl/soap/"/>
+                           <operation name="process">
+                              <soap soapAction="process" xmlns="http://schemas.xmlsoap.org/wsdl/soap/"/>
+                              <input name="" message="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplicationRequestMessage">
+                                 <message style="2" use="1" soapVersion="1" encodingStyle="" docLitWrapped="false" namespace="http://www.example.org" localPart="customer" xmlns="http://oracle.com/oracle/webservices/mdds">
+                                    <part name="payload" required="true" xmlns="">
+                                       <type namespace="http://www.example.org" localPart="customertype" prefix="ci"/>
+                                    </part>
+                                 </message>
+                              </input>
+                              <output name="" message="{http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication}MyApplicationResponseMessage">
+                                 <message style="2" use="1" soapVersion="1" encodingStyle="" docLitWrapped="true" namespace="http://www.example.org" localPart="ApplicationStatus" xmlns="http://oracle.com/oracle/webservices/mdds">
+                                    <part name="payload" required="true" xmlns="">
+                                       <type namespace="http://www.example.org" localPart="ApplicationStatusType" prefix="ci"/>
+                                    </part>
+                                 </message>
+                              </output>
+                           </operation>
+                        </port>
+                     </service>
+                  </model>
+               </wsconnection>
+            </Contents>
+         </XmlRefAddr>
+      </RefAddresses>
+   </Reference>
+</References>

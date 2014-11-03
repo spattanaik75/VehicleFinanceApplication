@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application"
+             version="11.1.1.64.93" id="DataBindings" SeparateXMLFiles="false"
+             Package="demo.view" ClientType="Generic">
+  <pageMap>
+    <page path="/Register.jspx" usageId="demo_view_RegisterPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="demo_view_RegisterPageDef"
+          path="demo.view.pageDefs.RegisterPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <dc id="financialWS" path="demo.model.financialWS"/>
+  </dataControlUsages>
+</Application>

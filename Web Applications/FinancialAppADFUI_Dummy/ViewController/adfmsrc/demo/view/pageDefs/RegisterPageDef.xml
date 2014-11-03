@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="RegisterPageDef"
+                Package="demo.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Type="java.lang.String" Name="process_Return"
+                IsQueriable="false" IsUpdateable="0"
+                DefaultValue="${bindings.process.result}"/>
+    </variableIterator>
+    <iterator Binds="root" RangeSize="25" DataControl="financialWS"
+              id="financialWSIterator"/>
+    <accessorIterator MasterBinding="financialWSIterator"
+                      Binds="process_parameters" RangeSize="25"
+                      DataControl="financialWS"
+                      BeanClass="financialWS.Types.process"
+                      id="process_parametersIterator"/>
+    <accessorIterator MasterBinding="process_parametersIterator" Binds="payload"
+                      RangeSize="25" DataControl="financialWS"
+                      BeanClass="financialWS.Types.process.payload"
+                      id="payloadIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="payloadIterator" id="FirstNames">
+      <AttrNames>
+        <Item Value="FirstNames"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="LastName">
+      <AttrNames>
+        <Item Value="LastName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="Gender">
+      <AttrNames>
+        <Item Value="Gender"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="DOB">
+      <AttrNames>
+        <Item Value="DOB"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="IdNum">
+      <AttrNames>
+        <Item Value="IdNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="Email">
+      <AttrNames>
+        <Item Value="Email"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="CellNum">
+      <AttrNames>
+        <Item Value="CellNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AddressLine1">
+      <AttrNames>
+        <Item Value="AddressLine1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AddressLine2">
+      <AttrNames>
+        <Item Value="AddressLine2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AddressLine3">
+      <AttrNames>
+        <Item Value="AddressLine3"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AddressLine4">
+      <AttrNames>
+        <Item Value="AddressLine4"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AreaCode">
+      <AttrNames>
+        <Item Value="AreaCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="BankName">
+      <AttrNames>
+        <Item Value="BankName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AccountNumber">
+      <AttrNames>
+        <Item Value="AccountNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AccountTypeId">
+      <AttrNames>
+        <Item Value="AccountTypeId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AccountHolderName">
+      <AttrNames>
+        <Item Value="AccountHolderName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="BranchCode">
+      <AttrNames>
+        <Item Value="BranchCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="DateChanged">
+      <AttrNames>
+        <Item Value="DateChanged"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="PaymentTypeId">
+      <AttrNames>
+        <Item Value="PaymentTypeId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="PaymentFreq">
+      <AttrNames>
+        <Item Value="PaymentFreq"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="PaymentMethodId">
+      <AttrNames>
+        <Item Value="PaymentMethodId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="IsFixedInterestRate">
+      <AttrNames>
+        <Item Value="IsFixedInterestRate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="CategoryId">
+      <AttrNames>
+        <Item Value="CategoryId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="IsNewCar">
+      <AttrNames>
+        <Item Value="IsNewCar"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="MakeDesc">
+      <AttrNames>
+        <Item Value="MakeDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="ModelName">
+      <AttrNames>
+        <Item Value="ModelName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="KmTravelled">
+      <AttrNames>
+        <Item Value="KmTravelled"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="PurchasePrice">
+      <AttrNames>
+        <Item Value="PurchasePrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="ExtrasTotal">
+      <AttrNames>
+        <Item Value="ExtrasTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="Deposit">
+      <AttrNames>
+        <Item Value="Deposit"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="Terms">
+      <AttrNames>
+        <Item Value="Terms"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="BalloonPercentage">
+      <AttrNames>
+        <Item Value="BalloonPercentage"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="AdminFees">
+      <AttrNames>
+        <Item Value="AdminFees"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="DealerAmt">
+      <AttrNames>
+        <Item Value="DealerAmt"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="nettIncome">
+      <AttrNames>
+        <Item Value="nettIncome"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="totalMonthlyExpenses">
+      <AttrNames>
+        <Item Value="totalMonthlyExpenses"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="payloadIterator" id="totalMonthlyCredit">
+      <AttrNames>
+        <Item Value="totalMonthlyCredit"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="process" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="process" IsViewObjectMethod="false"
+                  DataControl="financialWS" InstanceName="financialWS"
+                  ReturnName="data.financialWS.methodResults.process_financialWS_process_result">
+      <NamedData NDName="payload"
+                 NDValue="${bindings.payloadIterator.currentRow.dataProvider}"
+                 NDType="java.lang.Object"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="Return">
+      <AttrNames>
+        <Item Value="process_Return"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

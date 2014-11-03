@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="11.1.1.64.93"
+          id="process" Package="financialWS.Types"
+          BeanClass="financialWS.Types.process" isJavaBased="false">
+  <AccessorAttribute id="payload" IsCollection="false"
+                     BeanClass="financialWS.Types.process.payload"/>
+</JavaBean>
