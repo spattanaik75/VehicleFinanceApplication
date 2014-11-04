@@ -34,8 +34,16 @@ Interest Rate: 13%
 -----------------------
 Outputs
 -----------------------
-Can Afford - True if the customer can afford, else false.
-Reason - if CanAfford is false then a reason is populated.
+(i) Response Code : This code defines the final execution status of the service.
+The following codes are the expected output values:
+  200 - The customer has been determined to be ABLE TO AFFORD the loan
+  300 - The customer has been determined as being UNABLE TO AFFORD the loan
+  400 - There was a validation error that occured with one or more of the constraints mention within this
+        document.
+  500 - An internal service error occured - not particularly related to the rules invalidation but could be
+        but not limited to an exception or service error.
+        
+(ii) Response Message: This carries the message to describe the specific message related to the response code.
 
 -----------------------
 Rules
