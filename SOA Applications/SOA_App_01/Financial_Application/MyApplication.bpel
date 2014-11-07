@@ -376,7 +376,7 @@
         <to>$FinanceTableUpdate1_update_InputVariable.FinancialApplicationCollection/ns10:FinancialApplication/ns10:financialApplicationId</to>
       </copy>
     </assign>
-    <invoke name="Invoke1"
+    <invoke name="Invoke_FinanceTableUpdate"
             partnerLink="FinancialApplicationUpdate"
             portType="ns9:FinancialApplicationUpdate_ptt" operation="update"
             inputVariable="FinanceTableUpdate1_update_InputVariable"
