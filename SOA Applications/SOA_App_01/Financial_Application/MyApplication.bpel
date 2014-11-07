@@ -35,8 +35,10 @@
          xmlns:ns6="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
          xmlns:ns7="http://www.reverside.co.za/schema/affordability-service"
          xmlns:ns8="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest">
-
-    <import namespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication" location="MyApplication.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <import namespace="http://schemas.oracle.com/bpel/extension"
+          location="RuntimeFault.wsdl"
+          importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <import namespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication" location="MyApplication.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         PARTNERLINKS                                                      
@@ -109,8 +111,14 @@
               messageType="ns2:UpdateStatusRequestMessage"/>
     <variable name="Declined_process_OutputVariable"
               messageType="ns2:UpdateStatusResponseMessage"/>
+    <variable messageType="bpelx:RuntimeFaultMessage" name="FaultVar"/>
   </variables>
-
+  <faultHandlers>
+    <catchAll>
+      <throw name="ThrowFault" faultName="bpelx:bindingFault"
+             faultVariable="FaultVar"/>
+    </catchAll>
+  </faultHandlers>
   <!-- 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ORCHESTRATION LOGIC                                               
@@ -122,7 +130,7 @@
 
     <!-- Receive input from requestor. (Note: This maps to operation defined in MyApplication.wsdl) -->
     <receive name="receiveInput" partnerLink="myapplication_client" portType="client:MyApplication" operation="process" variable="inputVariable" createInstance="yes"/>
-    <assign name="AssignStatus">
+    <assign name="AssignApplicationID_And_Status_To_UpdateStatus">
       <copy>
         <from>$inputVariable.payload/ns3:FirstNames</from>
         <to>$UpdateStatus_process_InputVariable.payload/ns3:UserName</to>
@@ -156,13 +164,13 @@
         <to>$UpdateStatus_process_InputVariable.payload/ns3:isApproved</to>
       </copy>
     </assign>
-    <invoke name="UpdateStatus"
+    <invoke name="Invoke_UpdateStatus_InsertIDAndStatusOfApplication"
             partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
             operation="process"
             inputVariable="UpdateStatus_process_InputVariable"
             outputVariable="UpdateStatus_process_OutputVariable"
             bpelx:invokeAsDetail="no"/>
-    <assign name="AllInsertAssign">
+    <assign name="AssignInput_To_ChildTableInsertProcess">
       <copy>
         <from>$inputVariable.payload/ns3:FirstNames</from>
         <to>$AllInsert_process_InputVariable.payload/ns3:FirstNames</to>
@@ -300,12 +308,12 @@
         <to>$AllInsert_process_InputVariable.payload/ns3:KmTravelled</to>
       </copy>
     </assign>
-    <invoke name="AllInsert" partnerLink="AllInsert"
+    <invoke name="Invoke_ChildTableInsert" partnerLink="AllInsert"
             portType="ns1:InitialDbInsert" operation="process"
             inputVariable="AllInsert_process_InputVariable"
             outputVariable="AllInsert_process_OutputVariable"
             bpelx:invokeAsDetail="no"/>
-    <assign name="AssignCustomer">
+    <assign name="AssignInput_To_CustomerTableInsert">
       <copy>
         <from>$AllInsert_process_OutputVariable.payload/ns3:personId</from>
         <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:personId</to>
@@ -327,12 +335,12 @@
         <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:custId</to>
       </copy>
     </assign>
-    <invoke name="customerTable"
+    <invoke name="Invoke_CustomerTableInsert"
             partnerLink="customerMerge" portType="ns4:customerMerge_ptt"
             operation="merge"
             inputVariable="customerTable_merge_InputVariable"
             bpelx:invokeAsDetail="no"/>
-    <assign name="AffordInput">
+    <assign name="AssignInput_To_AffordableWebService">
       <copy>
         <from>$inputVariable.payload/ns3:PurchasePrice</from>
         <to>$callAffordability_process_InputVariable.payload/ns7:requestedLoanAmount</to>
@@ -366,19 +374,19 @@
         <to>$callAffordability_process_InputVariable.payload/ns7:administrationFee</to>
       </copy>
     </assign>
-    <invoke name="callAffordability"
+    <invoke name="Invoke_Affordable_WebService"
             partnerLink="Affordable"
             portType="ns6:AffordabilityProcessService" operation="process"
             inputVariable="callAffordability_process_InputVariable"
             outputVariable="callAffordability_process_OutputVariable"
             bpelx:invokeAsDetail="no"/>
-    <if name="canAfford">
+    <if name="CheckIf_AffordableOrNot">
       <documentation>
-        <![CDATA[true]]>
+        <![CDATA[Affordable]]>
       </documentation>
       <condition>$callAffordability_process_OutputVariable.payload/ns7:canAfford = "true"</condition>
       <sequence name="Sequence1">
-        <assign name="QualifyTrue">
+        <assign name="AssignInput_To_UpdateStatus">
           <copy>
             <from>$UpdateStatus_process_OutputVariable.payload/ns3:id</from>
             <to>$QualifyTrue_process_InputVariable.payload/ns3:ApplicationID</to>
@@ -392,29 +400,29 @@
             <to>$QualifyTrue_process_InputVariable.payload/ns3:status</to>
           </copy>
         </assign>
-        <invoke name="QualifyTrue" partnerLink="UpdateStatus"
+        <invoke name="Invoke_UpdateStatusWebService" partnerLink="UpdateStatus"
                 portType="ns2:UpdateStatus" operation="process"
                 inputVariable="QualifyTrue_process_InputVariable"
                 outputVariable="QualifyTrue_process_OutputVariable"
                 bpelx:invokeAsDetail="no"/>
-        <assign name="Assign">
+        <assign name="AssignInput_To_CreditCheckWebService">
           <copy>
             <from>$inputVariable.payload/ns3:IdNum</from>
             <to>$CreditCheck_execute_InputVariable.request/ns3:IdNum</to>
           </copy>
         </assign>
-        <invoke name="CreditCheck" partnerLink="TransUnion"
+        <invoke name="Invoke_CreditCheckWebService" partnerLink="TransUnion"
                 portType="ns8:execute_ptt" operation="execute"
                 inputVariable="CreditCheck_execute_InputVariable"
                 outputVariable="CreditCheck_execute_OutputVariable"
                 bpelx:invokeAsDetail="no"/>
-        <if name="If1">
+        <if name="CheckIf_CreditRatingIs_GoodOrNot">
           <documentation>
             <![CDATA[good]]>
           </documentation>
           <condition>$CreditCheck_execute_OutputVariable.reply/ns3:CreditRating&gt;500</condition>
           <sequence name="Sequence3">
-            <assign name="inputNotDecline">
+            <assign name="AssignInput_To_UpdateStatus">
               <copy>
                 <from>$QualifyTrue_process_OutputVariable.payload/ns3:id</from>
                 <to>$NotDeclined_process_InputVariable.payload/ns3:ApplicationID</to>
@@ -424,7 +432,7 @@
                 <to>$NotDeclined_process_InputVariable.payload/ns3:status</to>
               </copy>
             </assign>
-            <invoke name="NotDeclined" partnerLink="UpdateStatus"
+            <invoke name="Invoke_UpdateStatusWebService" partnerLink="UpdateStatus"
                     portType="ns2:UpdateStatus" operation="process"
                     inputVariable="NotDeclined_process_InputVariable"
                     outputVariable="NotDeclined_process_OutputVariable"
@@ -441,7 +449,7 @@
               <![CDATA[bad]]>
             </documentation>
             <sequence name="Sequence5">
-              <assign name="inputDecline">
+              <assign name="AssignInput_To_UpdateStatus">
                 <copy>
                   <from>$QualifyTrue_process_OutputVariable.payload/ns3:id</from>
                   <to>$Declined_process_InputVariable.payload/ns3:ApplicationID</to>
@@ -451,7 +459,7 @@
                   <to>$Declined_process_InputVariable.payload/ns3:status</to>
                 </copy>
               </assign>
-              <invoke name="Declined"
+              <invoke name="Invoke_UpdateStatusWebService"
                       partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
                       operation="process"
                       inputVariable="Declined_process_InputVariable"
@@ -469,10 +477,10 @@
       </sequence>
       <else>
         <documentation>
-          <![CDATA[false]]>
+          <![CDATA[Cant_Afford]]>
         </documentation>
         <sequence name="Sequence4">
-          <assign name="QualifyFalse">
+          <assign name="AssignInput_To_UpdateStatus">
             <copy>
               <from>$UpdateStatus_process_OutputVariable.payload/ns3:id</from>
               <to>$QualifyFalse_process_InputVariable.payload/ns3:ApplicationID</to>
@@ -482,7 +490,7 @@
               <to>$QualifyFalse_process_InputVariable.payload/ns3:status</to>
             </copy>
           </assign>
-          <invoke name="QualifyFalse"
+          <invoke name="Invoke_UpdateStatusWebService"
                   partnerLink="UpdateStatus" portType="ns2:UpdateStatus"
                   operation="process"
                   inputVariable="QualifyFalse_process_InputVariable"

@@ -1,51 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="MyApplication"
-             targetNamespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"
-             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-             xmlns:client="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"
-             xmlns:ns1="http://www.example.org"
-             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
-
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	TYPE DEFINITION - List of services participating in this BPEL process
-	The default output of the BPEL designer uses strings as input and 
-	output to the BPEL Process. But you can define or import any XML 
-	Schema type and use them as part of the message types.
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
-	<wsdl:types>
-		<schema xmlns="http://www.w3.org/2001/XMLSchema">
-			<import namespace="http://www.example.org" schemaLocation="xsd/MainInput.xsd" />
-		</schema>
-	</wsdl:types>
-
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	MESSAGE TYPE DEFINITION - Definition of the message types used as 
-	part of the port type defintions
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
-	<wsdl:message name="MyApplicationRequestMessage">
-		<wsdl:part name="payload" element="ns1:customer" />
-	</wsdl:message>
-	<wsdl:message name="MyApplicationResponseMessage">
-		<wsdl:part name="payload" element="ns1:ApplicationStatus" />
-	</wsdl:message>
-
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	PORT TYPE DEFINITION - A port type groups a set of operations into
-	a logical service unit.
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-	<!-- portType implemented by the MyApplication BPEL process -->
-	<wsdl:portType name="MyApplication">
-		<wsdl:operation name="process">
-			<wsdl:input  message="client:MyApplicationRequestMessage" />
-			<wsdl:output message="client:MyApplicationResponseMessage"/>
-		</wsdl:operation>
-	</wsdl:portType>
-
-	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	PARTNER LINK TYPE DEFINITION
-	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ --> 
-	<plnk:partnerLinkType name="MyApplication">
-		<plnk:role name="MyApplicationProvider" portType="client:MyApplication"/>
-	</plnk:partnerLinkType>
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="MyApplication"
+     targetNamespace="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"
+     xmlns:ns2="http://schemas.oracle.com/bpel/extension"
+     xmlns:ns1="http://www.example.org"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:client="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <plnk:partnerLinkType name="MyApplication">
+        <plnk:role name="MyApplicationProvider" portType="client:MyApplication"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://schemas.oracle.com/bpel/extension" location="RuntimeFault.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.example.org" schemaLocation="xsd/MainInput.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="MyApplicationRequestMessage">
+        <wsdl:part name="payload" element="ns1:customer"/>
+    </wsdl:message>
+    <wsdl:message name="MyApplicationResponseMessage">
+        <wsdl:part name="payload" element="ns1:ApplicationStatus"/>
+    </wsdl:message>
+    <wsdl:portType name="MyApplication">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:MyApplicationRequestMessage"/>
+            <wsdl:output message="client:MyApplicationResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
 </wsdl:definitions>

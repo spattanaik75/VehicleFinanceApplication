@@ -34,9 +34,13 @@ INPUTS
 * PaymentMethod
 * IsFixedInterestRate
 * PurchasePrice
-* ExtrasTotal
 * Deposit
-* Terms
+* NetIncome
+* Total Monthly Expenses
+* Total Monthly Credit
+* Total Extras Total 
+* Administration Fee
+* Number Of Terms (In months)
 * BalloonPercentage
 * AdminFees
 * DealerAmt
@@ -45,13 +49,7 @@ INPUTS
 * MakeDesc 
 * ModelName
 * KmTravelled
-* Requested Loan Amount
-* Deposit
-* Total Monthly Expenses
-* Total Monthly Credit
-* Total Extras Total 
-* Administration Fee
-* Number Of Terms (In months)
+
  
 
 --------------------------------------------------------------------------------
