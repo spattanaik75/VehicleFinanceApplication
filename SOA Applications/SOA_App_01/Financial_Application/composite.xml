@@ -28,6 +28,8 @@
           importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest"
           location="creditTestWrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/FinancialApplicationUpdate"
+          location="FinancialApplicationUpdate.wsdl" importType="wsdl"/>
   <service name="myapplication_client_ep" ui:wsdlLocation="MyApplication.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication#wsdl.interface(MyApplication)"/>
     <binding.ws port="http://xmlns.oracle.com/SOA_App_01/Financial_Application/MyApplication#wsdl.endpoint(myapplication_client_ep/MyApplication_pt)"/>
@@ -90,6 +92,18 @@
                 type="xs:string" many="false">WSDLDriven</property>
     </binding.ws>
   </reference>
+  <reference name="FinancialApplicationUpdate"
+             ui:wsdlLocation="FinancialApplicationUpdate.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/FinancialApplicationUpdate#wsdl.interface(FinancialApplicationUpdate_ptt)"/>
+    <binding.jca config="FinancialApplicationUpdate_db.jca"/>
+    <property name="jca.retry.count" type="xs:int" many="false" override="may">4</property>
+    <property name="jca.retry.interval" type="xs:int" many="false"
+              override="may">1</property>
+    <property name="jca.retry.backoff" type="xs:int" many="false"
+              override="may">2</property>
+    <property name="jca.retry.maxInterval" type="xs:string" many="false"
+              override="may">120</property>
+  </reference>
   <wire>
     <source.uri>myapplication_client_ep</source.uri>
     <target.uri>MyApplication/myapplication_client</target.uri>
@@ -113,5 +127,9 @@
   <wire>
     <source.uri>MyApplication/TransUnion</source.uri>
     <target.uri>TransUnion</target.uri>
+  </wire>
+  <wire>
+    <source.uri>MyApplication/FinancialApplicationUpdate</source.uri>
+    <target.uri>FinancialApplicationUpdate</target.uri>
   </wire>
 </composite>

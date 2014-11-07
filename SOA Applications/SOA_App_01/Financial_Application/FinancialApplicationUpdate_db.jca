@@ -1,0 +1,14 @@
+<adapter-config name="FinancialApplicationUpdate" adapter="Database Adapter" wsdlLocation="FinancialApplicationUpdate.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/test" UIConnectionName="test" adapterRef=""/>
+  <endpoint-interaction portType="FinancialApplicationUpdate_ptt" operation="update">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="FinancialApplicationUpdate.FinancialApplication"/>
+      <property name="DmlType" value="update"/>
+      <property name="MappingsMetaDataURL" value="FinancialApplicationUpdate-or-mappings.xml"/>
+      <property name="DetectOmissions" value="true"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

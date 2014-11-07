@@ -34,7 +34,9 @@
          xmlns:ns5="http://xmlns.oracle.com/pcbpel/adapter/db/top/customerMerge"
          xmlns:ns6="http://xmlns.oracle.com/SOA_App_01/AffordabilityService/AffordabilityProcessService"
          xmlns:ns7="http://www.reverside.co.za/schema/affordability-service"
-         xmlns:ns8="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest">
+         xmlns:ns8="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest"
+         xmlns:ns9="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/FinancialApplicationUpdate"
+         xmlns:ns10="http://xmlns.oracle.com/pcbpel/adapter/db/top/FinancialApplicationUpdate">
   <import namespace="http://schemas.oracle.com/bpel/extension"
           location="RuntimeFault.wsdl"
           importType="http://schemas.xmlsoap.org/wsdl/"/>
@@ -63,6 +65,9 @@
                  partnerRole="AffordabilityProcessServiceProvider"/>
     <partnerLink name="TransUnion" partnerLinkType="ns8:TransUnion"
                  partnerRole="execute_ptt"/>
+    <partnerLink name="FinancialApplicationUpdate"
+                 partnerLinkType="ns9:FinancialApplicationUpdate_plt"
+                 partnerRole="FinancialApplicationUpdate_role"/>
   </partnerLinks>
 
   <!-- 
@@ -112,6 +117,12 @@
     <variable name="Declined_process_OutputVariable"
               messageType="ns2:UpdateStatusResponseMessage"/>
     <variable messageType="bpelx:RuntimeFaultMessage" name="FaultVar"/>
+    <variable name="FinanceTableUpdate_process_InputVariable"
+              messageType="ns2:UpdateStatusRequestMessage"/>
+    <variable name="FinanceTableUpdate_process_OutputVariable"
+              messageType="ns2:UpdateStatusResponseMessage"/>
+    <variable name="FinanceTableUpdate1_update_InputVariable"
+              messageType="ns9:FinancialApplicationCollection_msg"/>
   </variables>
   <faultHandlers>
     <catchAll>
@@ -335,10 +346,40 @@
         <to>$customerTable_merge_InputVariable.CustomerCollection/ns5:Customer/ns5:custId</to>
       </copy>
     </assign>
-    <invoke name="Invoke_CustomerTableInsert"
-            partnerLink="customerMerge" portType="ns4:customerMerge_ptt"
-            operation="merge"
+    <invoke name="Invoke_CustomerTableInsert" partnerLink="customerMerge"
+            portType="ns4:customerMerge_ptt" operation="merge"
             inputVariable="customerTable_merge_InputVariable"
+            bpelx:invokeAsDetail="no"/>
+    <assign name="AssignInput_To_FinanceTableUpdate">
+      <copy>
+        <from>xp20:current-date()</from>
+        <to>$FinanceTableUpdate1_update_InputVariable.FinancialApplicationCollection/ns10:FinancialApplication/ns10:dateCreated</to>
+      </copy>
+      <copy>
+        <from>$AllInsert_process_OutputVariable.payload/ns3:assetCostId</from>
+        <to>$FinanceTableUpdate1_update_InputVariable.FinancialApplicationCollection/ns10:FinancialApplication/ns10:assetCostId</to>
+      </copy>
+      <copy>
+        <from>$UpdateStatus_process_OutputVariable.payload/ns3:id</from>
+        <to>$FinanceTableUpdate1_update_InputVariable.FinancialApplicationCollection/ns10:FinancialApplication/ns10:custId</to>
+      </copy>
+      <copy>
+        <from>$AllInsert_process_OutputVariable.payload/ns3:assetDetailsId</from>
+        <to>$FinanceTableUpdate1_update_InputVariable.FinancialApplicationCollection/ns10:FinancialApplication/ns10:assetDetailsId</to>
+      </copy>
+      <copy>
+        <from>$AllInsert_process_OutputVariable.payload/ns3:dealDetailsId</from>
+        <to>$FinanceTableUpdate1_update_InputVariable.FinancialApplicationCollection/ns10:FinancialApplication/ns10:dealDetailsId</to>
+      </copy>
+      <copy>
+        <from>$UpdateStatus_process_OutputVariable.payload/ns3:id</from>
+        <to>$FinanceTableUpdate1_update_InputVariable.FinancialApplicationCollection/ns10:FinancialApplication/ns10:financialApplicationId</to>
+      </copy>
+    </assign>
+    <invoke name="Invoke1"
+            partnerLink="FinancialApplicationUpdate"
+            portType="ns9:FinancialApplicationUpdate_ptt" operation="update"
+            inputVariable="FinanceTableUpdate1_update_InputVariable"
             bpelx:invokeAsDetail="no"/>
     <assign name="AssignInput_To_AffordableWebService">
       <copy>

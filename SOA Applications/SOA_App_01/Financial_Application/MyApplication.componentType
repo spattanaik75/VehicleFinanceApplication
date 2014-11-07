@@ -25,4 +25,8 @@
   <reference name="TransUnion" ui:wsdlLocation="creditTestWrapper.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/SOA_App_01/CreditRating/creditTest#wsdl.interface(execute_ptt)"/>
   </reference>
+  <reference name="FinancialApplicationUpdate"
+             ui:wsdlLocation="FinancialApplicationUpdate.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/pcbpel/adapter/db/SOA_App_01/Financial_Application/FinancialApplicationUpdate#wsdl.interface(FinancialApplicationUpdate_ptt)"/>
+  </reference>
 </componentType>
